@@ -34,11 +34,11 @@
 
 - 后台UI来自于开源项目[skoruba/IdentityServer4.Admin](https://github.com/skoruba/IdentityServer4.Admin)，在此表示深深感谢他们的付出，让我学习了不少
 
-![管理后台](http://gitfile.coolwecool.com/ids4/1.jpg)
+![管理后台](/images/1.jpg)
 
 - 身份验证及授权服务端
 
-![服务端](http://gitfile.coolwecool.com/ids4/2.jpg)
+![服务端](/images2.jpg)
 
 
 ## 证书
@@ -169,11 +169,11 @@ Google 邮箱:`huangzhongqiu25@gmail.com`
 
 个人微信小程序 - 诗词海洋（个人兴趣）：
 
-![](http://gitfile.coolwecool.com/mini.jpg)
+![](/images/mini.jpg)
 
 ## 支持与捐赠
 如果您觉得这项目对你有帮助，你懂的嘿
 
-![支付宝](http://gitfile.coolwecool.com/ids4/wechat.jpg)
+![支付宝](/images/wechat.jpg)
 
-![支付宝](http://gitfile.coolwecool.com/ids4/alipay.jpg)
+![支付宝](/images/alipay.jpg)
