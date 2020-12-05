@@ -34,11 +34,11 @@
 
 - 后台UI来自于开源项目[skoruba/IdentityServer4.Admin](https://github.com/skoruba/IdentityServer4.Admin)，在此表示深深感谢他们的付出，让我学习了不少
 
-![管理后台](/images/1.jpg)
+![管理后台](https://filecloud.poetrysharing.com/ids4/images/1.jpg)
 
 - 身份验证及授权服务端
 
-![服务端](/images/2.jpg)
+![服务端](https://filecloud.poetrysharing.com/ids4/images/2.jpg)
 
 
 ## 证书
@@ -65,13 +65,12 @@
 - Firebird
 
 > 数据库配置文件 `appsettings.json`:
-> 
 ```
-"DbConnectionConfiguration": {
+  "DbConnectionConfiguration": {
     "CurrentDataProviderType": 1, // 1: SqlServer, 2: MySql, 3: Oracle ...
     "MasterSqlServerConnString": "Data Source=.;Initial Catalog=IdentityServer4.Admin;Integrated Security=True;",
     "MasterMySqlConnString": ""
-  },
+  }
 ```
 > 备注：因这里使用的[SqlKata](https://sqlkata.com)生成数据库语句，当前实现仅为SqlServer，其他类型类似
 
@@ -85,7 +84,7 @@
 
 数据库保护文件存为文件系统，配置目录在:
 ```
-AdminConfiguration.DataProtectionPath
+"DataProtectionPath": "~/App_Data/DataProtectionKeys"
 ```
 ## 日志
 
@@ -139,7 +138,7 @@ AdminConfiguration.DataProtectionPath
 
 ## 	许可
 
-该项目根据以下条款获得许可 [**MIT license**](LICENSE.md).
+该项目根据以下条款获得许可 [**MIT license**](https://github.com/Olek-HZQ/IdentityServerManagement/blob/master/LICENSE).
 
 **注意**: 该存储库使用来自https://github.com/IdentityServer/IdentityServer4.Quickstart.UI的源代码，该源代码受
 [**Apache License 2.0**](https://github.com/IdentityServer/IdentityServer4.Quickstart.UI/blob/master/LICENSE).
@@ -169,11 +168,11 @@ Google 邮箱:`huangzhongqiu25@gmail.com`
 
 个人微信小程序 - 诗词海洋（个人兴趣）：
 
-![](/images/mini.jpg)
+![诗词海洋小程序](https://filecloud.poetrysharing.com/ids4/images/mini.jpg)
 
 ## 支持与捐赠
 如果您觉得这项目对你有帮助，你懂的嘿
 
-![支付宝](/images/wechat.jpg)
+![微信](https://filecloud.poetrysharing.com/ids4/images/wechat.jpg)
 
-![支付宝](/images/alipay.jpg)
+![支付宝](https://filecloud.poetrysharing.com/ids4/images/alipay.jpg)
