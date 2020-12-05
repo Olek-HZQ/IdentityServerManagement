@@ -1,0 +1,108 @@
+﻿@using IdentityServer.Admin.Common
+@using IdentityServer.Admin.Core.Dtos
+@model ApiResourcePropertyModel
+
+@{
+    ViewBag.Title = "Api 资源属性";
+    Layout = "_Layout";
+
+    var pagedApiResourceProperty = ViewBag.PagedApiResourceProperty != null ? (PagedApiResourcePropertyDto)ViewBag.PagedApiResourceProperty : new PagedApiResourcePropertyDto();
+
+}
+
+<form asp-controller="ApiResourceProperty" asp-action="Create" Method="post">
+    <div class="row">
+
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">Api 资源</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Edit" asp-route-id="@Model.ApiResourceId">@Model.ApiResourceName</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Api 资源属性</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-12">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+
+        <div class="col-md-12">
+            <h3>Api 资源属性</h3>
+            <div class="card mt-3">
+                <h5 class="card-header">Api 资源属性</h5>
+                <div class="card-body">
+                    @await Html.PartialAsync("_CreateOrUpdate", Model)
+                    <!--Button-->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">
+                        </label>
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-primary">添加 Api 资源属性</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mt-3">
+            <h5 class="card-header">Api 资源属性</h5>
+            <div class="card-body">
+
+                <div class="row table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>键</th>
+                                <th>值</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in pagedApiResourceProperty.DataPagedList)
+                            {
+                                <tr>
+                                    <td>@item.Key</td>
+                                    <td>@item.Value</td>
+                                    <td><a asp-action="Delete" asp-route-id="@item.Id" asp-route-apiResourceId="@pagedApiResourceProperty.ApiResourceId" class="btn btn-danger"><span class="oi oi-x"></span></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = pagedApiResourceProperty.PageSize, TotalCount = pagedApiResourceProperty.TotalCount })
+                    </div>
+                </div>
+
+                <div id="secret-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">加密后的密钥值</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h2 id="modal-secret-value"></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

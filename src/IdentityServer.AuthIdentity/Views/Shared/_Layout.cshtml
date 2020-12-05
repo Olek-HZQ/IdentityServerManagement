@@ -1,0 +1,126 @@
+﻿@using IdentityServer.Admin.Core.Configuration
+@using IdentityServer4.Extensions
+@inject AdminConfiguration Configuration
+
+@{
+    string name = null;
+    if (!true.Equals(ViewData["signed-out"]))
+    {
+        name = Context.User?.GetDisplayName();
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IdentityServer4</title>
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
+
+    <environment include="Development">
+        <link href="~/dist/css/bundle.min.css" asp-append-version="true" rel="stylesheet" />
+
+        <link href="@Url.Content("~/dist/css/themes/pulse/bootstrap.min.css")" asp-append-version="true" rel="stylesheet" />
+
+        <link href="~/dist/css/web.css" asp-append-version="true" rel="stylesheet" />
+    </environment>
+
+    <environment exclude="Development">
+        <link href="~/dist/css/bundle.min.css" asp-append-version="true" rel="stylesheet" />
+
+        <link href="@Url.Content("~/dist/css/themes/pulse/bootstrap.min.css")" asp-append-version="true" rel="stylesheet" />
+
+        <link href="~/dist/css/web.min.css" asp-append-version="true" rel="stylesheet" />
+    </environment>
+
+    @await RenderSectionAsync("styles", required: false)
+</head>
+<body>
+
+    <div class="menu d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+        <!--Site name -->
+        <h3 class="menu-logo my-0 mr-md-auto font-weight-normal"><a class="logo" asp-area="" asp-controller="Home" asp-action="Index">IdentityServer4</a></h3>
+
+        <!--Menu item -->
+        @if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(name))
+        {
+            <!--Menu item -->
+            <a class="menu-item my-2 btn btn-outline-primary mr-md-3" href="@Configuration.IdentityAdminRedirectUri">后台管理</a>
+
+            <!--Menu item -->
+            @*<div class="menu-item my-2 my-md-0 mr-md-3 dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        @Localizer["Settings"] - @name
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-controller="Manage" asp-action="Index">@Localizer["ManageProfile"]</a>
+                        <a class="dropdown-item" asp-controller="Manage" asp-action="PersonalData">@Localizer["ManagePersonalData"]</a>
+                        @if (hasExternalLogins)
+                        {
+                            <a class="dropdown-item" asp-controller="Manage" asp-action="ExternalLogins">@Localizer["ExternalLogins"]</a>
+                        }
+                        <a class="dropdown-item" asp-controller="Manage" asp-action="TwoFactorAuthentication">@Localizer["2FA"]</a>
+                        <a class="dropdown-item" asp-controller="Manage" asp-action="ChangePassword">@Localizer["ChangePassword"]</a>
+                        <a class="dropdown-item" asp-controller="Grants" asp-action="Index">@Localizer["Grants"]</a>
+                    </div>
+                </div>*@
+
+            <a class="menu-item my-2 btn btn-outline-primary" asp-action="Logout" asp-controller="Account">注销</a>
+        }
+
+        <!--Menu button - show in < MD -->
+        <a class="my-2 btn btn-outline-primary menu-button" href="#">
+            <span class="oi oi-menu" title="menu" aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div class="container">
+        @RenderBody()
+
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+                <div class="col-6 col-md">
+                    <small class="d-block mb-3 text-muted">© @DateTime.Now.Year - @await Html.PartialAsync("Common/ApplicationVersion")</small>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @*<environment include="Development">
+            <script src="~/dist/js/bundle.min.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="~/dist/js/bundle.min.js" asp-append-version="true"></script>
+        </environment>*@
+
+    @await RenderSectionAsync("scripts", required: false)
+    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+    <script>
+        // ReSharper disable once PossiblyUnassignedProperty
+        L2Dwidget.init({
+            "model": {
+                jsonPath: "https://unpkg.com/live2d-widget-model-tororo@1.0.5/assets/tororo.model.json",
+                "scale": 1
+            },
+            "display": {
+                "position": "left", // 看板娘的表现位置
+                //"width": 120,  // 小萝莉的宽度
+                // "height": 200, // 小萝莉的高度
+                "hOffset": 0,
+                "vOffset": -20
+            },
+            "mobile": {
+                "show": true,
+                "scale": 0.5
+            },
+            "react": {
+                "opacityDefault": 0.8,
+                "opacityOnHover": 0.2
+            }
+        });
+    </script>
+</body>
+</html>

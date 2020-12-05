@@ -1,0 +1,56 @@
+﻿@using IdentityServer.Admin.Helpers
+@model ClientModel 
+
+<div class="card mt-3">
+	<h5 class="card-header">同意屏幕</h5>
+	<div class="card-body">
+		<!--Checkbox-->
+		<div class="form-group row">
+			<label asp-for="RequireConsent" class="col-sm-3 col-form-label">
+				@await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("需要同意", "指定是否需要同意屏幕。 默认为 true"))
+			</label>
+			<div class="col-sm-9">
+				<toggle-button>
+					<input asp-for="RequireConsent" type="checkbox">
+				</toggle-button>
+			</div>
+		</div>
+
+		<!--Checkbox-->
+		<div class="form-group row">
+			<label asp-for="AllowRememberConsent" class="col-sm-3 col-form-label">
+				@await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("允许记住同意", "指定用户是否可以选择存储同意决策。 默认为 true"))
+			</label>
+			<div class="col-sm-9">
+				<toggle-button>
+					<input asp-for="AllowRememberConsent" type="checkbox">
+				</toggle-button>
+			</div>
+		</div>
+
+		<!--Input - text -->
+		<div class="form-group row">
+			<label asp-for="ClientUri" class="col-sm-3 col-form-label">
+				@await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("客户端 Uri ", "有关客户端的更多信息的URI（在同意屏幕上使用）"))
+			</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" asp-for="ClientUri">
+			</div>
+		</div>
+
+		<!--Input - text -->
+		<div class="form-group row">
+			<label asp-for="LogoUri" class="col-sm-3 col-form-label">
+				@await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("徽标 Uri", "客户端徽标 URI（在同意屏幕上使用）"))
+			</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" asp-for="LogoUri">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+

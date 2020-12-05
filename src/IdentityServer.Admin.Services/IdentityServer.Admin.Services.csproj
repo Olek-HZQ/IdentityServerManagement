@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="IdentityServer4" Version="4.1.1" />
+    <PackageReference Include="IdentityServer4.Storage" Version="4.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdentityServer.Admin.Core\IdentityServer.Admin.Core.csproj" />
+    <ProjectReference Include="..\IdentityServer.Admin.Dapper\IdentityServer.Admin.Dapper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Mysql\" />
+  </ItemGroup>
+
+</Project>

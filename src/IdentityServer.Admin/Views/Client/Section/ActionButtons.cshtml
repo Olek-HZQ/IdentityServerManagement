@@ -1,0 +1,12 @@
+﻿@model ClientModel
+
+<div class="row client">
+	<div class="col-md-12 action-butons">
+        @* ReSharper disable once UnknownCssClass *@
+        <button class="client-save-button btn btn-primary">保存客户端</button>
+        @if (Model.Id != 0)
+		{
+			<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">删除客户端</a>
+		}
+	</div>
+</div>

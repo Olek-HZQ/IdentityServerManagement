@@ -1,0 +1,33 @@
+﻿@using IdentityServer.Admin.Helpers
+@model ApiResourcePropertyModel
+
+<!--Hidden -->
+<input type="hidden" asp-for="ApiResourceId" />
+
+<!--Input - text -->
+<div class="form-group row">
+    <label asp-for="Key" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("键", "键"))
+    </label>
+    <div class="col-sm-9">
+
+        <div class="input-group mb-3">
+            <input id="secret-input" type="text" autocomplete="off" required class="form-control" asp-for="Key">
+            <div class="input-group-append">
+                <button type="button" id="generate-guid-button" class="btn btn-primary"><span class="oi oi-random"></span></button>
+            </div>
+        </div>
+        <span asp-validation-for="Key" class="text-danger"></span>
+    </div>
+</div>
+
+<!--Input - text -->
+<div class="form-group row">
+    <label asp-for="Value" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("值", "值"))
+    </label>
+    <div class="col-sm-9">
+        <input type="text" autocomplete="off" required="" class="form-control" asp-for="Value">
+        <span asp-validation-for="Value" class="text-danger"></span>
+    </div>
+</div>

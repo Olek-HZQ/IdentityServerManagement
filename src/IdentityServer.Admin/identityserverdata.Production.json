@@ -1,0 +1,119 @@
+﻿{
+  "IdentityServerDataConfiguration": {
+    "IdentityResources": [
+      {
+        "Name": "roles",
+        "Enabled": true,
+        "DisplayName": "Roles",
+        "UserClaims": [
+          "role"
+        ]
+      },
+      {
+        "Name": "openid",
+        "Enabled": true,
+        "Required": true,
+        "DisplayName": "Your user identifier",
+        "UserClaims": [
+          "sub"
+        ]
+      },
+      {
+        "Name": "profile",
+        "Enabled": true,
+        "DisplayName": "User profile",
+        "Description": "Your user profile information (first name, last name, etc.)",
+        "Emphasize": true,
+        "UserClaims": [
+          "name",
+          "family_name",
+          "given_name",
+          "middle_name",
+          "nickname",
+          "preferred_username",
+          "profile",
+          "picture",
+          "website",
+          "gender",
+          "birthdate",
+          "zoneinfo",
+          "locale",
+          "updated_at"
+        ]
+      },
+      {
+        "Name": "email",
+        "Enabled": true,
+        "DisplayName": "Your email address",
+        "Emphasize": true,
+        "UserClaims": [
+          "email",
+          "email_verified"
+        ]
+      },
+      {
+        "Name": "address",
+        "Enabled": true,
+        "DisplayName": "Your address",
+        "Emphasize": true,
+        "UserClaims": [
+          "address"
+        ]
+      }
+    ],
+    "ApiResources": [
+      {
+        "Name": "MyClientId_api",
+        "DisplayName": "MyClientId_api",
+        "Enabled": true,
+        "ShowInDiscoveryDocument": true,
+        "Scopes": [
+          "MyClientId_api"
+        ]
+      }
+    ],
+    "ApiScopes": [
+      {
+        "Name": "MyClientId_api",
+        "DisplayName": "MyClientId_api",
+        "Required": true,
+        "UserClaims": [
+          "role",
+          "name"
+        ]
+      }
+    ],
+    "Clients": [
+      {
+        "ClientId": "MyClientId",
+        "ClientName": "MyClientId",
+        "ClientUri": "http://ids4admin.poetrysharing.com",
+        "AllowedGrantTypes": [
+          "authorization_code"
+        ],
+        "RequirePkce": true,
+        "ClientSecrets": [
+          {
+            "Value": "MyClientSecret"
+          }
+        ],
+        "RedirectUris": [
+          "http://ids4admin.poetrysharing.com/signin-oidc"
+        ],
+        "FrontChannelLogoutUri": "http://ids4admin.poetrysharing.com/signout-oidc",
+        "PostLogoutRedirectUris": [
+          "http://ids4admin.poetrysharing.com/signout-callback-oidc"
+        ],
+        "AllowedCorsOrigins": [
+          "http://ids4admin.poetrysharing.com"
+        ],
+        "AllowedScopes": [
+          "openid",
+          "email",
+          "profile",
+          "roles"
+        ]
+      }
+    ]
+  }
+}

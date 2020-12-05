@@ -1,0 +1,92 @@
+﻿@using IdentityServer.Admin.Core.Constants
+@using IdentityServer.Admin.Core.Entities.Enums
+@using IdentityServer.Admin.Core.Extensions
+@using IdentityServer.Admin.Helpers
+@model ApiResourceSecretModel
+@{
+    var availableTypeList = ClientConstant.GetSecretTypes().Select(x => new SelectListItem
+    {
+        Text = x.ToString(),
+        Value = x.ToString()
+    }).ToList();
+
+    var availableHashTypeList = EnumExtension.ToDictionary<HashType>()
+        .Select(x => new SelectListItem
+        {
+            Text = x.Value,
+            Value = x.Key.ToString()
+        }).ToList();
+}
+
+<!--Hidden -->
+<input type="hidden" asp-for="ApiResourceId" />
+
+<!--Hidden -->
+<input type="hidden" asp-for="ApiResourceName" />
+
+
+<!--Select-->
+<div class="form-group row">
+    <label asp-for="Type" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("密钥类型", ""))
+    </label>
+    <div class="col-sm-9">
+        <select asp-for="Type" asp-items="@availableTypeList" class="form-control"></select>
+    </div>
+</div>
+
+<!--Input - text -->
+<div class="form-group row">
+    <label asp-for="Value" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("密钥值", ""))
+    </label>
+    <div class="col-sm-9">
+        <div class="input-group mb-3">
+            <input id="secret-input" type="text" autocomplete="off" required class="form-control" asp-for="Value">
+            <div class="input-group-append">
+                <button type="button" id="generate-guid-button" class="btn btn-primary"><span class="oi oi-random"></span></button>
+            </div>
+        </div>
+        <span asp-validation-for="Value" class="text-danger"></span>
+    </div>
+</div>
+
+<!--Select-->
+<div class="form-group row">
+    <label asp-for="HashType" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("哈希类型", ""))
+    </label>
+    <div class="col-sm-9">
+        <select asp-for="HashType" asp-items="@availableHashTypeList" class="form-control"></select>
+
+        <div class="alert alert-warning" role="alert">
+            <span class="sr-only">Localizer["InfoTitle"]</span>
+            哈希类型仅适用于 SharedSecret 类型
+        </div>
+    </div>
+</div>
+
+<!--Date Picker-->
+<div class="form-group row">
+    <label asp-for="Expiration" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("到期", ""))
+    </label>
+    <div class="col-sm-9">
+        <div class="datepicker input-group date">
+            <input asp-for="Expiration" autocomplete="off" type="text" class="form-control">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Input - text -->
+<div class="form-group row">
+    <label asp-for="Description" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("描述", ""))
+    </label>
+    <div class="col-sm-9">
+        <input type="text" autocomplete="off" class="form-control" asp-for="Description">
+    </div>
+</div>

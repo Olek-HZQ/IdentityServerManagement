@@ -1,0 +1,90 @@
+﻿@using IdentityServer.Admin.Common
+@using IdentityServer.Admin.Core.Dtos
+@model ApiResourceScopeModel
+
+@{
+    ViewBag.Title = "Api 资源作用域";
+    Layout = "_Layout";
+
+    var pagedApiResourceScope = ViewBag.PagedApiResourceScope != null ? (PagedApiResourceScopeDto)ViewBag.PagedApiResourceScope : new PagedApiResourceScopeDto();
+
+}
+
+<form asp-controller="ApiResourceScope" asp-action="Create" Method="post">
+    <div class="row">
+
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">Api 资源</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Edit" asp-route-id="@Model.ApiResourceId">@Model.ApiResourceName</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Api 资源作用域</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-12">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+
+        <div class="col-md-12">
+            <h3>Api 资源作用域</h3>
+            <div class="card mt-3">
+                <h5 class="card-header">Api 资源作用域</h5>
+                <div class="card-body">
+                    @await Html.PartialAsync("_CreateOrUpdate", Model)
+                    <!--Button-->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">
+                        </label>
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-primary">添加 Api 资源作用域</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mt-3">
+            <h5 class="card-header">Api 资源作用域</h5>
+            <div class="card-body">
+
+                <div class="row table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in pagedApiResourceScope.DataPagedList)
+                            {
+                                <tr>
+                                    <td>@item.Scope</td>
+                                    <td><a asp-action="Delete" asp-route-id="@item.Id" asp-route-apiResourceId="@pagedApiResourceScope.ApiResourceId" class="btn btn-danger"><span class="oi oi-x"></span></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = pagedApiResourceScope.PageSize, TotalCount = pagedApiResourceScope.TotalCount })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

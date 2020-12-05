@@ -1,0 +1,31 @@
+﻿@model ClientModel
+
+@{
+    ViewBag.Title = "添加客户端";
+    Layout = "_Layout";
+}
+
+<form id="client-form" asp-controller="Client" asp-action="Create" Method="post">
+    <div class="row">
+        <div class="col-12">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+    </div>
+    @await Html.PartialAsync("Settings")
+    @await Html.PartialAsync("Section/ActionButtons")
+</form>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            //Disable enter for this form
+            FormMvc.disableEnter($('#client-form'));
+
+            //Radio image
+            $("label.radio-img>img").click(function () {
+                $(this).parent().find("input:radio").click();
+            });
+        });
+    </script>
+}

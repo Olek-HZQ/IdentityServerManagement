@@ -1,0 +1,95 @@
+﻿@using IdentityServer.Admin.Common
+@using IdentityServer.Admin.Core.Dtos
+@using IdentityServer.Admin.Helpers
+@model PersistedGrantModel
+
+@{
+    ViewBag.Title = "持久授权";
+    Layout = "_Layout";
+
+    var persistedGrants = ViewBag.PersistedGrants != null ? (PagedPersistedGrantByUserDto)ViewBag.PersistedGrants : new PagedPersistedGrantByUserDto();
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">持久授权</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.SubjectId</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <h2>持久授权</h2>
+    </div>
+</div>
+
+<form id="client-form" asp-action="DeleteAll" Method="post">
+
+    <a href="#" class="btn btn-danger mb-3" data-toggle="modal" data-target="#deletePersistedGrantsModal">删除所有</a>
+    
+    <!--Hidden -->
+    <input type="hidden" asp-for="SubjectId"/>
+
+    <div class="row table-responsive">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>主体标识</th>
+                        <th>类型</th>
+                        <th>到期</th>
+                        <th>数据</th>
+                        <th>客户端</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in persistedGrants.DataPagedList)
+                    {
+                        <tr>
+                            <td><a class="btn btn-danger" asp-action="Delete" asp-route-id="@UrlHelper.QueryStringSafeHash(item.Key)"><span class="oi oi-x"></span></a></td>
+                            <td>@item.SubjectId</td>
+                            <td>@item.Type</td>
+                            <td>@item.Expiration</td>
+                            <td>@item.Data</td>
+                            <td>@item.ClientId</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            @await Html.PartialAsync("Common/Pager", new Pager { Action = "Detail", PageSize = persistedGrants.PageSize, TotalCount = persistedGrants.TotalCount })
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deletePersistedGrantsModal" tabindex="-1" role="dialog" aria-labelledby="deletePersistedGrantsModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="deletePersistedGrantsModalLabel">警告</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    你确定吗？此主体的所有持久授权将被删除。
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">是 - 删除</button>
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">不 - 关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+

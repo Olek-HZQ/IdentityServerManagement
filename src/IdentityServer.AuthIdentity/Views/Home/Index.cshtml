@@ -1,0 +1,137 @@
+﻿@using System.Diagnostics
+
+@{ var version = FileVersionInfo.GetVersionInfo(typeof(IdentityServer4.Hosting.IdentityServerMiddleware).Assembly.Location).ProductVersion.Split('+').First(); }
+
+@*<div class="welcome-page">
+        <h1>
+            <img src="~/icon.jpg">
+            Welcome to IdentityServer4
+            <small class="text-muted">(version @version)</small>
+        </h1>
+
+        <ul>
+            <li>
+                IdentityServer publishes a
+                <a href="~/.well-known/openid-configuration">discovery document</a>
+                where you can find metadata and links to all the endpoints, key material, etc.
+            </li>
+            <li>
+                Click <a href="~/diagnostics">here</a> to see the claims for your current session.
+            </li>
+            <li>
+                Click <a href="~/grants">here</a> to manage your stored grants.
+            </li>
+            <li>
+                Here are links to the
+                <a href="https://github.com/identityserver/IdentityServer4">source code repository</a>,
+                and <a href="https://github.com/IdentityServer/IdentityServer4/tree/main/samples">ready to use samples</a>.
+            </li>
+        </ul>
+    </div>*@
+
+@using IdentityServer4.Extensions
+
+<div class="welcome-block px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4"><img class="img-fluid" alt="Logo" src="@UrlHelper.Content("~/icon.jpg")"><br /></h1>
+    <p class="lead">欢迎来到 IdentityServer4 (version @version)</p>
+</div>
+
+<div class="card-deck mb-3 text-center">
+    @if (!User.IsAuthenticated())
+    {
+        @*<div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">登录</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    <span class="oi oi-lock-locked" title="登录" aria-hidden="true"></span>
+                </h1>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-lg btn-block btn-primary">登录</a>
+            </div>
+        </div>*@
+    }
+
+    @if (User.IsAuthenticated())
+    {
+        @*<div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">持久授权</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    <span class="oi oi-key" title="持久授权" aria-hidden="true"></span>
+                </h1>
+                <a asp-controller="Grants" asp-action="Index" class="btn btn-lg btn-block btn-primary">持久授权</a>
+            </div>
+        </div>*@
+    }
+
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">发现文档</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title">
+                <span class="oi oi-monitor" title="发现文档" aria-hidden="true"></span>
+            </h1>
+            <a href="~/.well-known/openid-configuration" class="btn btn-lg btn-block btn-outline-primary">发现文档</a>
+        </div>
+    </div>
+
+    @if (User.IsAuthenticated())
+    {
+        @*<div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">我的个人资料</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    <span class="oi oi-person" title="我的个人资料" aria-hidden="true"></span>
+                </h1>
+                <a asp-controller="Manage" asp-action="Index" class="btn btn-lg btn-block btn-primary">我的个人资料</a>
+            </div>
+        </div>*@
+    }
+</div>
+@if (User.IsAuthenticated())
+{
+    @*<div class="card-deck mb-3 text-center">
+
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">@Localizer["ManagePersonalData"]</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    <span class="oi oi-cloud-download" title="@Localizer["ManagePersonalData"]" aria-hidden="true"></span>
+                </h1>
+                <a asp-controller="Manage" asp-action="PersonalData" class="btn btn-lg btn-block btn-outline-primary">@Localizer["ManagePersonalData"]</a>
+            </div>
+        </div>
+
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">@Localizer["2FA"]</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    <span class="oi oi-phone" title="@Localizer["2FA"]" aria-hidden="true"></span>
+                </h1>
+                <a asp-controller="Manage" asp-action="TwoFactorAuthentication" class="btn btn-lg btn-block btn-primary">@Localizer["2FA"]</a>
+            </div>
+        </div>
+
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">@Localizer["ChangePassword"]</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title">
+                    <span class="oi oi-pencil" title="@Localizer["ChangePassword"]" aria-hidden="true"></span>
+                </h1>
+                <a asp-controller="Manage" asp-action="ChangePassword" class="btn btn-lg btn-block btn-outline-primary">@Localizer["ChangePassword"]</a>
+            </div>
+        </div>
+    </div>*@
+}

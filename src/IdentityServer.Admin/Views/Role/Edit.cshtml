@@ -1,0 +1,57 @@
+﻿@model RoleModel
+
+@{
+    ViewBag.Title = "编辑角色";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">角色</a></li>
+                <li class="breadcrumb-item active" aria-current="page">编辑角色</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <h2>编辑角色</h2>
+    </div>
+</div>
+
+<form id="client-form" asp-action="Edit" Method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <!--Hidden -->
+    <input type="hidden" asp-for="Id" />
+
+    <!--Button-->
+    <div class="form-group row">
+        <div class="col-md-12 col-m-b-10  col-m-t-10">
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">删除角色</a>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <h5 class="card-header">编辑角色</h5>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-sm-10">
+
+                    @await Html.PartialAsync("_CreateOrUpdate", Model)
+
+                    <!--Button-->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">
+                        </label>
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-primary">保存角色</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

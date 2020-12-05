@@ -1,0 +1,49 @@
+﻿@using IdentityServer.Admin.Common
+@model IdentityServer.Admin.Core.Dtos.PagedPersistedGrantDto
+@{
+    ViewBag.Title = "持久授权";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-12 mb-3">
+        <h2>持久授权</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-3">
+        @await Html.PartialAsync("Common/Search", new Search { Action = "Index", Controller = "PersistedGrant" })
+    </div>
+</div>
+
+<div class="row table-responsive">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>主体标识</th>
+                <th>主体名称</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @foreach (var persistedGrant in Model.DataPagedList)
+            {
+                <tr>
+                    <th scope="row"><a class="btn btn-primary" asp-action="Detail" asp-route-id="@persistedGrant.SubjectId">详情</a></th>
+                    <td>@persistedGrant.SubjectId</td>
+                    <td>@persistedGrant.SubjectName</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @await Html.PartialAsync("Common/Pager", new Pager() { Action = "Index", PageSize = Model.PageSize, TotalCount = Model.TotalCount })
+    </div>
+</div>

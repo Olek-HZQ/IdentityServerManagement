@@ -1,0 +1,54 @@
+﻿@using IdentityServer.Admin.Common
+@model IdentityServer.Admin.Core.Dtos.PagedIdentityResourceDto
+@{
+    ViewBag.Title = "身份资源";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2>身份资源</h2>
+    </div>
+
+    <div class="col-12">
+        <a asp-action="Create" class="btn btn-outline-primary mb-3"><span class="oi oi-plus"></span> 添加身份资源</a>
+    </div>
+
+    <div class="col-12">
+        @await Html.PartialAsync("Common/Search", new Search { Action = "Index", Controller = "IdentityResource" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>名称</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var identity in Model.DataPagedList)
+                {
+                    <tr>
+                        <th scope="row"><a class="btn btn-primary" asp-action="Edit" asp-route-id="@identity.Id">编辑</a></th>
+                        <td>@identity.Name</td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@identity.Id"><span class="oi oi-x"></span></a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = Model.PageSize, TotalCount = Model.TotalCount, EnableSearch = true, Search = ViewBag.Search })
+    </div>
+</div>

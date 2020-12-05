@@ -1,0 +1,115 @@
+﻿@using IdentityServer.Admin.Helpers
+@model ApiResourceModel
+
+<div class="card mt-3">
+    <h5 class="card-header">Api 资源</h5>
+    <div class="card-body">
+
+        <!--Input - text -->
+        <div class="form-group row">
+            <label asp-for="Name" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("名称", "API 的唯一名称。 此值用于自我认证，并将添加到传给受众的访问令牌 access_token 中"))
+            </label>
+            <div class="col-sm-9">
+                <input type="text" required class="form-control" asp-for="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!--Input - text -->
+        <div class="form-group row">
+            <label asp-for="DisplayName" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("显示名称", "该值可以用于例如 在同意屏幕上"))
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="DisplayName">
+            </div>
+        </div>
+
+        <!--Input - text -->
+        <div class="form-group row">
+            <label asp-for="Description" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("描述", "该值可以用于例如 在同意屏幕上"))
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="Description">
+            </div>
+        </div>
+
+        <!--Checkbox-->
+        <div class="form-group row">
+            <label asp-for="Enabled" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("启用", "指示此资源是否已启用且可以请求。 默认为 true"))
+            </label>
+            <div class="col-sm-9">
+                <toggle-button>
+                    <input asp-for="Enabled" type="checkbox">
+                </toggle-button>
+            </div>
+        </div>
+
+        @if (Model.Id != 0)
+        {
+            <!--Button-->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("作用域", "API 必须至少有一个作用域。 每个作用域可以有不同的设置"))
+                </label>
+                <div class="col-sm-9">
+                    <a asp-controller="ApiResourceScope" asp-action="Index" asp-route-apiResourceId="@Model.Id" class="btn btn-primary">管理 Api 资源作用域</a>
+                </div>
+            </div>
+            <!--Button-->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("密钥", "API 密钥用于内省端点。 API 可以使用 API 名称和密钥进行内省验证"))
+                </label>
+                <div class="col-sm-9">
+                    <a asp-controller="ApiResourceSecret" asp-action="Index" asp-route-apiResourceId="@Model.Id" class="btn btn-primary">管理 Api 资源密钥</a>
+                </div>
+            </div>
+            <!--Button-->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("属性", "需要保留任何自定义 Api 资源特定值的字典"))
+                </label>
+                <div class="col-sm-9">
+                    <a asp-controller="ApiResourceProperty" asp-action="Index" asp-route-apiResourceId="@Model.Id" class="btn btn-primary">管理 Api 资源属性</a>
+                </div>
+            </div>
+        }
+
+        <!--Select with tags-->
+        <div class="form-group row">
+            <label asp-for="UserClaimsItems" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("用户声明", "应包含在访问令牌中的关联用户声明类型的列表"))
+            </label>
+            <div class="col-sm-9">
+                <picker id="UserClaimsItems" multiple-select="true" min-search-text="2"
+                        selected-items="@Model.UserClaims.Select(x=>x.Type).ToList()"
+                        url="@Url.Action("SearchClaims","ClientClaim")?claim"
+                        search-input-placeholder="输入两个以上字符"
+                        selected-items-title="选中项"
+                        search-result-title="搜索结果（点击选择）"
+                        suggested-items-title="建议项"
+                        no-item-selected-title="没有选择项"
+                        show-all-items-title="更多"
+                        item-already-selected-title="已经被选中">
+                </picker>
+            </div>
+        </div>
+
+        <!--Button-->
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">
+            </label>
+            <div class="col-sm-9">
+                <button type="submit" id="api-resource-save-button" class="btn btn-primary">保存 Api 资源</button>
+                @if (Model.Id != 0)
+                {
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">删除 Api 资源</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

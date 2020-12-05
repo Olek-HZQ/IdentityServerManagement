@@ -1,0 +1,42 @@
+﻿@model ApiResourceModel
+
+@{
+    ViewBag.Title = "编辑 Api 资源";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">Api 资源</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <h2>编辑 Api 资源</h2>
+    </div>
+</div>
+
+<form asp-action="Edit" method="post" id="api-resource-form">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <!--Hidden -->
+    <input type="hidden" asp-for="Id" />
+
+    @await Html.PartialAsync("_CreateOrUpdate", Model)
+
+</form>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            //Disable enter for this form
+            FormMvc.disableEnter($('#api-resource-form'));
+        });
+    </script>
+}

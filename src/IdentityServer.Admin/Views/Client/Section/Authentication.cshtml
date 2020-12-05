@@ -1,0 +1,116 @@
+﻿@using IdentityServer.Admin.Helpers
+@model ClientModel
+
+<div class="card mt-3">
+    <h5 class="card-header">认证/注销</h5>
+    <div class="card-body">
+        <!--Input - text -->
+        <div class="form-group row">
+            <label asp-for="FrontChannelLogoutUri" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("前端通道注销 Uri", "指定客户端的注销 URI，以用于基于 HTTP 的前端通道注销。 有关详细信息，请参阅 OIDC Front-Channel 规范"))
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="FrontChannelLogoutUri">
+            </div>
+        </div>
+
+        <!--Checkbox-->
+        <div class="form-group row">
+            <label asp-for="FrontChannelLogoutSessionRequired" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("需要前端通道注销会话", "指定是否应将用户的会话标识发送到 FrontChannelLogoutUri。 默认为 true"))
+            </label>
+            <div class="col-sm-9">
+                <toggle-button>
+                    <input asp-for="FrontChannelLogoutSessionRequired" type="checkbox">
+                </toggle-button>
+            </div>
+        </div>
+
+        <!--Input - text -->
+        <div class="form-group row">
+            <label asp-for="BackChannelLogoutUri" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("后端通道退出 Uri", "指定客户端的注销 URI，以用于基于 HTTP 的后端通道注销。 有关详细信息，请参阅 OIDC Back-Channel 规范"))
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="BackChannelLogoutUri">
+            </div>
+        </div>
+
+        <!--Checkbox-->
+        <div class="form-group row">
+            <label asp-for="BackChannelLogoutSessionRequired" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("需要后端通道注销会话", "指定是否应在请求中将用户的会话 ID 发送到 BackChannelLogoutUri。 默认为 true"))
+            </label>
+            <div class="col-sm-9">
+                <toggle-button>
+                    <input asp-for="BackChannelLogoutSessionRequired" type="checkbox">
+                </toggle-button>
+            </div>
+        </div>
+
+        <!--Checkbox-->
+        <div class="form-group row">
+            <label asp-for="EnableLocalLogin" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("启用本地登录", "指定此客户端是否可以使用本地帐户或仅外部 IdPs。 默认为 true"))
+            </label>
+            <div class="col-sm-9">
+                <toggle-button>
+                    <input asp-for="EnableLocalLogin" type="checkbox">
+                </toggle-button>
+            </div>
+        </div>
+
+        <!--Select with tags-->
+        <div class="form-group row">
+            <label asp-for="PostLogoutRedirectUrisItems" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("注销重定向 Uri", "指定在注销后重定向到允许的 URI"))
+            </label>
+            <div class="col-sm-9">
+                <picker id="PostLogoutRedirectUrisItems" multiple-select="true" min-search-text="2"
+                        selected-items="@Model.PostLogoutRedirectUris.Select(x=>x.PostLogoutRedirectUri).ToList()"
+                        search-input-placeholder="输入两个以上字符"
+                        selected-items-title="选中项"
+                        search-result-title="搜索结果（点击选择）"
+                        suggested-items-title="建议项"
+                        no-item-selected-title="没有选择项"
+                        show-all-items-title="更多"
+                        item-already-selected-title="已经被选中">
+                </picker>
+            </div>
+        </div>
+
+        <!--Select with tags-->
+        <div class="form-group row">
+            <label asp-for="IdentityProviderRestrictionsItems" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("身份提供程序限制", "指定可以与此客户端一起使用的外部 IdPs（如果列表为空，则允许所有 IdPs）。 默认为空"))
+            </label>
+            <div class="col-sm-9">
+                <picker id="IdentityProviderRestrictionsItems" multiple-select="true" min-search-text="2"
+                        selected-items="@Model.IdentityProviderRestrictions.Select(x=>x.Provider).ToList()"
+                        search-input-placeholder="输入两个以上字符"
+                        selected-items-title="选中项"
+                        search-result-title="搜索结果（点击选择）"
+                        suggested-items-title="建议项"
+                        no-item-selected-title="没有选择项"
+                        show-all-items-title="更多"
+                        item-already-selected-title="已经被选中">
+                </picker>
+            </div>
+        </div>
+
+        <!--Input - number -->
+        <div class="form-group row">
+            <label asp-for="UserSsoLifetime" class="col-sm-3 col-form-label">
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("用户 SSO 生命周期 ", "自上次用户进行身份验证以来的最长持续时间（以秒为单位）。 默认为 null"))
+            </label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" asp-for="UserSsoLifetime">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

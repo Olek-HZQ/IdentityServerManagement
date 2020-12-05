@@ -1,0 +1,119 @@
+﻿@using IdentityServer.Admin.Common
+@using IdentityServer.Admin.Core.Dtos
+@using IdentityServer.Admin.Helpers
+@model ClientClaimModel
+@{
+    ViewBag.Title = "Client Claim";
+    Layout = "_Layout";
+    
+    var pagedClientClaims = ViewBag.PagedClientClaims != null ? (PagedClientClaimDto)ViewBag.PagedClientClaims : new PagedClientClaimDto();
+}
+
+<form asp-controller="ClientClaim" asp-action="Create" Method="post">
+    <div class="row">
+
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">客户端</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Edit" asp-route-id="@pagedClientClaims.ClientId">@pagedClientClaims.ClientName</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">客户端声明</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-12">
+
+            <h3>客户端声明</h3>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <!--Hidden -->
+            <input type="hidden" asp-for="ClientId" />
+
+            <div class="card mt-3">
+                <h5 class="card-header">客户端声明</h5>
+                <div class="card-body">
+
+                    <!--Select with tags-->
+                    <div class="form-group row">
+                        <label asp-for="Type" class="col-sm-3 col-form-label">
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("声明类型", ""))
+                        </label>
+                        <div class="col-sm-9">
+                            <picker id="Type" multiple-select="false" min-search-text="2"
+                                    selected-item="@Model.Type" url="@Url.Action("SearchClaims", "ClientClaim")?claim"
+                                    search-input-placeholder="输入两个以上字符"
+                                    selected-items-title="选中项"
+                                    search-result-title="搜索结果（点击选择）"
+                                    suggested-items-title="建议项"
+                                    no-item-selected-title="没有选择项"
+                                    show-all-items-title="更多"
+                                    item-already-selected-title="已经被选中">
+                            </picker>
+
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Value" class="col-sm-3 col-form-label">
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("声明值", ""))
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" required class="form-control" asp-for="Value">
+                            <span asp-validation-for="Value" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!--Button-->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">
+                        </label>
+                        <div class="col-sm-9">
+                            <button type="submit" id="client-claims-button" class="btn btn-primary">添加客户端声明</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mt-3">
+            <h5 class="card-header">客户端声明</h5>
+            <div class="card-body">
+                <div class="row table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>类型</th>
+                                <th>值</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var clientProperty in pagedClientClaims.DataPagedList)
+                            {
+                                <tr>
+                                    <td>@clientProperty.ClaimType</td>
+                                    <td>@clientProperty.ClaimValue</td>
+                                    <td><a asp-action="Delete" asp-route-id="@clientProperty.Id" class="btn btn-danger"><span class="oi oi-x"></span></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = pagedClientClaims.PageSize, TotalCount = pagedClientClaims.TotalCount })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,165 @@
+﻿@model IdentityServer.AuthIdentity.Quickstart.Account.LoginViewModel
+
+<div>
+    <div>
+        <h1>登录</h1>
+    </div>
+
+    @await Html.PartialAsync("_ValidationSummary")
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="card mt-3">
+                <h5 class="card-header">本地登录</h5>
+                <div class="card-body">
+                    <form asp-route="Login">
+                        <input type="hidden" asp-for="ReturnUrl" />
+
+                        <fieldset>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="input-username">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" placeholder="用户名" asp-for="Username" aria-label="Username" aria-describedby="input-username" autofocus>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="input-password">
+                                                <span class="oi oi-lock-locked" title="Lock" aria-hidden="true"></span>
+                                            </span>
+                                        </div>
+                                        <input type="password" class="form-control" placeholder="密码" aria-label="Password" aria-describedby="input-password" asp-for="Password" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (Model.AllowRememberLogin)
+                            {
+                                <div class="form-group row">
+                                    <div class="col-sm-9">
+                                        <div>
+                                            记住我的登录信息
+                                        </div>
+                                        <toggle-button>
+                                            <input asp-for="RememberLogin" type="checkbox">
+                                        </toggle-button>
+                                    </div>
+                                </div>
+                            }
+                            <div class="form-group row">
+                                <div class="col-sm-9">
+                                    默认生成用户名：olek  <br/>默认生成密码：IdentityServer4Pwd
+                                </div>
+                            </div>
+                            <!--Button-->
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-primary" name="button" value="login">登录</button>
+                                    <button class="btn btn-secondary" name="button" value="cancel">取消</button>
+                                    @*<a asp-action="ForgotPassword" asp-controller="Account" class="btn btn-info" value="forgot">忘记密码</a>
+                                    <a asp-action="Register" asp-controller="Account" class="btn btn-dark" value="forgot">注册</a>*@
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="login-page">
+        <div class="lead">
+            <h1>Login</h1>
+            <p>Choose how to login</p>
+        </div>
+
+        <partial name="_ValidationSummary" />
+
+        <div class="row">
+
+            @if (Model.EnableLocalLogin)
+            {
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Local Account</h2>
+                        </div>
+
+                        <div class="card-body">
+                            <form asp-route="Login">
+                                <input type="hidden" asp-for="ReturnUrl" />
+
+                                <div class="form-group">
+                                    <label asp-for="Username"></label>
+                                    <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password"></label>
+                                    <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                                </div>
+                                @if (Model.AllowRememberLogin)
+                                {
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" asp-for="RememberLogin">
+                                            <label class="form-check-label" asp-for="RememberLogin">
+                                                Remember My Login
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                                <button class="btn btn-primary" name="button" value="login">Login</button>
+                                <button class="btn btn-secondary" name="button" value="cancel">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.VisibleExternalProviders.Any())
+            {
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>External Account</h2>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-inline">
+                                @foreach (var provider in Model.VisibleExternalProviders)
+                                {
+                                    <li class="list-inline-item">
+                                        <a class="btn btn-secondary"
+                                           asp-controller="External"
+                                           asp-action="Challenge"
+                                           asp-route-scheme="@provider.AuthenticationScheme"
+                                           asp-route-returnUrl="@Model.ReturnUrl">
+                                            @provider.DisplayName
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
+            {
+                <div class="alert alert-warning">
+                    <strong>Invalid login request</strong>
+                    There are no login schemes configured for this request.
+                </div>
+            }
+        </div>
+    </div>*@

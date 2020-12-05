@@ -1,0 +1,48 @@
+﻿@model RoleModel
+
+@{
+    ViewBag.Title = "添加角色";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">角色</a></li>
+                <li class="breadcrumb-item active" aria-current="page">添加角色</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <h2>添加角色</h2>
+    </div>
+</div>
+
+<form id="client-form" asp-action="Create" Method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="card mt-3">
+        <h5 class="card-header">添加角色</h5>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-sm-10">
+
+                    @await Html.PartialAsync("_CreateOrUpdate", Model)
+
+                    <!--Button-->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">
+                        </label>
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-primary">保存角色</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

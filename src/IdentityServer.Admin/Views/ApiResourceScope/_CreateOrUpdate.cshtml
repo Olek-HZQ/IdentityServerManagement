@@ -1,0 +1,18 @@
+﻿@using IdentityServer.Admin.Helpers
+@model ApiResourceScopeModel
+
+<!--Hidden -->
+<input type="hidden" asp-for="ApiResourceId" />
+
+<!--Input - text -->
+<div class="form-group row">
+    <label asp-for="Scope" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("名称", "API 对应作用域名称"))
+    </label>
+    <div class="col-sm-9">
+        <div class="input-group mb-3">
+            <input type="text" autocomplete="off" required class="form-control" asp-for="Scope">
+        </div>
+        <span asp-validation-for="Scope" class="text-danger"></span>
+    </div>
+</div>

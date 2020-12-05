@@ -1,0 +1,52 @@
+﻿@model ClientModel
+
+@{
+    ViewBag.Title = "Edit Client";
+    Layout = "_Layout";
+}
+
+<form id="client-form" asp-controller="Client" asp-action="Edit" Method="post">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">客户端</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.ClientId</li>
+                </ol>
+            </nav>
+        </div>
+
+        @if (Model.Id != 0)
+        {
+            <div class="col-12">
+                <h2>客户端 - @Model.ClientId</h2>
+            </div>
+        }
+
+        <div class="col-12">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+    </div>
+
+    @if (Model.Id != 0)
+    {
+        @await Html.PartialAsync("Section/ActionButtons")
+    }
+    @await Html.PartialAsync("Settings")
+    @await Html.PartialAsync("Section/ActionButtons")
+</form>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            //Disable enter for this form
+            FormMvc.disableEnter($('#client-form'));
+
+            //Radio image
+            $("label.radio-img>img").click(function () {
+                $(this).parent().find("input:radio").click();
+            });
+        });
+    </script>
+}
