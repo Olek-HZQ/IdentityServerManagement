@@ -64,7 +64,7 @@ namespace IdentityServer.Admin
             //add fluent validation
             mvcBuilder.AddFluentValidation(configuration =>
             {
-                //register all available validators from Nop assemblies
+                //register all available validators from IdentityServer.Admin assemblies
                 var assemblies = mvcBuilder.PartManager.ApplicationParts
                     .OfType<AssemblyPart>()
                     .Where(part => part.Name.StartsWith("IdentityServer.Admin", StringComparison.InvariantCultureIgnoreCase))

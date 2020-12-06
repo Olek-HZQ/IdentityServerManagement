@@ -14,7 +14,7 @@ namespace IdentityServer.Admin.Dapper.Repositories.Mysql
             DbConnectionConfig = dbConnectionConfig;
         }
 
-        protected sealed override DataProviderType DataProviderType => DataProviderType.SqlServer;
+        protected sealed override DataProviderType DataProviderType => DataProviderType.Mysql;
 
         protected override string ConnectionString => DbConnectionConfig.MasterMySqlConnString;
 

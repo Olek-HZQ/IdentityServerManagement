@@ -123,6 +123,7 @@ ClientBin/
 *.pfx
 *.publishsettings
 Logs/
+*.DotSettings
 
 # RIA/Silverlight projects
 Generated_Code/
