@@ -1,11 +1,12 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using IdentityServer.Admin.Core;
 using IdentityServer.Admin.Core.Data;
+using IdentityServer.Admin.Core.Entities.Enums;
 using IdentityServer.Admin.Core.Extensions;
 using MySql.Data.MySqlClient;
 using Oracle.ManagedDataAccess.Client;
 using SqlKata;
+using SqlKata.Compilers;
 
 namespace IdentityServer.Admin.Dapper
 {
@@ -13,16 +14,16 @@ namespace IdentityServer.Admin.Dapper
     {
         protected IDbSession DbSession => new DbSession(DbConnection());
 
+        /// <summary>
+        /// 创建数据库连接
+        /// </summary>
+        /// <returns></returns>
         protected virtual IDbConnection DbConnection()
         {
             IDbConnection conn;
 
             switch (DataProviderType)
             {
-                case DataProviderType.SqlServer:
-                    conn = new SqlConnection(ConnectionString);
-                    break;
-
                 case DataProviderType.Mysql:
                     conn = new MySqlConnection(ConnectionString);
                     break;
@@ -59,6 +60,26 @@ namespace IdentityServer.Admin.Dapper
         /// <param name="query"></param>
         /// <param name="useLegacyPagination">目前这个只用于SqlServer</param>
         /// <returns></returns>
-        protected abstract SqlResult GetSqlResult(Query query, bool useLegacyPagination = true);
+        protected virtual SqlResult GetSqlResult(Query query, bool useLegacyPagination = true)
+        {
+            switch (DataProviderType)
+            {
+                case DataProviderType.Mysql:
+                    return new MySqlCompiler().Compile(query);
+
+                case DataProviderType.Oracle:
+                    return new OracleCompiler().Compile(query);
+
+                default:
+                    var compiler = new SqlServerCompiler();
+
+                    if (!useLegacyPagination)
+                    {
+                        compiler.UseLegacyPagination = false;
+                    }
+
+                    return compiler.Compile(query);
+            }
+        }
     }
 }

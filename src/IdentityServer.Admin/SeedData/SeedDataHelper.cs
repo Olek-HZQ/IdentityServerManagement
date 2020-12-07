@@ -1,9 +1,18 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer.Admin.Core.Entities;
+using IdentityServer.Admin.Core.Entities.ApiResource;
+using IdentityServer.Admin.Core.Entities.ApiScope;
+using IdentityServer.Admin.Core.Entities.Clients;
+using IdentityServer.Admin.Core.Entities.IdentityResource;
+using IdentityServer.Admin.Core.Entities.Users;
 using IdentityServer.Admin.Core.Extensions;
-using IdentityServer.Admin.Services.CommonInterfaces;
+using IdentityServer.Admin.Services.ApiResource;
+using IdentityServer.Admin.Services.ApiScope;
+using IdentityServer.Admin.Services.Client;
+using IdentityServer.Admin.Services.IdentityResource;
+using IdentityServer.Admin.Services.Role;
+using IdentityServer.Admin.Services.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 

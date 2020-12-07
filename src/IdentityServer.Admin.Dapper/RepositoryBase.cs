@@ -3,12 +3,41 @@ using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Configuration;
 using IdentityServer.Admin.Core.Data;
+using IdentityServer.Admin.Core.Entities.Enums;
 
 namespace IdentityServer.Admin.Dapper
 {
     public abstract class RepositoryBase<T> : RepositoryDataTypeBase<T> where T : class
     {
+        protected DbConnectionConfiguration DbConnectionConfig { get; }
+
+        protected RepositoryBase(DbConnectionConfiguration dbConnectionConfig)
+        {
+            DbConnectionConfig = dbConnectionConfig;
+        }
+
+        protected override DataProviderType DataProviderType => DbConnectionConfig.CurrentDataProviderType;
+
+        protected override string ConnectionString
+        {
+            get
+            {
+                switch (DataProviderType)
+                {
+                    case DataProviderType.Mysql:
+                        return DbConnectionConfig.MasterMySqlConnString;
+
+                    case DataProviderType.Oracle:
+                        return DbConnectionConfig.MasterOracleConnString;
+
+                    default:
+                        return DbConnectionConfig.MasterSqlServerConnString;
+                }
+            }
+        }
+
         public virtual async Task<T> GetAsync(int id, bool useTransaction = false, int? commandTimeout = null)
         {
             if (id == 0)

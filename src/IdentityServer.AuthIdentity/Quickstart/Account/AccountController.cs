@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityModel;
-using IdentityServer.Admin.Services.CommonInterfaces;
+using IdentityServer.Admin.Services.User;
 using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;

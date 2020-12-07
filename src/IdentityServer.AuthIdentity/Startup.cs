@@ -12,8 +12,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using HealthChecks.UI.Client;
-using IdentityServer.Admin.Core;
 using IdentityServer.Admin.Core.Configuration;
+using IdentityServer.Admin.Core.Entities.Enums;
 using IdentityServer.Admin.Services.Security;
 using IdentityServer.Admin.Services.Stores;
 using IdentityServer.AuthIdentity.Helpers;
@@ -101,38 +101,36 @@ namespace IdentityServer.AuthIdentity
                     ? dbConnectionConfig.CurrentDataProviderType
                     : DataProviderType.SqlServer;
 
-            // Add HSTS options
-            RegisterHstsOptions(services);
-
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
-
             switch (currentDataProviderType)
             {
-                // case DataProviderType.SqlServer: or default
-                default:
-                    healthChecksBuilder.AddSqlServer(dbConnectionConfig.MasterSqlServerConnString);
-
-                    builder.RegisterAssemblyTypes(Assembly.Load("IdentityServer.Admin.Dapper"))
-                        .Where(x => x.Namespace != null && x.Namespace.StartsWith($"IdentityServer.Admin.Dapper.Repositories.{DataProviderType.SqlServer}")
-                                                        && x.Name.EndsWith("Repository"))
-                        .AsImplementedInterfaces()
-                        .InstancePerLifetimeScope();
-
-                    builder.RegisterAssemblyTypes(Assembly.Load("IdentityServer.Admin.Services"))
-                        .Where(x => x.Namespace != null && x.Namespace.StartsWith($"IdentityServer.Admin.Services.{DataProviderType.SqlServer}")
-                                                        && x.Name.EndsWith("Service"))
-                        .AsImplementedInterfaces()
-                        .InstancePerLifetimeScope();
-
-                    break;
                 case DataProviderType.Mysql:
                     healthChecksBuilder.AddMySql(dbConnectionConfig.MasterSqlServerConnString);
                     break;
                 case DataProviderType.Oracle:
                     healthChecksBuilder.AddOracle(dbConnectionConfig.MasterSqlServerConnString);
                     break;
+                default:
+                    healthChecksBuilder.AddSqlServer(dbConnectionConfig.MasterSqlServerConnString);
+                    break;
             }
+
+            // Add HSTS options
+            RegisterHstsOptions(services);
+
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+
+            builder.RegisterAssemblyTypes(Assembly.Load("IdentityServer.Admin.Dapper"))
+                .Where(x => x.Namespace != null && x.Namespace.StartsWith("IdentityServer.Admin.Dapper.Repositories")
+                                                && x.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterAssemblyTypes(Assembly.Load("IdentityServer.Admin.Services"))
+                .Where(x => x.Namespace != null && x.Namespace.StartsWith("IdentityServer.Admin.Services")
+                                                && x.Name.EndsWith("Service"))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<EncryptionService>().As<IEncryptionService>().InstancePerLifetimeScope();
 
