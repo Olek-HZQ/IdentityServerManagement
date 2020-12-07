@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer.Admin.Dapper.Repositories.CommonInterfaces;
+using IdentityServer.Admin.Dapper.Repositories.ApiResource;
+using IdentityServer.Admin.Dapper.Repositories.ApiScope;
+using IdentityServer.Admin.Dapper.Repositories.IdentityResource;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
-using ApiResource = IdentityServer4.Models.ApiResource;
-using ApiScope = IdentityServer4.Models.ApiScope;
-using IdentityResource = IdentityServer4.Models.IdentityResource;
 
 namespace IdentityServer.Admin.Services.Stores
 {
@@ -24,11 +23,11 @@ namespace IdentityServer.Admin.Services.Stores
             _apiScopeRepository = apiScopeRepository;
         }
 
-        public async Task<IEnumerable<IdentityResource>> FindIdentityResourcesByScopeNameAsync(IEnumerable<string> scopeNames)
+        public async Task<IEnumerable<IdentityServer4.Models.IdentityResource>> FindIdentityResourcesByScopeNameAsync(IEnumerable<string> scopeNames)
         {
             var identityResources = await _identityResourceRepository.GetIdentityResourcesByScopeNameAsync(scopeNames.ToArray());
 
-            var result = identityResources.Select(x => new IdentityResource
+            var result = identityResources.Select(x => new IdentityServer4.Models.IdentityResource
             {
                 Enabled = x.Enabled,
                 Name = x.Name,
@@ -44,11 +43,11 @@ namespace IdentityServer.Admin.Services.Stores
             return result;
         }
 
-        public async Task<IEnumerable<ApiScope>> FindApiScopesByNameAsync(IEnumerable<string> scopeNames)
+        public async Task<IEnumerable<IdentityServer4.Models.ApiScope>> FindApiScopesByNameAsync(IEnumerable<string> scopeNames)
         {
             var apiScopes = await _apiScopeRepository.GetApiScopesByNameAsync(scopeNames.ToArray());
 
-            var result = apiScopes.Select(x => new ApiScope
+            var result = apiScopes.Select(x => new IdentityServer4.Models.ApiScope
             {
                 Enabled = x.Enabled,
                 Name = x.Name,
@@ -78,11 +77,11 @@ namespace IdentityServer.Admin.Services.Stores
             return list;
         }
 
-        public async Task<IEnumerable<ApiResource>> FindApiResourcesByScopeNameAsync(IEnumerable<string> scopeNames)
+        public async Task<IEnumerable<IdentityServer4.Models.ApiResource>> FindApiResourcesByScopeNameAsync(IEnumerable<string> scopeNames)
         {
             var apiResources = await _apiResourceRepository.GetApiResourcesByScopeNameAsync(scopeNames.ToArray());
 
-            var result = apiResources.Select(x => new ApiResource
+            var result = apiResources.Select(x => new IdentityServer4.Models.ApiResource
             {
                 Enabled = x.Enabled,
                 Name = x.Name,
@@ -105,11 +104,11 @@ namespace IdentityServer.Admin.Services.Stores
             return result;
         }
 
-        public async Task<IEnumerable<ApiResource>> FindApiResourcesByNameAsync(IEnumerable<string> apiResourceNames)
+        public async Task<IEnumerable<IdentityServer4.Models.ApiResource>> FindApiResourcesByNameAsync(IEnumerable<string> apiResourceNames)
         {
             var apiResources = await _apiResourceRepository.GetApiResourcesByNameAsync(apiResourceNames.ToArray());
 
-            var result = apiResources.Select(x => new ApiResource
+            var result = apiResources.Select(x => new IdentityServer4.Models.ApiResource
             {
                 Enabled = x.Enabled,
                 Name = x.Name,
@@ -135,10 +134,10 @@ namespace IdentityServer.Admin.Services.Stores
         public async Task<Resources> GetAllResourcesAsync()
         {
             var identity = await _identityResourceRepository.GetAllIdentityResourceList();
-            IEnumerable<IdentityResource> identityResources = new List<IdentityResource>();
+            IEnumerable<IdentityServer4.Models.IdentityResource> identityResources = new List<IdentityServer4.Models.IdentityResource>();
             if (identity != null && identity.Any())
             {
-                identityResources = identity.Select(x => new IdentityResource
+                identityResources = identity.Select(x => new IdentityServer4.Models.IdentityResource
                 {
                     Enabled = x.Enabled,
                     Name = x.Name,
@@ -153,10 +152,10 @@ namespace IdentityServer.Admin.Services.Stores
             }
 
             var apis = await _apiResourceRepository.GetApiResourcesByNameAsync(null);
-            IEnumerable<ApiResource> apiResources = new List<ApiResource>();
+            IEnumerable<IdentityServer4.Models.ApiResource> apiResources = new List<IdentityServer4.Models.ApiResource>();
             if (apis != null && apis.Any())
             {
-                apiResources = apis.Select(x => new ApiResource
+                apiResources = apis.Select(x => new IdentityServer4.Models.ApiResource
                 {
                     Enabled = x.Enabled,
                     Name = x.Name,
@@ -178,10 +177,10 @@ namespace IdentityServer.Admin.Services.Stores
             }
 
             var scopes = await _apiScopeRepository.GetAllApiScopeListAsync();
-            IEnumerable<ApiScope> apiScopes = new List<ApiScope>();
+            IEnumerable<IdentityServer4.Models.ApiScope> apiScopes = new List<IdentityServer4.Models.ApiScope>();
             if (scopes != null && scopes.Any())
             {
-                apiScopes = scopes.Select(x => new ApiScope
+                apiScopes = scopes.Select(x => new IdentityServer4.Models.ApiScope
                 {
                     Enabled = x.Enabled,
                     Name = x.Name,

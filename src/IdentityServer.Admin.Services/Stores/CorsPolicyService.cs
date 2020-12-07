@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer.Admin.Dapper.Repositories.CommonInterfaces;
+using IdentityServer.Admin.Dapper.Repositories.Client;
 using IdentityServer4.Services;
 
 namespace IdentityServer.Admin.Services.Stores

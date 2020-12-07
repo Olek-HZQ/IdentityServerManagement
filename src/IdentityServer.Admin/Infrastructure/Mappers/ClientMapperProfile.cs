@@ -3,7 +3,7 @@
 
 
 using AutoMapper;
-using IdentityServer.Admin.Core.Entities;
+using IdentityServer.Admin.Core.Entities.Clients;
 using IdentityServer.Admin.Models;
 
 namespace IdentityServer.Admin.Infrastructure.Mappers

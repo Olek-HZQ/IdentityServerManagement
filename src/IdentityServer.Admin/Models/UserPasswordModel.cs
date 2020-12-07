@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace IdentityServer.Admin.Models
+﻿namespace IdentityServer.Admin.Models
 {
     public class UserPasswordModel
     {

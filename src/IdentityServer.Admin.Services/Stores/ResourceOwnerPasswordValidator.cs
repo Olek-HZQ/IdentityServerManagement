@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using IdentityServer.Admin.Dapper.Repositories.CommonInterfaces;
+using IdentityServer.Admin.Dapper.Repositories.User;
 using IdentityServer.Admin.Services.Security;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;

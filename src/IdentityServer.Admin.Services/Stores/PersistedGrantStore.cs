@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer.Admin.Dapper.Repositories.CommonInterfaces;
+using IdentityServer.Admin.Dapper.Repositories.PersistedGrant;
 using IdentityServer4.Stores;
 using Serilog;
-using PersistedGrant = IdentityServer4.Models.PersistedGrant;
 
 namespace IdentityServer.Admin.Services.Stores
 {
@@ -18,7 +17,7 @@ namespace IdentityServer.Admin.Services.Stores
             _repository = repository;
         }
 
-        public async Task StoreAsync(PersistedGrant grant)
+        public async Task StoreAsync(IdentityServer4.Models.PersistedGrant grant)
         {
             var existsGrant = await _repository.GetByKeyAsync(grant.Key);
 
@@ -55,11 +54,11 @@ namespace IdentityServer.Admin.Services.Stores
             }
         }
 
-        public async Task<PersistedGrant> GetAsync(string key)
+        public async Task<IdentityServer4.Models.PersistedGrant> GetAsync(string key)
         {
             var existsGrant = await _repository.GetByKeyAsync(key);
 
-            var grant = new PersistedGrant();
+            var grant = new IdentityServer4.Models.PersistedGrant();
 
             if (existsGrant != null)
             {
@@ -78,13 +77,13 @@ namespace IdentityServer.Admin.Services.Stores
             return grant;
         }
 
-        public async Task<IEnumerable<PersistedGrant>> GetAllAsync(PersistedGrantFilter filter)
+        public async Task<IEnumerable<IdentityServer4.Models.PersistedGrant>> GetAllAsync(PersistedGrantFilter filter)
         {
             var grants = (await _repository.GetListBySubjectIdAsync(filter.SubjectId)).ToList();
 
             if (grants.Any())
             {
-                return grants.Select(x => new PersistedGrant
+                return grants.Select(x => new IdentityServer4.Models.PersistedGrant
                 {
                     Key = x.Key,
                     Type = x.Type,
@@ -99,7 +98,7 @@ namespace IdentityServer.Admin.Services.Stores
                 });
             }
 
-            return new List<PersistedGrant>();
+            return new List<IdentityServer4.Models.PersistedGrant>();
         }
 
         public async Task RemoveAsync(string key)
