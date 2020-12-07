@@ -1,4 +1,6 @@
 ﻿
+using IdentityServer.Admin.Core.Entities.Enums;
+
 namespace IdentityServer.Admin.Core.Configuration
 {
     public class DbConnectionConfiguration

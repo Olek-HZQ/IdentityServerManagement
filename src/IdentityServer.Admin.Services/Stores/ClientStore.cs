@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer.Admin.Dapper.Repositories.CommonInterfaces;
+using IdentityServer.Admin.Dapper.Repositories.Client;
 using IdentityServer4.Models;
-using Client = IdentityServer4.Models.Client;
 using ClientClaim = IdentityServer4.Models.ClientClaim;
 using Secret = IdentityServer4.Models.Secret;
 using TokenExpiration = IdentityServer4.Models.TokenExpiration;
@@ -21,13 +20,13 @@ namespace IdentityServer.Admin.Services.Stores
             _clientRepository = clientRepository;
         }
 
-        public async Task<Client> FindClientByIdAsync(string clientId)
+        public async Task<IdentityServer4.Models.Client> FindClientByIdAsync(string clientId)
         {
             var localClient = await _clientRepository.GetClientByClientId(clientId);
 
             if (localClient != null)
             {
-                var client = new Client
+                var client = new IdentityServer4.Models.Client
                 {
                     Enabled = localClient.Enabled,
                     ClientId = localClient.ClientId,

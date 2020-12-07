@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using IdentityServer.Admin.Core.Entities;
+using IdentityServer.Admin.Core.Entities.Users;
 using IdentityServer.Admin.Helpers;
 using IdentityServer.Admin.Infrastructure.Mappers;
 using IdentityServer.Admin.Models;
-using IdentityServer.Admin.Services.CommonInterfaces;
+using IdentityServer.Admin.Services.Role;
+using IdentityServer.Admin.Services.User;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IdentityServer.Admin.Controllers

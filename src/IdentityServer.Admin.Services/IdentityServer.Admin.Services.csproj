@@ -15,8 +15,4 @@
     <ProjectReference Include="..\IdentityServer.Admin.Dapper\IdentityServer.Admin.Dapper.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mysql\" />
-  </ItemGroup>
-
 </Project>

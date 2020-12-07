@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
-using IdentityServer.Admin.Core.Dtos;
+using IdentityServer.Admin.Core.Dtos.User;
 using IdentityServer.Admin.Core.Entities;
+using IdentityServer.Admin.Core.Entities.ApiResource;
+using IdentityServer.Admin.Core.Entities.ApiScope;
+using IdentityServer.Admin.Core.Entities.IdentityResource;
+using IdentityServer.Admin.Core.Entities.Users;
 using IdentityServer.Admin.Models;
 
 namespace IdentityServer.Admin.Infrastructure.Mappers
