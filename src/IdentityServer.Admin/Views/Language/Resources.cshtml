@@ -1,0 +1,170 @@
+﻿@using IdentityServer.Admin.Core.Constants
+@using IdentityServer.Admin.Core.Dtos.Localization
+@using IdentityServer.Admin.Helpers
+@model IdentityServer.Admin.Core.Dtos.Localization.PagedLocalStringResourceDto
+@{
+    ViewBag.Title = T("Languages.Resources").Text;
+    Layout = "_Layout";
+    int currentPage = PagerHelper.GetCurrentPage(Context.Request.Query["page"]);
+    int totalPage = PagerHelper.GetTotalPages(Model.PageSize, Model.TotalCount);
+    int minPage = PagerHelper.GetMinPageToRender(PageConstant.MaxPages, totalPage, currentPage);
+    int maxPage = PagerHelper.GetMaxPageToRender(PageConstant.MaxPages, totalPage, currentPage);
+}
+<div class="row">
+    <div class="col-12">
+        <h2>@T("Languages.Resources").Text</h2>
+    </div>
+
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Language" asp-action="Index">@T("Languages.PageList").Text</a></li>
+                <li class="breadcrumb-item"><a asp-action="Edit" asp-controller="Language" asp-route-id="@Model.LanguageId">@Model.LanguageName</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("Languages.Resources").Text</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <a asp-action="ResourceCreate" asp-route-languageId="@Model.LanguageId" class="btn btn-outline-primary mb-3"><span class="oi oi-plus"></span> @T("LocaleStringResource.Add").Text</a>
+        <a asp-action="ResourceDownload" asp-route-languageId="@Model.LanguageId" class="btn btn-outline-primary mb-3"><span class="oi oi-data-transfer-download"></span> @T("LocaleStringResource.Download").Text</a>
+        <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#upload-window">
+            <span class="oi oi-data-transfer-upload"></span>
+            @T("LocaleStringResource.Upload")
+        </button>
+    </div>
+
+    <div class="col-12">
+        <form asp-controller="Language" asp-action="Resources" method="get">
+            <div class="form-row">
+                <div class="col-12 mb-3">
+                    <input name="search" value="@ViewBag.Search" type="text" placeholder="@T("Common.Search.Input").Text" class="form-control" />
+                    <input name="LanguageId" value="@Model.LanguageId" type="hidden" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-12 mb-3">
+                    <input type="submit" class="btn btn-primary" value="@T("Common.Search").Text" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>@T("Languages.Resources.Fields.Name").Text</th>
+                        <th>@T("Languages.Resources.Fields.Value").Text</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (LocalStringResourceForPage item in Model.DataPagedList)
+                    {
+                        <tr>
+                            <th scope="row"><a class="btn btn-primary" asp-action="ResourceEdit" asp-route-id="@item.Id">@T("Common.Edit").Text</a></th>
+                            <td>@item.ResourceName</td>
+                            <td>@item.ResourceValue</td>
+                            <td>
+                                <a class="btn btn-danger" asp-action="ResourceDelete" asp-route-id="@item.Id"><span class="oi oi-x"></span></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @if (currentPage <= maxPage)
+        {
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Resources" asp-route-page="1" asp-route-languageId="@Model.LanguageId" asp-route-search="@ViewBag.Search">
+                            @T("Pager.First").Text
+                        </a>
+                    </li>
+
+                    @if (PagerHelper.ShowLeftPagerButton(PageConstant.MaxPages, totalPage, currentPage))
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Resources" asp-route-page="@(minPage - 1)" asp-route-languageId="@Model.LanguageId" asp-route-search="@ViewBag.Search">
+                                ...
+                            </a>
+                        </li>
+                    }
+
+                    @for (int i = minPage; i <= maxPage; i++)
+                    {
+                        if (PagerHelper.IsActivePage(currentPage, i))
+                        {
+                            <li class="page-item active">
+                                <a class="page-link" asp-action="Resources" asp-route-page="@i" asp-route-languageId="@Model.LanguageId" asp-route-search="@ViewBag.Search">
+                                    @i
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="Resources" asp-route-page="@i" asp-route-languageId="@Model.LanguageId" asp-route-search="@ViewBag.Search">
+                                    @i
+                                </a>
+                            </li>
+                        }
+                    }
+
+                    @if (PagerHelper.ShowRightPagerButton(PageConstant.MaxPages, totalPage, currentPage))
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Resources" asp-route-page="@(maxPage + 1)" asp-route-languageId="@Model.LanguageId" asp-route-search="@ViewBag.Search">
+                                ...
+                            </a>
+                        </li>
+                    }
+
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Resources" asp-route-page="@totalPage" asp-route-languageId="@Model.LanguageId" asp-route-search="@ViewBag.Search">
+                            @T("Pager.Last").Text
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        }
+    </div>
+</div>
+
+@*upload resources form*@
+<div id="upload-window" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="upload-window-title">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="upload-window-title">@T("LocaleStringResource.Upload")</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form asp-controller="Language" asp-route-id="@Model.LanguageId" asp-action="ResourceUpload" method="post" enctype="multipart/form-data">
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @T("LocaleStringResource.Upload.JsonFile")
+                        <input type="file" id="jsonFile" name="jsonFile" class="form-control"/>
+                    </div>
+                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input id="importxmlsubmit" type="submit" class="btn btn-primary" value="@T("LocaleStringResource.Upload.Button")" />
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>

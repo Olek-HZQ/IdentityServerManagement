@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.Clients;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.Client;
 using IdentityServer.Admin.Services.Client;
 
 namespace IdentityServer.Admin.Controllers

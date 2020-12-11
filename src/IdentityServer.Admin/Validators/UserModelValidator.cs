@@ -1,14 +1,15 @@
 ﻿using FluentValidation;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.User;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Validators
 {
     public class UserModelValidator : BaseValidator<UserModel>
     {
-        public UserModelValidator()
+        public UserModelValidator(ILocalizationService localizationService)
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("用户名不能为空");
-            RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("邮箱格式不对");
+            RuleFor(x => x.Name).NotEmpty().WithMessage(localizationService.GetResourceAsync("Users.Fields.Name.Required").Result);
+            RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage(localizationService.GetResourceAsync("Users.Fields.Email.Required").Result);
         }
     }
 }

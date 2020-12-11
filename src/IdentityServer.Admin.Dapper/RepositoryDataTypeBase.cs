@@ -58,9 +58,9 @@ namespace IdentityServer.Admin.Dapper
         /// 生成SQL语句
         /// </summary>
         /// <param name="query"></param>
-        /// <param name="useLegacyPagination">目前这个只用于SqlServer</param>
+        /// <param name="useLegacyPagination">目前这个只用于SqlServer, 标识是否使用Row_Number分页</param>
         /// <returns></returns>
-        protected virtual SqlResult GetSqlResult(Query query, bool useLegacyPagination = true)
+        protected virtual SqlResult GetSqlResult(Query query, bool useLegacyPagination = false)
         {
             switch (DataProviderType)
             {
@@ -71,12 +71,10 @@ namespace IdentityServer.Admin.Dapper
                     return new OracleCompiler().Compile(query);
 
                 default:
-                    var compiler = new SqlServerCompiler();
-
-                    if (!useLegacyPagination)
+                    var compiler = new SqlServerCompiler
                     {
-                        compiler.UseLegacyPagination = false;
-                    }
+                        UseLegacyPagination = useLegacyPagination
+                    };
 
                     return compiler.Compile(query);
             }

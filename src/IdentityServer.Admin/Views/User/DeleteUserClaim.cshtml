@@ -1,8 +1,8 @@
 ﻿@using IdentityServer.Admin.Helpers
-@model UserClaimModel
+@model IdentityServer.Admin.Models.User.UserClaimModel
 
 @{
-    ViewBag.Title = "删除用户声明";
+    ViewBag.Title = T("Users.UserClaimsDelete.PageTitle").Text;
     Layout = "_Layout";
 }
 
@@ -12,16 +12,16 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-action="Index">用户</a></li>
-                    <li class="breadcrumb-item"><a asp-action="Edit" asp-route-id="@Model.UserId">@Model.UserName</a></li>
-                    <li class="breadcrumb-item"><a asp-action="UserClaim" asp-route-id="@Model.UserId">用户声明</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">删除用户声明</li>
+                    <li class="breadcrumb-item"><a asp-controller="User" asp-action="Index">@T("Users.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="User" asp-action="Edit" asp-route-id="@Model.UserId">@T("Users.Edit").Text - @Model.UserName</a></li>
+                    <li class="breadcrumb-item"><a asp-action="UserClaim" asp-route-id="@Model.UserId">@T("Users.UserClaims.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("Users.UserClaimsDelete.PageTitle").Text</li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-12">
-            <h3>删除用户声明</h3>
+            <h3>@T("Users.UserClaimsDelete.PageTitle").Text</h3>
 
             <!--Hidden -->
             <input type="hidden" asp-for="UserId" />
@@ -30,12 +30,12 @@
             <input type="hidden" asp-for="Id" />
 
             <div class="card mt-3">
-                <h5 class="card-header">删除用户声明</h5>
+                <h5 class="card-header">@T("Users.UserClaimsDelete.PageTitle").Text</h5>
                 <div class="card-body">
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="ClaimType" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("声明类型","声明类型"))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Users.UserClaims.Type").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" disabled="disabled" class="form-control" asp-for="ClaimType">
@@ -45,7 +45,7 @@
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="ClaimValue" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("声明值", "声明值"))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Users.UserClaims.Value").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" disabled="disabled" class="form-control" asp-for="ClaimValue">
@@ -57,7 +57,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-danger">删除用户声明</button>
+                            <button type="submit" class="btn btn-danger">@T("Common.Delete").Text</button>
                         </div>
                     </div>
                 </div>

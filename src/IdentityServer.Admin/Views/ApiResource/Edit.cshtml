@@ -1,7 +1,7 @@
-﻿@model ApiResourceModel
+﻿@model IdentityServer.Admin.Models.ApiResource.ApiResourceModel
 
 @{
-    ViewBag.Title = "编辑 Api 资源";
+    ViewBag.Title = T("ApiResource.Edit").Text;
     Layout = "_Layout";
 }
 
@@ -9,14 +9,10 @@
     <div class="col-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">Api 资源</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+                <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">@T("ApiResource.PageTitle").Text</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("ApiResource.Edit").Text - @Model.Name</li>
             </ol>
         </nav>
-    </div>
-
-    <div class="col-12">
-        <h2>编辑 Api 资源</h2>
     </div>
 </div>
 
@@ -27,7 +23,12 @@
     <!--Hidden -->
     <input type="hidden" asp-for="Id" />
 
-    @await Html.PartialAsync("_CreateOrUpdate", Model)
+    <div class="card mt-3">
+        <h5 class="card-header">@T("ApiResource.Edit").Text</h5>
+        <div class="card-body">
+            @await Html.PartialAsync("_CreateOrUpdate", Model)
+        </div>
+    </div>
 
 </form>
 

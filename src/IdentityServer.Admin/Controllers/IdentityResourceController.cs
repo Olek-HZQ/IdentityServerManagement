@@ -5,18 +5,21 @@ using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.IdentityResource;
 using IdentityServer.Admin.Core.Extensions;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.IdentityResource;
 using IdentityServer.Admin.Services.IdentityResource;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Controllers
 {
     public class IdentityResourceController : BaseController
     {
         private readonly IIdentityResourceService _identityResourceService;
+        private readonly ILocalizationService _localizationService;
 
-        public IdentityResourceController(IIdentityResourceService identityResourceService)
+        public IdentityResourceController(IIdentityResourceService identityResourceService,ILocalizationService localizationService)
         {
             _identityResourceService = identityResourceService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(string search, int? page)
@@ -51,7 +54,7 @@ namespace IdentityServer.Admin.Controllers
             var insertedResult = await _identityResourceService.InsertIdentityResourceAsync(CommonMappers.Mapper.Map<IdentityResource>(model));
             if (insertedResult > 0)
             {
-                SuccessNotification("身份资源添加成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("IdentityResource.Added"));
 
                 return RedirectToAction(nameof(Index));
             }
@@ -104,7 +107,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (updatedResult)
             {
-                SuccessNotification("身份资源编辑成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("IdentityResource.Updated"));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -139,7 +142,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification("身份资源删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("IdentityResource.Deleted"));
                 return RedirectToAction(nameof(Index));
             }
 

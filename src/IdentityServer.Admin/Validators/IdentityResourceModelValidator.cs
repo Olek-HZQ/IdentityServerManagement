@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.IdentityResource;
 
 namespace IdentityServer.Admin.Validators
 {

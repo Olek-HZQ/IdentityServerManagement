@@ -1,0 +1,51 @@
+﻿@using IdentityServer.Admin.Helpers
+@model IdentityServer.Admin.Models.Localization.LanguageModel
+@{
+    ViewBag.Title = T("Languages.Delete").Text;
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Language" asp-action="Index">@T("Languages.PageList").Text</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Language" asp-action="Edit" asp-route-id="@Model.Id">@Model.Name</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("Languages.Delete").Text</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post" id="language-form">
+
+    <!--Hidden -->
+    <input type="hidden" asp-for="Id" />
+    <!--Hidden -->
+    <input type="hidden" asp-for="Name" />
+
+    <div class="card mt-3">
+        <h5 class="card-header">@T("Languages.Delete").Text</h5>
+        <div class="card-body">
+
+            <!--Input - text -->
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Languages.Fields.Name").Text, T("Languages.Fields.Name.Hint").Text))
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" disabled="disabled" asp-for="Name">
+                </div>
+            </div>
+
+            <!--Button-->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">
+                </label>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-danger">@T("Common.Delete").Text</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

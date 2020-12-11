@@ -1,15 +1,16 @@
 ﻿using FluentValidation;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.User;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Validators
 {
     public class UserPasswordModelValidator : BaseValidator<UserPasswordModel>
     {
-        public UserPasswordModelValidator()
+        public UserPasswordModelValidator(ILocalizationService localizationService)
         {
-            RuleFor(x => x.Password).NotEmpty().MinimumLength(8).WithMessage("密码不能为空");
-            RuleFor(x => x.ConfirmPassword).NotEmpty().MinimumLength(8).WithMessage("确认密码不能为空");
-            RuleFor(x => x.Password).Equal(x => x.ConfirmPassword).WithMessage("密码跟确认密码不一样");
+            RuleFor(x => x.Password).NotEmpty().MinimumLength(8).WithMessage(localizationService.GetResourceAsync("Users.Fields.Password.Required").Result);
+            RuleFor(x => x.ConfirmPassword).NotEmpty().MinimumLength(8).WithMessage(localizationService.GetResourceAsync("Users.Fields.ConfirmPassword.Required").Result);
+            RuleFor(x => x.Password).Equal(x => x.ConfirmPassword).WithMessage(localizationService.GetResourceAsync("Users.Fields.Password.Equal").Result);
         }
     }
 }

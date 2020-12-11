@@ -1,7 +1,7 @@
-﻿@model ApiScopeModel
+﻿@model IdentityServer.Admin.Models.ApiScope.ApiScopeModel
 
 @{
-    ViewBag.Title = "添加 Api 作用域";
+    ViewBag.Title = T("ApiScope.Add").Text;
     Layout = "_Layout";
 }
 
@@ -9,23 +9,20 @@
     <div class="col-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="ApiScope" asp-action="Index">Api 作用域</a></li>
-                <li class="breadcrumb-item active" aria-current="page">添加 Api 作用域</li>
+                <li class="breadcrumb-item"><a asp-controller="ApiScope" asp-action="Index">@T("ApiScope.PageTitle").Text</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("ApiScope.Add").Text</li>
             </ol>
         </nav>
-    </div>
-
-    <div class="col-12">
-        <h2>添加 Api 作用域</h2>
     </div>
 </div>
 
 <form asp-action="Create" id="api-scope-form" method="post">
 
     <div asp-validation-summary="All" class="text-danger"></div>
-
-    @await Html.PartialAsync("_CreateOrUpdate", Model)
-
+    <div class="card mt-3">
+        <h5 class="card-header">@T("ApiScope.Add").Text</h5>
+        @await Html.PartialAsync("_CreateOrUpdate", Model)
+    </div>
 </form>
 
 @section scripts

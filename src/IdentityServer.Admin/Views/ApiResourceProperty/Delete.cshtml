@@ -1,8 +1,8 @@
 ﻿@using IdentityServer.Admin.Helpers
-@model ApiResourcePropertyModel
+@model IdentityServer.Admin.Models.ApiResource.ApiResourcePropertyModel
 
 @{
-    ViewBag.Title = "删除 Api 资源属性";
+    ViewBag.Title = T("ApiResourceProperty.Delete").Text;
     Layout = "_Layout";
 }
 
@@ -12,17 +12,15 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">Api 资源</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Edit" asp-route-id="@Model.ApiResourceId">@Model.ApiResourceName</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="ApiResourceProperty" asp-action="Index" asp-route-apiResourceId="@Model.ApiResourceId">Api 资源属性</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">删除 Api 资源属性</li>
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">@T("ApiResource.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Edit" asp-route-id="@Model.ApiResourceId">@T("ApiResource.Edit").Text - @Model.ApiResourceName</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="ApiResourceProperty" asp-action="Index" asp-route-apiResourceId="@Model.ApiResourceId">@T("ApiResourceProperty.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("ApiResourceProperty.Delete").Text</li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-12">
-            <h3>删除 Api 资源属性</h3>
-
             <!--Hidden -->
             <input type="hidden" asp-for="Id" />
             
@@ -30,13 +28,12 @@
             <input type="hidden" asp-for="ApiResourceId" />
 
             <div class="card mt-3">
-                <h5 class="card-header">删除 Api 资源属性</h5>
                 <div class="card-body">
 
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="Key" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("键", "键"))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiResourceProperty.Key").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" disabled="disabled" asp-for="Key">
@@ -46,7 +43,7 @@
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="Value" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("值", "值"))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiResourceProperty.Value").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" disabled="disabled" asp-for="Value">
@@ -58,7 +55,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-danger">删除 Api 资源属性</button>
+                            <button type="submit" class="btn btn-danger">@T("Common.Delete").Text</button>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
-﻿@model ClientModel
+﻿@model IdentityServer.Admin.Models.Client.ClientModel
 
 @{
-    ViewBag.Title = "Edit Client";
+    ViewBag.Title = T("Clients.Edit").Text;
     Layout = "_Layout";
 }
 
@@ -10,8 +10,8 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">客户端</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">@Model.ClientId</li>
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">@T("Client.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("Clients.Edit").Text</li>
                 </ol>
             </nav>
         </div>
@@ -19,7 +19,7 @@
         @if (Model.Id != 0)
         {
             <div class="col-12">
-                <h2>客户端 - @Model.ClientId</h2>
+                <h2>@T("Clients.Edit").Text - @Model.ClientId</h2>
             </div>
         }
 

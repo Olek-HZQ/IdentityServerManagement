@@ -1,4 +1,6 @@
-﻿namespace IdentityServer.Admin.Common
+﻿using IdentityServer.Admin.Core.Constants;
+
+namespace IdentityServer.Admin.Common
 {
     public class Pager
     {
@@ -12,6 +14,6 @@
 
         public bool EnableSearch { get; set; }
 
-        public int MaxPages { get; set; } = 10;
+        public int MaxPages { get; set; } = PageConstant.MaxPages;
     }
 }

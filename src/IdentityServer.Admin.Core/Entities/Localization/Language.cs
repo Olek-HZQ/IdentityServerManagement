@@ -1,5 +1,8 @@
-﻿namespace IdentityServer.Admin.Core.Entities.Localization
+﻿using Dapper.Contrib.Extensions;
+
+namespace IdentityServer.Admin.Core.Entities.Localization
 {
+    [Table(nameof(Language))]
     public class Language
     {
         public int Id { get; set; }
@@ -18,11 +21,6 @@
         /// Gets or sets the unique SEO code
         /// </summary>
         public string UniqueSeoCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flag image file name
-        /// </summary>
-        public string FlagImageFileName { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the language is published

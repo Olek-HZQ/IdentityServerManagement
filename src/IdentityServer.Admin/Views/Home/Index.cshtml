@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "后台首页";
+    ViewData["Title"] = T("Admin.PageTitle").Text;
     Layout = "_Layout";
 }
 
 <div class="welcome-block px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">IdentityServer4后台管理</h1>
+    <h1 class="display-4">@T("Admin.PageTitle").Text</h1>
 </div>
 
 <!-- Cards -->
@@ -12,37 +12,37 @@
     <!-- Clients -->
     <div class="card mb-4 box-shadow">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">客户端</h4>
+            <h4 class="my-0 font-weight-normal">@T("Admin.Clients").Text</h4>
         </div>
         <div class="card-body">
             <h1 class="card-title">
                 <span class="oi oi-monitor" title="Clients" aria-hidden="true"></span>
             </h1>
-            <a asp-controller="Client" asp-action="Index" class="btn btn-lg btn-block btn-primary">管理</a>
+            <a asp-controller="Client" asp-action="Index" class="btn btn-lg btn-block btn-primary">@T("Common.Management").Text</a>
         </div>
     </div>
     <!-- Identity Resources -->
     <div class="card mb-4 box-shadow">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">身份资源</h4>
+            <h4 class="my-0 font-weight-normal">@T("Admin.IdentityResource").Text</h4>
         </div>
         <div class="card-body">
             <h1 class="card-title">
                 <span class="oi oi-tags" title="Identity Resources" aria-hidden="true"></span>
             </h1>
-            <a asp-controller="IdentityResource" asp-action="Index" class="btn btn-lg btn-block btn-outline-primary">管理</a>
+            <a asp-controller="IdentityResource" asp-action="Index" class="btn btn-lg btn-block btn-outline-primary">@T("Common.Management").Text</a>
         </div>
     </div>
     <!-- Api Resources -->
     <div class="card mb-4 box-shadow">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">API资源</h4>
+            <h4 class="my-0 font-weight-normal">@T("Admin.ApiResource").Text</h4>
         </div>
         <div class="card-body">
             <h1 class="card-title">
                 <span class="oi oi-cloud" title="Api Resources" aria-hidden="true"></span>
             </h1>
-            <a asp-controller="ApiResource" asp-action="Index" class="btn btn-lg btn-block btn-primary">管理</a>
+            <a asp-controller="ApiResource" asp-action="Index" class="btn btn-lg btn-block btn-primary">@T("Common.Management").Text</a>
         </div>
     </div>
 </div>
@@ -50,37 +50,37 @@
     <!-- Api Scopes -->
     <div class="card mb-4 box-shadow">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">API作用域</h4>
+            <h4 class="my-0 font-weight-normal">@T("Admin.ApiScope").Text</h4>
         </div>
         <div class="card-body">
             <h1 class="card-title">
                 <span class="oi oi-cloud" title="Api Resources" aria-hidden="true"></span>
             </h1>
-            <a asp-controller="ApiScope" asp-action="Index" class="btn btn-lg btn-block btn-outline-primary">管理</a>
+            <a asp-controller="ApiScope" asp-action="Index" class="btn btn-lg btn-block btn-outline-primary">@T("Common.Management").Text</a>
         </div>
     </div>
     <!-- Users -->
     <div class="card mb-4 box-shadow">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">用户</h4>
+            <h4 class="my-0 font-weight-normal">@T("Admin.Users").Text</h4>
         </div>
         <div class="card-body">
             <h1 class="card-title">
                 <span class="oi oi-person" title="Users" aria-hidden="true"></span>
             </h1>
-            <a asp-controller="User" asp-action="Index" class="btn btn-lg btn-block btn-primary">管理</a>
+            <a asp-controller="User" asp-action="Index" class="btn btn-lg btn-block btn-primary">@T("Common.Management").Text</a>
         </div>
     </div>
     <!-- Roles -->
     <div class="card mb-4 box-shadow">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">角色</h4>
+            <h4 class="my-0 font-weight-normal">@T("Admin.Roles").Text</h4>
         </div>
         <div class="card-body">
             <h1 class="card-title">
                 <span class="oi oi-lock-locked" title="Roles" aria-hidden="true"></span>
             </h1>
-            <a asp-controller="Role" asp-action="Index" class="btn btn-lg btn-block btn-outline-primary">管理</a>
+            <a asp-controller="Role" asp-action="Index" class="btn btn-lg btn-block btn-outline-primary">@T("Common.Management").Text</a>
         </div>
     </div>
 </div>
@@ -88,13 +88,13 @@
     <!-- Persisted Grants -->
     <div class="card mb-4 box-shadow">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">持久授权</h4>
+            <h4 class="my-0 font-weight-normal">@T("Admin.PersistedGrants").Text</h4>
         </div>
         <div class="card-body">
             <h1 class="card-title">
                 <span class="oi oi-key" title="Persisted Grants" aria-hidden="true"></span>
             </h1>
-            <a asp-controller="PersistedGrant" asp-action="Index" class="btn btn-lg btn-block btn-primary">管理</a>
+            <a asp-controller="PersistedGrant" asp-action="Index" class="btn btn-lg btn-block btn-primary">@T("Common.Management").Text</a>
         </div>
     </div>
 </div>

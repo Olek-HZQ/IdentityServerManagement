@@ -1,7 +1,7 @@
 ﻿@using IdentityServer.Admin.Core.Entities.Enums
 @using IdentityServer.Admin.Core.Extensions
 @using IdentityServer.Admin.Helpers
-@model ClientModel
+@model IdentityServer.Admin.Models.Client.ClientModel
 @{
     var accessTokenType = EnumExtension.ToDictionary<AccessTokenType>().Select(x => new SelectListItem
     {
@@ -11,12 +11,12 @@
 }
 
 <div class="card mt-3">
-    <h5 class="card-header">令牌</h5>
+    <h5 class="card-header">@T("Clients.NavToken").Text</h5>
     <div class="card-body">
         <!--Input - number -->
         <div class="form-group row">
             <label asp-for="IdentityTokenLifetime" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("身份令牌生命周期", "身份令牌 id_token 的生命周期（以秒为单位）（默认为 300 秒/5 分钟）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.IdentityTokenLifetime").Text, T("Clients.IdentityTokenLifetime.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <input type="number" class="form-control" asp-for="IdentityTokenLifetime">
@@ -26,7 +26,7 @@
         <!--Input - number -->
         <div class="form-group row">
             <label asp-for="AccessTokenLifetime" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("访问令牌生命周期 ", "访问令牌 access_token 的生命周期（以秒为单位）（默认为 3600 秒/1 小时）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AccessTokenLifetime").Text, T("Clients.AccessTokenLifetime.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <input type="number" class="form-control" asp-for="AccessTokenLifetime">
@@ -36,7 +36,7 @@
         <!--Select-->
         <div class="form-group row">
             <label asp-for="AccessTokenType" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("访问令牌类型", "指定访问令牌 access_token 是引用令牌还是自包含 JWT 令牌（默认为 Jwt）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AccessTokenType").Text, T("Clients.AccessTokenType.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <select asp-for="AccessTokenType" asp-items="@accessTokenType" class="form-control"></select>
@@ -46,7 +46,7 @@
         <!--Input - number -->
         <div class="form-group row">
             <label asp-for="AuthorizationCodeLifetime" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("授权码生命周期", "授权码的生命周期（以秒为单位）（默认为 300 秒/5 分钟）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AuthorizationCodeLifetime").Text, T("Clients.AuthorizationCodeLifetime.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <input type="number" class="form-control" asp-for="AuthorizationCodeLifetime">
@@ -56,7 +56,7 @@
         <!--Input - number-->
         <div class="form-group row">
             <label asp-for="AbsoluteRefreshTokenLifetime" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("绝对刷新令牌生命周期", "刷新令牌的最长生命周期，以秒为单位。 默认为 2592000 秒/30 天"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AbsoluteRefreshTokenLifetime").Text, T("Clients.AbsoluteRefreshTokenLifetime.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <input type="number" class="form-control" asp-for="AbsoluteRefreshTokenLifetime">
@@ -66,7 +66,7 @@
         <!--Input - number -->
         <div class="form-group row">
             <label asp-for="SlidingRefreshTokenLifetime" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("滚动刷新令牌生命周期 ", "滚动刷新生命周期是多少秒钟刷新令牌。 默认为 1296000 秒/15 天"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.SlidingRefreshTokenLifetime").Text, T("Clients.SlidingRefreshTokenLifetime.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <input type="number" class="form-control" asp-for="SlidingRefreshTokenLifetime">
@@ -76,7 +76,7 @@
         <!--Select-->
         <div class="form-group row">
             <label asp-for="RefreshTokenUsage" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("刷新令牌使用情况", "ReUse 刷新令牌时，令牌句柄将保持不变 OneTime 刷新令牌时将更新令牌句柄"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.RefreshTokenUsage").Text, T("Clients.RefreshTokenUsage.Hint").Text))
             </label>
             <div class="col-sm-9">
                 @*<select asp-for="RefreshTokenUsage" asp-items="@(new SelectList(Model.RefreshTokenUsages,"Id","Text"))" class="form-control single-select"></select>*@
@@ -86,7 +86,7 @@
         <!--Select-->
         <div class="form-group row">
             <label asp-for="RefreshTokenExpiration" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("刷新令牌过期", @"Absolute 绝对刷新令牌将在固定时间点到期（由“绝对刷新令牌生命周期”指定）Sliding 滚动刷新令牌，刷新令牌时生命周期将被更新（按“滚动刷新令牌生命周期”中指定的量）。生命周期不会超过“绝对刷新令牌生命周期”"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.RefreshTokenExpiration").Text, T("Clients.RefreshTokenExpiration.Hint").Text))
             </label>
             <div class="col-sm-9">
                 @*<select asp-for="RefreshTokenExpiration" asp-items="@(new SelectList(Model.RefreshTokenExpirations,"Id","Text"))" class="form-control single-select"></select>*@
@@ -96,18 +96,18 @@
         <!--Select with tags-->
         <div class="form-group row">
             <label asp-for="AllowedCorsOriginsItems" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("允许跨域来源", "如果指定，将由默认 CORS 策略服务实现（In-Memory 和 EF）用于为 JavaScript 客户端构建 CORS 策略"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AllowedCorsOrigins").Text, T("Clients.AllowedCorsOrigins.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <picker id="AllowedCorsOriginsItems" multiple-select="true" min-search-text="2"
                         selected-items="@Model.AllowedCorsOrigins.Select(x=>x.Origin).ToList()"
-                        search-input-placeholder="输入两个以上字符"
-                        selected-items-title="选中项"
-                        search-result-title="搜索结果（点击选择）"
-                        suggested-items-title="建议项"
-                        no-item-selected-title="没有选择项"
-                        show-all-items-title="更多"
-                        item-already-selected-title="已经被选中">
+                        search-input-placeholder="@T("Common.PickerSearchItemPlaceholder").Text"
+                        selected-items-title="@T("Common.PickerSelectedItemsTitle").Text"
+                        search-result-title="@T("Common.PickerSearchResultTitle").Text"
+                        suggested-items-title="@T("Common.PickerSuggestedItemsTitle").Text"
+                        no-item-selected-title="@T("Common.PickerNoItemSelectedTitle").Text"
+                        show-all-items-title="@T("Common.PickerShowAllItemsTitle").Text"
+                        item-already-selected-title="@T("Common.PickerItemAlreadySelectedTitle").Text">
                 </picker>
             </div>
         </div>
@@ -115,7 +115,7 @@
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="UpdateAccessTokenClaimsOnRefresh" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("刷新时更新访问令牌声明", "获取或设置一个值，该值指示是否应在刷新令牌请求上更新访问令牌 access_token（及其声明）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.UpdateAccessTokenClaimsOnRefresh").Text, T("Clients.UpdateAccessTokenClaimsOnRefresh.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -127,7 +127,7 @@
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="IncludeJwtId" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("包括 Jwt 标识", "指定 JWT 访问令牌 access_token 是否应具有嵌入的唯一标识（通过 jti 声明）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.IncludeJwtId").Text, T("Clients.IncludeJwtId.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -139,7 +139,7 @@
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="AlwaysSendClientClaims" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("始终发送客户端声明", "如果设置，将为每个流发送客户端声明。 如果不是，仅用于客户端凭证流（默认为 false）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AlwaysSendClientClaims").Text, T("Clients.AlwaysSendClientClaims.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -151,7 +151,7 @@
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="AlwaysIncludeUserClaimsInIdToken" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("始终在身份令牌中包含用户声明", "指定是否在身份令牌 id_token 中包含用户声明"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AlwaysIncludeUserClaimsInIdToken").Text, T("Clients.AlwaysIncludeUserClaimsInIdToken.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -163,7 +163,7 @@
         <!--Input - text -->
         <div class="form-group row">
             <label asp-for="ClientClaimsPrefix" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("客户端声明前缀", "如果设置，客户端声明类型将以此为前缀。 默认为 client_。 目的是确保它们不会意外地与用户声明冲突"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientClaimsPrefix").Text, T("Clients.ClientClaimsPrefix.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <input type="text" class="form-control" asp-for="ClientClaimsPrefix">
@@ -173,7 +173,7 @@
         <!--Input - text -->
         <div class="form-group row">
             <label asp-for="PairWiseSubjectSalt" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("配对主体盐", "对于此客户端的用户，在配对主体标识生成中使用的盐值"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.PairWiseSubjectSalt").Text, T("Clients.PairWiseSubjectSalt.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <input type="text" class="form-control" asp-for="PairWiseSubjectSalt">
@@ -183,16 +183,11 @@
         <!--Button-->
         <div class="form-group row">
             <label asp-for="Claims" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("声明", "允许客户端的设置声明（将包含在访问令牌 access_token 中）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.Claims").Text, T("Clients.Claims.Hint").Text))
             </label>
             <div class="col-sm-9">
-                <a asp-action="Index" asp-controller="ClientClaim" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary">管理客户端声明</a>
+                <a asp-action="Index" asp-controller="ClientClaim" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary">@T("Clients.ManageClaims").Text</a>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-

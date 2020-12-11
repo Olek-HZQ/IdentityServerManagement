@@ -1,5 +1,5 @@
 ﻿@using IdentityServer.Admin.Helpers
-@model ApiResourceScopeModel
+@model IdentityServer.Admin.Models.ApiResource.ApiResourceScopeModel
 
 <!--Hidden -->
 <input type="hidden" asp-for="ApiResourceId" />
@@ -7,7 +7,7 @@
 <!--Input - text -->
 <div class="form-group row">
     <label asp-for="Scope" class="col-sm-3 col-form-label">
-        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("名称", "API 对应作用域名称"))
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiResourceScope.Fields.Name").Text, T("ApiResourceScope.Fields.Name.Hint").Text))
     </label>
     <div class="col-sm-9">
         <div class="input-group mb-3">

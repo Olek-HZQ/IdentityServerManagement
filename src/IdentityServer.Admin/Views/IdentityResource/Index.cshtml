@@ -1,17 +1,17 @@
 ﻿@using IdentityServer.Admin.Common
 @model IdentityServer.Admin.Core.Dtos.IdentityResource.PagedIdentityResourceDto
 @{
-    ViewBag.Title = "身份资源";
+    ViewBag.Title = T("IdentityResource.PageTitle").Text;
     Layout = "_Layout";
 }
 
 <div class="row">
     <div class="col-12">
-        <h2>身份资源</h2>
+        <h2>@T("IdentityResource.PageTitle").Text</h2>
     </div>
 
     <div class="col-12">
-        <a asp-action="Create" class="btn btn-outline-primary mb-3"><span class="oi oi-plus"></span> 添加身份资源</a>
+        <a asp-action="Create" class="btn btn-outline-primary mb-3"><span class="oi oi-plus"></span> @T("IdentityResource.Add").Text</a>
     </div>
 
     <div class="col-12">
@@ -26,7 +26,7 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th>名称</th>
+                    <th>@T("IdentityResource.Fields.Name").Text</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -34,7 +34,7 @@
                 @foreach (var identity in Model.DataPagedList)
                 {
                     <tr>
-                        <th scope="row"><a class="btn btn-primary" asp-action="Edit" asp-route-id="@identity.Id">编辑</a></th>
+                        <th scope="row"><a class="btn btn-primary" asp-action="Edit" asp-route-id="@identity.Id">@T("Common.Edit").Text</a></th>
                         <td>@identity.Name</td>
                         <td>
                             <a class="btn btn-danger" asp-action="Delete" asp-route-id="@identity.Id"><span class="oi oi-x"></span></a>

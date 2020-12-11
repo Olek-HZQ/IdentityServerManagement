@@ -8,7 +8,7 @@ using IdentityServer.Admin.Core.Entities.Clients;
 using IdentityServer.Admin.Core.Entities.Enums;
 using IdentityServer.Admin.Core.Extensions;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.Client;
 using IdentityServer.Admin.Services.ApiScope;
 using IdentityServer.Admin.Services.Client;
 using IdentityServer.Admin.Services.IdentityResource;

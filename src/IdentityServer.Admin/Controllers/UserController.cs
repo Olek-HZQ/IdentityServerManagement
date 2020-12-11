@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.Users;
 using IdentityServer.Admin.Helpers;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.User;
 using IdentityServer.Admin.Services.Role;
 using IdentityServer.Admin.Services.User;
 using Microsoft.AspNetCore.Mvc.Rendering;

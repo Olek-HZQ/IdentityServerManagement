@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.ApiResource;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.ApiResource;
 using IdentityServer.Admin.Services.ApiResource;
 
 namespace IdentityServer.Admin.Controllers

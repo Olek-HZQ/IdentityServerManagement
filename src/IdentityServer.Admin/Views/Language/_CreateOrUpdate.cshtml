@@ -1,0 +1,64 @@
+﻿@model IdentityServer.Admin.Models.Localization.LanguageModel
+@using IdentityServer.Admin.Helpers
+
+<!--Input - text -->
+<div class="form-group row">
+    <label asp-for="Name" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Languages.Fields.Name").Text, T("Languages.Fields.Name.Hint").Text))
+    </label>
+    <div class="col-sm-9">
+        <input type="text" required class="form-control" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+</div>
+
+<!--Input - text -->
+<div class="form-group row">
+    <label asp-for="LanguageCulture" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Languages.Fields.LanguageCulture").Text, T("Languages.Fields.LanguageCulture.Hint").Text))
+    </label>
+    <div class="col-sm-9">
+        @{
+            var cultures = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures)
+                .OrderBy(x => x.EnglishName)
+                .Select(x => new SelectListItem
+                {
+                    Value = x.IetfLanguageTag,
+                    Text = $"{x.EnglishName}. {x.IetfLanguageTag}"
+                });
+        }
+        <select asp-for="LanguageCulture" asp-items="@cultures" class="form-control"></select>
+    </div>
+</div>
+
+<!--Input - text -->
+@*<div class="form-group row">
+    <label asp-for="UniqueSeoCode" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("SEO代码", "Seo代码"))
+    </label>
+    <div class="col-sm-9">
+        <input type="text" class="form-control" asp-for="UniqueSeoCode">
+    </div>
+</div>*@
+
+<!--Checkbox-->
+<div class="form-group row">
+    <label asp-for="Published" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Languages.Fields.Published").Text, T("Languages.Fields.Published.Hint").Text))
+    </label>
+    <div class="col-sm-9">
+        <toggle-button>
+            <input asp-for="Published" type="checkbox">
+        </toggle-button>
+    </div>
+</div>
+
+<!--Input - number -->
+<div class="form-group row">
+    <label asp-for="DisplayOrder" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Languages.Fields.DisplayOrder").Text, T("Languages.Fields.DisplayOrder.Hint").Text))
+    </label>
+    <div class="col-sm-9">
+        <input type="number" class="form-control" asp-for="DisplayOrder">
+    </div>
+</div>
