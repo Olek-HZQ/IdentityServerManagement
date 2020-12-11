@@ -125,10 +125,6 @@ ClientBin/
 Logs/
 *.DotSettings
 
-appsettings.json
-appsettings.Development.json
-appsettings.Production.json
-
 # RIA/Silverlight projects
 Generated_Code/
 
