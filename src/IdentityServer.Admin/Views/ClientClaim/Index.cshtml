@@ -3,9 +3,9 @@
 @using IdentityServer.Admin.Helpers
 @model IdentityServer.Admin.Models.Client.ClientClaimModel
 @{
-    ViewBag.Title = "Client Claim";
+    ViewBag.Title = T("Clients.ClientClaims.PageTitle").Text;
     Layout = "_Layout";
-    
+
     var pagedClientClaims = ViewBag.PagedClientClaims != null ? (PagedClientClaimDto)ViewBag.PagedClientClaims : new PagedClientClaimDto();
 }
 
@@ -15,16 +15,16 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">客户端</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Edit" asp-route-id="@pagedClientClaims.ClientId">@pagedClientClaims.ClientName</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">客户端声明</li>
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">@T("Client.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Edit" asp-route-id="@pagedClientClaims.ClientId">@T("Clients.Edit").Text - @pagedClientClaims.ClientName</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("Clients.ClientClaims.PageTitle").Text</li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-12">
 
-            <h3>客户端声明</h3>
+            <h3>@T("Clients.ClientClaims.PageTitle").Text</h3>
 
             <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -32,24 +32,24 @@
             <input type="hidden" asp-for="ClientId" />
 
             <div class="card mt-3">
-                <h5 class="card-header">客户端声明</h5>
+                <h5 class="card-header">@T("Clients.ClientClaims.PageTitle").Text</h5>
                 <div class="card-body">
 
                     <!--Select with tags-->
                     <div class="form-group row">
                         <label asp-for="Type" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("声明类型", ""))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientClaim.Type").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <picker id="Type" multiple-select="false" min-search-text="2"
                                     selected-item="@Model.Type" url="@Url.Action("SearchClaims", "ClientClaim")?claim"
-                                    search-input-placeholder="输入两个以上字符"
-                                    selected-items-title="选中项"
-                                    search-result-title="搜索结果（点击选择）"
-                                    suggested-items-title="建议项"
-                                    no-item-selected-title="没有选择项"
-                                    show-all-items-title="更多"
-                                    item-already-selected-title="已经被选中">
+                                    search-input-placeholder="@T("Common.PickerSearchItemPlaceholder").Text"
+                                    selected-items-title="@T("Common.PickerSelectedItemsTitle").Text"
+                                    search-result-title="@T("Common.PickerSearchResultTitle").Text"
+                                    suggested-items-title="@T("Common.PickerSuggestedItemsTitle").Text"
+                                    no-item-selected-title="@T("Common.PickerNoItemSelectedTitle").Text"
+                                    show-all-items-title="@T("Common.PickerShowAllItemsTitle").Text"
+                                    item-already-selected-title="@T("Common.PickerItemAlreadySelectedTitle").Text">
                             </picker>
 
                             <span asp-validation-for="Type" class="text-danger"></span>
@@ -59,7 +59,7 @@
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="Value" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("声明值", ""))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientClaim.Value").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" required class="form-control" asp-for="Value">
@@ -72,7 +72,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" id="client-claims-button" class="btn btn-primary">添加客户端声明</button>
+                            <button type="submit" id="client-claims-button" class="btn btn-primary">@T("Common.Save").Text</button>
                         </div>
                     </div>
                 </div>
@@ -84,14 +84,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card mt-3">
-            <h5 class="card-header">客户端声明</h5>
+            <h5 class="card-header">@T("Clients.ClientClaims.PageTitle").Text</h5>
             <div class="card-body">
                 <div class="row table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>类型</th>
-                                <th>值</th>
+                                <th>@T("Clients.ClientClaim.Type").Text</th>
+                                <th>@T("Clients.ClientClaim.Value").Text</th>
                                 <th></th>
                             </tr>
                         </thead>

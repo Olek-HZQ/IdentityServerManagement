@@ -79,7 +79,14 @@
                 @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.RefreshTokenUsage").Text, T("Clients.RefreshTokenUsage.Hint").Text))
             </label>
             <div class="col-sm-9">
-                @*<select asp-for="RefreshTokenUsage" asp-items="@(new SelectList(Model.RefreshTokenUsages,"Id","Text"))" class="form-control single-select"></select>*@
+                @{
+                    var refreshTokenUsageList = EnumExtension.ToDictionary<TokenUsage>().Select(x => new SelectListItem
+                    {
+                        Value=x.Key.ToString(),
+                        Text=x.Value
+                    });
+                }
+                <select asp-for="RefreshTokenUsage" asp-items="@refreshTokenUsageList" class="form-control"></select>
             </div>
         </div>
 
@@ -89,7 +96,14 @@
                 @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.RefreshTokenExpiration").Text, T("Clients.RefreshTokenExpiration.Hint").Text))
             </label>
             <div class="col-sm-9">
-                @*<select asp-for="RefreshTokenExpiration" asp-items="@(new SelectList(Model.RefreshTokenExpirations,"Id","Text"))" class="form-control single-select"></select>*@
+                @{
+                    var refreshTokenExpirationList = EnumExtension.ToDictionary<TokenExpiration>().Select(x => new SelectListItem
+                    {
+                        Value = x.Key.ToString(),
+                        Text = x.Value
+                    });
+                }
+                <select asp-for="RefreshTokenExpiration" asp-items="@refreshTokenExpirationList" class="form-control"></select>
             </div>
         </div>
 
