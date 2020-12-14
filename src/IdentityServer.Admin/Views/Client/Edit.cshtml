@@ -11,7 +11,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">@T("Client.PageTitle").Text</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">@T("Clients.Edit").Text</li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("Clients.Edit").Text - @Model.ClientName</li>
                 </ol>
             </nav>
         </div>

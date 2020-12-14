@@ -10,9 +10,12 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-controller="ApiScope" asp-action="Index">@T("ApiScope.PageTitle").Text</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@T("ApiScope.Edit").Text</li>
+                <li class="breadcrumb-item active" aria-current="page">@T("ApiScope.Edit").Text - @Model.Name</li>
             </ol>
         </nav>
+    </div>
+    <div class="col-12">
+        <h2>@T("ApiScope.Edit").Text</h2>
     </div>
 </div>
 
