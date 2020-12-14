@@ -89,22 +89,22 @@ namespace IdentityServer.Admin.Services.Localization
         public async Task<string> GetResourceAsync(string resourceKey, bool logIfNotFound = true, string defaultValue = "")
         {
             int languageId = _workContext.WorkingLanguage.Id;
-            //string result;
-            //string key = string.Format(LocalizationDefaults.LocaleStringResourcesAllCacheKey, languageId);
-            //if (_memoryCache.TryGetValue(key, out Dictionary<string, KeyValuePair<int, string>> resources))
-            //{
-            //    var cachedResource = resources.FirstOrDefault(x => x.Key == resourceKey);
-            //    result = cachedResource.Value.Value;
-            //}
-            //else
-            //{
-            //    var cachedAllResourceValues = await GetAllResourceValuesAsync(languageId); // 缓存不存在或者已过期，重新添加
+            string result;
+            string key = string.Format(LocalizationDefaults.LocaleStringResourcesAllCacheKey, languageId);
+            if (_memoryCache.TryGetValue(key, out Dictionary<string, KeyValuePair<int, string>> resources))
+            {
+                var cachedResource = resources.FirstOrDefault(x => x.Key == resourceKey);
+                result = cachedResource.Value.Value;
+            }
+            else
+            {
+                var cachedAllResourceValues = await GetAllResourceValuesAsync(languageId); // 缓存不存在或者已过期，重新添加
 
-            //    var cachedResource = cachedAllResourceValues.FirstOrDefault(x => x.Key == resourceKey);
-            //    result = cachedResource.Value.Value;
-            //}
+                var cachedResource = cachedAllResourceValues.FirstOrDefault(x => x.Key == resourceKey);
+                result = cachedResource.Value.Value;
+            }
 
-            var result = (await _repository.GetResourceAsync(resourceKey, languageId))?.ResourceValue;
+            //var result = (await _repository.GetResourceAsync(resourceKey, languageId))?.ResourceValue;
 
             if (!string.IsNullOrEmpty(result))
                 return result;

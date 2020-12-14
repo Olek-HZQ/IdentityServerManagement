@@ -43,7 +43,7 @@ namespace IdentityServer.AuthIdentity
         /// <param name="services"></param>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var mvcBuilder = services.AddControllersWithViews();
+            var mvcBuilder = services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             var dbConnectionConfig = Configuration.GetSection(nameof(DbConnectionConfiguration)).Get<DbConnectionConfiguration>();
             services.AddSingleton(dbConnectionConfig);

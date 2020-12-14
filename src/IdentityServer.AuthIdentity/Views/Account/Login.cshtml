@@ -2,7 +2,7 @@
 
 <div>
     <div>
-        <h1>登录</h1>
+        <h1>Login</h1>
     </div>
 
     @await Html.PartialAsync("_ValidationSummary")
@@ -11,7 +11,7 @@
 
         <div class="col-sm-6">
             <div class="card mt-3">
-                <h5 class="card-header">本地登录</h5>
+                <h5 class="card-header">Local login</h5>
                 <div class="card-body">
                     <form asp-route="Login">
                         <input type="hidden" asp-for="ReturnUrl" />
@@ -25,7 +25,7 @@
                                                 <i class="fa fa-user"></i>
                                             </span>
                                         </div>
-                                        <input class="form-control" placeholder="用户名" asp-for="Username" aria-label="Username" aria-describedby="input-username" autofocus>
+                                        <input class="form-control" placeholder="user name" asp-for="Username" aria-label="Username" aria-describedby="input-username" autofocus>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                                                 <span class="oi oi-lock-locked" title="Lock" aria-hidden="true"></span>
                                             </span>
                                         </div>
-                                        <input type="password" class="form-control" placeholder="密码" aria-label="Password" aria-describedby="input-password" asp-for="Password" autocomplete="off">
+                                        <input type="password" class="form-control" placeholder="password" aria-label="Password" aria-describedby="input-password" asp-for="Password" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-9">
                                         <div>
-                                            记住我的登录信息
+                                            Remember me
                                         </div>
                                         <toggle-button>
                                             <input asp-for="RememberLogin" type="checkbox">
@@ -58,14 +58,14 @@
                             }
                             <div class="form-group row">
                                 <div class="col-sm-9">
-                                    默认生成用户名：olek  <br/>默认生成密码：IdentityServer4Pwd
+                                    Default user: olek  <br/>Default password: IdentityServer4Pwd
                                 </div>
                             </div>
                             <!--Button-->
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    <button class="btn btn-primary" name="button" value="login">登录</button>
-                                    <button class="btn btn-secondary" name="button" value="cancel">取消</button>
+                                    <button class="btn btn-primary" name="button" value="login">Login</button>
+                                    <button class="btn btn-secondary" name="button" value="cancel">Cancel</button>
                                     @*<a asp-action="ForgotPassword" asp-controller="Account" class="btn btn-info" value="forgot">忘记密码</a>
                                     <a asp-action="Register" asp-controller="Account" class="btn btn-dark" value="forgot">注册</a>*@
                                 </div>
