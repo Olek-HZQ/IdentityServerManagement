@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 using IdentityServer.Admin.SeedData;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 
@@ -45,6 +46,11 @@ namespace IdentityServer.Admin
                 .CaptureStartupErrors(false)
                 .ConfigureAppConfiguration(x => x.AddConfiguration(configuration))
                 .UseStartup<Startup>()
+                .ConfigureLogging(builder =>
+                {
+                    builder.ClearProviders();
+                    builder.AddSerilog();
+                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .Build();
 
