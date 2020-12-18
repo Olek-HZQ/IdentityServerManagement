@@ -4,9 +4,9 @@
 @using IdentityServer.Admin.Core.Entities.Enums
 @using IdentityServer.Admin.Core.Extensions
 @using IdentityServer.Admin.Helpers
-@model ClientSecretModel
+@model IdentityServer.Admin.Models.Client.ClientSecretModel
 @{
-    ViewBag.Title = "客户端密钥";
+    ViewBag.Title = T("Clients.ClientSecret.PageTitle").Text;
     Layout = "_Layout";
     var pagedClientSecrets = ViewBag.PagedClientSecrets != null ? (PagedClientSecretDto)ViewBag.PagedClientSecrets : new PagedClientSecretDto();
     var availableTypeList = ClientConstant.GetSecretTypes().Select(x => new SelectListItem
@@ -30,15 +30,15 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">客户端</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Edit" asp-route-id="@Model.ClientId">@Model.ClientName</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">客户端密钥</li>
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">@T("Client.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Edit" asp-route-id="@Model.ClientId">@T("Clients.Edit").Text - @Model.ClientName</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("Clients.ClientSecret.PageTitle").Text</li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-12">
-            <h3>客户端密钥</h3>
+            <h3>@T("Clients.ClientSecret.PageTitle").Text</h3>
 
             <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -49,12 +49,12 @@
             <input type="hidden" asp-for="ClientName" />
 
             <div class="card mt-3">
-                <h5 class="card-header">客户端密钥</h5>
+                <h5 class="card-header">@T("Clients.ClientSecret.PageTitle").Text</h5>
                 <div class="card-body">
                     <!--Select-->
                     <div class="form-group row">
                         <label asp-for="Type" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("密钥类型", ""))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientSecret.Type").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <select asp-for="Type" asp-items="@availableTypeList" class="form-control"></select>
@@ -64,7 +64,7 @@
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="Value" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("密钥值", ""))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientSecret.Value").Text, ""))
                         </label>
                         <div class="col-sm-9">
 
@@ -81,14 +81,14 @@
                     <!--Select-->
                     <div class="form-group row">
                         <label asp-for="HashType" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("哈希类型", ""))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientSecret.HashType").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <select asp-for="HashType" asp-items="@availableHashTypeList" class="form-control"></select>
 
                             <div class="alert alert-warning" role="alert">
-                                <span class="sr-only">Localizer["InfoTitle"]</span>
-                                哈希类型仅适用于 SharedSecret 类型
+                                <span class="sr-only">@T("Clients.ClientSecret.InfoTitle").Text</span>
+                                @T("Clients.ClientSecret.InfoDescription").Text
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                     <!--Date Picker-->
                     <div class="form-group row">
                         <label asp-for="Expiration" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("到期", ""))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientSecret.Expiration").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <div class="datepicker input-group date">
@@ -111,7 +111,7 @@
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="Description" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("描述", ""))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientSecret.Description").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" autocomplete="off" class="form-control" asp-for="Description">
@@ -123,7 +123,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary">添加客户端密钥</button>
+                            <button type="submit" class="btn btn-primary">@T("Common.Save").Text</button>
                         </div>
                     </div>
                 </div>
@@ -135,18 +135,17 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card mt-3">
-            <h5 class="card-header">客户端密钥</h5>
+            <h5 class="card-header">@T("Clients.ClientSecret.PageTitle").Text</h5>
             <div class="card-body">
                 <div class="row table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>类型</th>
-                                <th>值</th>
-                                <th>描述</th>
-                                <th>到期时间</th>
-                                <th>创建时间</th>
+                                <th>@T("Clients.ClientSecret.Type").Text</th>
+                                <th>@T("Clients.ClientSecret.Value").Text</th>
+                                <th>@T("Clients.ClientSecret.Description").Text</th>
+                                <th>@T("Clients.ClientSecret.Expiration").Text</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -159,7 +158,6 @@
                                     <td><button class="secret-value-button btn btn-outline-primary" data-secret-value="@clientSecret.Value"><i class="fa fa-eye"></i></button></td>
                                     <td>@clientSecret.Description</td>
                                     <td>@(clientSecret.Expiration.HasValue ? clientSecret.Expiration.Value.ToString("yyyy-MM-dd") : string.Empty)</td>
-                                    <td>@clientSecret.Created.Date.ToShortDateString()</td>
                                 </tr>
                             }
                         </tbody>
@@ -176,7 +174,7 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">密钥值</h5>
+                                <h5 class="modal-title" id="exampleModalLabel"></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

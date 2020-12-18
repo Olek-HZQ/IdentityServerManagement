@@ -1,12 +1,12 @@
-﻿@model ClientModel
+﻿@model IdentityServer.Admin.Models.Client.ClientModel
 
 <div class="row client">
 	<div class="col-md-12 action-butons">
         @* ReSharper disable once UnknownCssClass *@
-        <button class="client-save-button btn btn-primary">保存客户端</button>
+        <button class="client-save-button btn btn-primary">@T("Common.Save").Text</button>
         @if (Model.Id != 0)
 		{
-			<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">删除客户端</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">@T("Common.Delete").Text</a>
 		}
 	</div>
 </div>

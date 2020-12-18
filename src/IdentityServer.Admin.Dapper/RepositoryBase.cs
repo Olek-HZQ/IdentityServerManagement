@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
@@ -6,6 +7,8 @@ using Dapper.Contrib.Extensions;
 using IdentityServer.Admin.Core.Configuration;
 using IdentityServer.Admin.Core.Data;
 using IdentityServer.Admin.Core.Entities.Enums;
+using Newtonsoft.Json;
+using Serilog;
 
 namespace IdentityServer.Admin.Dapper
 {
@@ -55,6 +58,31 @@ namespace IdentityServer.Admin.Dapper
             try
             {
                 var result = await session.Connection.GetAsync<T>(id, transaction, commandTimeout);
+
+                transaction?.Commit();
+
+                return result;
+            }
+            finally
+            {
+                session.Dispose();
+            }
+        }
+
+        public virtual async Task<IEnumerable<T>> GetAllAsync(bool useTransaction = false, int? commandTimeout = null)
+        {
+            IDbSession session = DbSession;
+
+            IDbTransaction transaction = null;
+            if (useTransaction)
+            {
+                session.BeginTrans();
+                transaction = session.Transaction;
+            }
+
+            try
+            {
+                var result = await session.Connection.GetAllAsync<T>(transaction, commandTimeout);
 
                 transaction?.Commit();
 
@@ -139,9 +167,11 @@ namespace IdentityServer.Admin.Dapper
 
                 return result;
             }
-            catch
+            catch(Exception ex)
             {
                 transaction?.Rollback();
+
+                Log.Error($"RepositoryBase >> InsertAsync Error: {ex.Message}, Entity: {JsonConvert.SerializeObject(entity)}");
 
                 return 0;
             }
@@ -170,9 +200,11 @@ namespace IdentityServer.Admin.Dapper
 
                 return result;
             }
-            catch
+            catch(Exception ex)
             {
                 transaction?.Rollback();
+
+                Log.Error($"RepositoryBase >> UpdateAsync Error: {ex.Message}, Entity: {JsonConvert.SerializeObject(entity)}");
 
                 return false;
             }
@@ -201,9 +233,11 @@ namespace IdentityServer.Admin.Dapper
 
                 return result;
             }
-            catch
+            catch(Exception ex)
             {
                 transaction?.Rollback();
+
+                Log.Error($"RepositoryBase >> DeleteAsync Error: {ex.Message}, Entity: {JsonConvert.SerializeObject(entity)}");
 
                 return false;
             }
@@ -233,9 +267,11 @@ namespace IdentityServer.Admin.Dapper
 
                 return result;
             }
-            catch
+            catch(Exception ex)
             {
                 transaction?.Rollback();
+
+                Log.Error($"RepositoryBase >> ExecuteAsync Error: {ex.Message}");
 
                 return 0;
             }

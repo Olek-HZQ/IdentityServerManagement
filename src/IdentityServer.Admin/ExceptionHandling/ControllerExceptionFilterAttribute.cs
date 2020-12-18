@@ -32,7 +32,7 @@ namespace IdentityServer.Admin.ExceptionHandling
             ClearNotification(tempData);
         }
 
-        private void ClearNotification(ITempDataDictionary tempData)
+        private static void ClearNotification(ITempDataDictionary tempData)
         {
             tempData.Remove(NotificationHelper.NotificationKey);
         }

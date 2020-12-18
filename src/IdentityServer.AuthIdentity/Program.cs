@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Microsoft.AspNetCore;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 
@@ -40,6 +41,11 @@ namespace IdentityServer.AuthIdentity
                 .CaptureStartupErrors(false)
                 .ConfigureAppConfiguration(x => x.AddConfiguration(configuration))
                 .UseStartup<Startup>()
+                .ConfigureLogging(builder =>
+                {
+                    builder.ClearProviders();
+                    builder.AddSerilog();
+                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .Build();
 

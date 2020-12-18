@@ -2,18 +2,21 @@
 using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.ApiResource;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.ApiResource;
 using IdentityServer.Admin.Services.ApiResource;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Controllers
 {
     public class ApiResourcePropertyController : BaseController
     {
         private readonly IApiResourcePropertyService _apiResourcePropertyService;
+        private readonly ILocalizationService _localizationService;
 
-        public ApiResourcePropertyController(IApiResourcePropertyService apiResourcePropertyService)
+        public ApiResourcePropertyController(IApiResourcePropertyService apiResourcePropertyService, ILocalizationService localizationService)
         {
             _apiResourcePropertyService = apiResourcePropertyService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(int apiResourceId, int? page)
@@ -42,7 +45,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (insertedResult > 0)
             {
-                SuccessNotification("Api 资源属性添加成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("ApiResourceProperty.Added"));
             }
 
             return RedirectToAction(nameof(Index), new { apiResourceId = model.ApiResourceId });
@@ -76,7 +79,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification("Api 资源属性删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("ApiResourceProperty.Deleted"));
                 return RedirectToAction(nameof(Index), new { apiResourceId = model.ApiResourceId });
             }
 

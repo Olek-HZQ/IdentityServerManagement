@@ -1,7 +1,7 @@
-﻿@model UserModel
+﻿@model IdentityServer.Admin.Models.User.UserModel
 
 @{
-    ViewBag.Title = "添加用户";
+    ViewBag.Title = T("Users.Add").Text;
     Layout = "_Layout";
 }
 
@@ -9,14 +9,14 @@
     <div class="col-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-action="Index">用户</a></li>
-                <li class="breadcrumb-item active" aria-current="page">添加用户</li>
+                <li class="breadcrumb-item"><a asp-action="Index">@T("Users.PageTitle").Text</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("Users.Add").Text</li>
             </ol>
         </nav>
     </div>
 
     <div class="col-12">
-        <h2>添加用户</h2>
+        <h2>@T("Users.Add").Text</h2>
     </div>
 </div>
 
@@ -25,7 +25,7 @@
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="card mt-3">
-        <h5 class="card-header">添加用户</h5>
+        <h5 class="card-header">@T("Users.Add").Text</h5>
         <div class="card-body">
 
             <div class="row">
@@ -38,7 +38,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary">保存用户</button>
+                            <button type="submit" class="btn btn-primary">@T("Common.Save").Text</button>
                         </div>
                     </div>
                 </div>

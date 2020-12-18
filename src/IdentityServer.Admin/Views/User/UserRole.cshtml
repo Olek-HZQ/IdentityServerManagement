@@ -1,10 +1,10 @@
 ﻿@using IdentityServer.Admin.Common
 @using IdentityServer.Admin.Core.Dtos.User
 @using IdentityServer.Admin.Helpers
-@model UserRoleModel
+@model IdentityServer.Admin.Models.User.UserRoleModel
 
 @{
-    ViewBag.Title = "用户角色";
+    ViewBag.Title = T("Users.UserRoles.PageTitle").Text;
     Layout = "_Layout";
 
     var pagedUsers = ViewBag.PagedUserRoles != null ? (PagedUserRoleDto)ViewBag.PagedUserRoles : new PagedUserRoleDto();
@@ -17,15 +17,15 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-action="Index">用户</a></li>
-                    <li class="breadcrumb-item"><a asp-action="Edit" asp-route-id="@Model.UserId">@Model.UserName</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">用户角色</li>
+                    <li class="breadcrumb-item"><a asp-action="Index">@T("Users.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Edit" asp-route-id="@Model.UserId">@T("Users.Edit").Text - @Model.UserName</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("Users.UserRoles.PageTitle").Text</li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-12">
-            <h3>用户角色</h3>
+            <h3>@T("Users.UserRoles.PageTitle").Text</h3>
 
             <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -33,13 +33,13 @@
             <input type="hidden" asp-for="UserId" />
 
             <div class="card mt-3">
-                <h5 class="card-header">用户角色</h5>
+                <h5 class="card-header">@T("Users.UserRoles.PageTitle").Text</h5>
                 <div class="card-body">
 
                     <!--Select-->
                     <div class="form-group row">
                         <label asp-for="RoleId" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("角色", "角色"))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Roles.Name").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <select asp-for="RoleId" asp-items="@Model.AvailableRoles" class="form-control"></select>
@@ -51,7 +51,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary">添加角色</button>
+                            <button type="submit" class="btn btn-primary">@T("Common.Save").Text</button>
                         </div>
                     </div>
                 </div>
@@ -64,15 +64,15 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card mt-3">
-            <h5 class="card-header">角色</h5>
+            <h5 class="card-header">@T("Roles.PageTitle").Text</h5>
             <div class="card-body">
 
                 <div class="row table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>用户</th>
-                                <th>名称</th>
+                                <th>@T("Users.UserRoles.UserName").Text</th>
+                                <th>@T("Users.UserRoles.RoleName").Text</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -82,7 +82,7 @@
                                 <tr>
                                     <td>@role.UserName</td>
                                     <td>@role.RoleName</td>
-                                    <td><a asp-action="DeleteUserRole" asp-route-UserId="@Model.UserId" asp-route-roleId="@role.RoleId" class="btn btn-danger">删除</a></td>
+                                    <td><a asp-action="DeleteUserRole" asp-route-UserId="@Model.UserId" asp-route-roleId="@role.RoleId" class="btn btn-danger">@T("Common.Delete").Text</a></td>
                                 </tr>
                             }
                         </tbody>

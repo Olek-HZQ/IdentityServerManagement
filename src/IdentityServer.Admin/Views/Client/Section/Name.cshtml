@@ -1,15 +1,15 @@
 ﻿@using IdentityServer.Admin.Core.Entities.Enums
-@model ClientModel
+@model IdentityServer.Admin.Models.Client.ClientModel
 @using IdentityServer.Admin.Helpers
 
 <div class="card mt-3">
-    <h5 class="card-header">名称</h5>
+    <h5 class="card-header">@T("Clients.NavName").Text</h5>
     <div class="card-body">
 
         <!--Input - text -->
         <div class="form-group row">
             <label asp-for="ClientId" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("客户端标识", "客户端的唯一标识"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientId").Text, T("Clients.ClientId.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <input type="text" required class="form-control" asp-for="ClientId">
@@ -20,7 +20,7 @@
         <!--Input - text -->
         <div class="form-group row">
             <label asp-for="ClientName" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("客户端名称", "客户端显示名称（用于记录和同意屏幕）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientName").Text, T("Clients.ClientName.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <input type="text" required class="form-control" asp-for="ClientName">
@@ -37,7 +37,7 @@
                             <input type="radio" asp-for="ClientType" checked="checked" value="@((int)ClientType.Empty)" />
                             <img src="~/images/icons/empty-client.png" alt="Empty" />
                             <br />
-                            <b>空 - 默认</b>
+                            <b>@T("Clients.TitleEmpty").Text</b>
                         </label>
                     </div>
                 </div>
@@ -48,8 +48,8 @@
                             <input type="radio" asp-for="ClientType" value="@((int)ClientType.Spa)" />
                             <img src="~/images/icons/spa-client.png" alt="Web Spa" />
                             <br />
-                            <b>单页应用程序 - Javascript</b>
-                            <b>Authorization Code Flow with PKCE</b>
+                            <b>@T("Clients.TitleSpa").Text</b>
+                            <b>@T("Clients.TitleCode").Text</b>
                         </label>
                     </div>
                 </div>
@@ -60,8 +60,8 @@
                             <input type="radio" asp-for="ClientType" value="@((int)ClientType.Web)" />
                             <img src="~/images/icons/web-client.png" alt="Web Hybrid" />
                             <br />
-                            <b style="font-size: 1rem">Web 应用程序 - 服务器端</b>
-                            <b>Authorization Code Flow with PKCE</b>
+                            <b style="font-size: 1rem">@T("Clients.TitleWebHybrid").Text</b>
+                            <b>@T("Clients.TitleCode").Text</b>
                         </label>
                     </div>
                 </div>
@@ -74,8 +74,8 @@
                             <input type="radio" asp-for="ClientType" value="@((int)ClientType.Device)" />
                             <img src="~/images/icons/device-client.png" alt="Device" />
                             <br />
-                            <b>电视和限制输入设备应用程序</b>
-                            <b>设备流程</b>
+                            <b>@T("Clients.TitleDevice").Text</b>
+                            <b>@T("Clients.TitleDeviceFlow").Text</b>
                         </label>
                     </div>
                 </div>
@@ -86,8 +86,8 @@
                             <input type="radio" asp-for="ClientType" value="@((int) ClientType.Native)" />
                             <img src="~/images/icons/native-client.png" alt="Native" />
                             <br />
-                            <b>原生应用程序 - 移动/桌面</b>
-                            <b>Authorization Code Flow with PKCE</b>
+                            <b>@T("Clients.TitleNative").Text</b>
+                            <b>@T("Clients.TitleCode").Text</b>
                         </label>
                     </div>
                 </div>
@@ -98,8 +98,8 @@
                             <input type="radio" asp-for="ClientType" value="@((int)ClientType.Machine)" />
                             <img src="~/images/icons/server-client.png" alt="Machine" />
                             <br />
-                            <b>机械/机器人</b>
-                            <b>资源所有者密码和客户端凭据流</b>
+                            <b>@T("Clients.TitleMachine").Text</b>
+                            <b>@T("Clients.TitlePasswordAndClient").Text</b>
                         </label>
                     </div>
                 </div>
@@ -107,8 +107,3 @@
         }
     </div>
 </div>
-
-
-
-
-

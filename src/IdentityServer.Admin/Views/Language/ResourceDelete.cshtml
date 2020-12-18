@@ -1,0 +1,55 @@
+﻿@using IdentityServer.Admin.Helpers
+@model IdentityServer.Admin.Models.Localization.LocaleStringResourceModel
+@{
+    ViewBag.Title = T("Languages.Resources.Delete").Text;
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Language" asp-action="Resources" asp-route-languageId="@Model.LanguageId">T("Languages.Resources").Text</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Language" asp-action="ResourceEdit" asp-route-id="@Model.Id">@Model.ResourceName</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("Languages.Resources.Delete").Text</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<form asp-action="ResourceDelete" method="post" id="language-form">
+
+    <!--Hidden -->
+    <input type="hidden" asp-for="Id" />
+
+    <!--Hidden -->
+    <input type="hidden" asp-for="LanguageId" />
+
+    <!--Hidden -->
+    <input type="hidden" asp-for="ResourceName" />
+
+    <div class="card mt-3">
+        <h5 class="card-header">@T("Languages.Resources.Delete").Text</h5>
+        <div class="card-body">
+
+            <!--Input - text -->
+            <div class="form-group row">
+                <label asp-for="ResourceName" class="col-sm-3 col-form-label">
+                    @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Languages.Resources.Fields.Name").Text, T("Languages.Resources.Fields.Name.Hint").Text))
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" disabled="disabled" asp-for="ResourceName">
+                </div>
+            </div>
+
+            <!--Button-->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">
+                </label>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-danger"> @T("Common.Delete")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

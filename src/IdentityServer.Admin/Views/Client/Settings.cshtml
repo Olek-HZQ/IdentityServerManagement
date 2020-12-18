@@ -1,18 +1,17 @@
-﻿@model ClientModel
+﻿@model IdentityServer.Admin.Models.Client.ClientModel
 
 <div class="row">
     <div class="col-md-12">
-        <h3>设置</h3>
         <nav>
             <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-name-tab" data-toggle="tab" href="#nav-name" role="tab" aria-controls="nav-name" aria-selected="true">名称</a>
+                <a class="nav-item nav-link active" id="nav-name-tab" data-toggle="tab" href="#nav-name" role="tab" aria-controls="nav-name" aria-selected="true">@T("Clients.NavName").Text</a>
                 @if (Model.Id != 0)
                 {
-                    <a class="nav-item nav-link" id="nav-basics-tab" data-toggle="tab" href="#nav-basics" role="tab" aria-controls="nav-basics" aria-selected="false">基本</a>
-                    <a class="nav-item nav-link" id="nav-authentication-tab" data-toggle="tab" href="#nav-authentication" role="tab" aria-controls="nav-authentication" aria-selected="false">认证/注销</a>
-                    <a class="nav-item nav-link" id="nav-token-tab" data-toggle="tab" href="#nav-token" role="tab" aria-controls="nav-token" aria-selected="false">令牌</a>
-                    <a class="nav-item nav-link" id="nav-consent-tab" data-toggle="tab" href="#nav-consent" role="tab" aria-controls="nav-consent" aria-selected="false">同意屏幕</a>
-                    <a class="nav-item nav-link" id="nav-deviceflow-tab" data-toggle="tab" href="#nav-deviceflow" role="tab" aria-controls="nav-deviceflow" aria-selected="false">设备流程</a>
+                    <a class="nav-item nav-link" id="nav-basics-tab" data-toggle="tab" href="#nav-basics" role="tab" aria-controls="nav-basics" aria-selected="false">@T("Clients.NavBasic").Text</a>
+                    <a class="nav-item nav-link" id="nav-authentication-tab" data-toggle="tab" href="#nav-authentication" role="tab" aria-controls="nav-authentication" aria-selected="false">@T("Clients.NavAuthentication").Text</a>
+                    <a class="nav-item nav-link" id="nav-token-tab" data-toggle="tab" href="#nav-token" role="tab" aria-controls="nav-token" aria-selected="false">@T("Clients.NavToken").Text</a>
+                    <a class="nav-item nav-link" id="nav-consent-tab" data-toggle="tab" href="#nav-consent" role="tab" aria-controls="nav-consent" aria-selected="false">@T("Clients.NavConsent").Text</a>
+                    <a class="nav-item nav-link" id="nav-deviceflow-tab" data-toggle="tab" href="#nav-deviceflow" role="tab" aria-controls="nav-deviceflow" aria-selected="false">@T("Clients.NavDeviceFlow").Text</a>
                 }
             </div>
         </nav>

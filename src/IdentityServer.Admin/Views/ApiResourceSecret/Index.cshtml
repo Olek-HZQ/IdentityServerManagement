@@ -1,9 +1,9 @@
 ﻿@using IdentityServer.Admin.Common
 @using IdentityServer.Admin.Core.Dtos.ApiResource
-@model ApiResourceSecretModel
+@model IdentityServer.Admin.Models.ApiResource.ApiResourceSecretModel
 
 @{
-    ViewBag.Title = "Api 资源密钥";
+    ViewBag.Title = T("ApiResourceSecret.PageTitle").Text;
     Layout = "_Layout";
 
     var pagedApiResourceSecret = ViewBag.PagedApiResourceSecret != null ? (PagedApiResourceSecretDto)ViewBag.PagedApiResourceSecret : new PagedApiResourceSecretDto();
@@ -15,9 +15,9 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">Api 资源</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Edit" asp-route-id="@Model.ApiResourceId">@Model.ApiResourceName</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Api 资源密钥</li>
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">@T("ApiResource.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Edit" asp-route-id="@Model.ApiResourceId">@T("ApiResource.Edit").Text - @Model.ApiResourceName</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("ApiResourceSecret.PageTitle").Text</li>
                 </ol>
             </nav>
         </div>
@@ -27,9 +27,8 @@
         </div>
 
         <div class="col-md-12">
-            <h3>Api 资源密钥</h3>
             <div class="card mt-3">
-                <h5 class="card-header">Api 资源密钥</h5>
+                <h5 class="card-header">@T("ApiResourceSecret.PageTitle").Text</h5>
                 <div class="card-body">
                     @await Html.PartialAsync("_CreateOrUpdate", Model)
                     <!--Button-->
@@ -37,7 +36,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary">添加Api 资源密钥</button>
+                            <button type="submit" class="btn btn-primary">@T("Common.Save").Text</button>
                         </div>
                     </div>
                 </div>
@@ -49,18 +48,18 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card mt-3">
-            <h5 class="card-header">Api 资源密钥</h5>
+            <h5 class="card-header">@T("ApiResourceSecret.PageTitle").Text</h5>
             <div class="card-body">
 
                 <div class="row table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>类型</th>
-                                <th>值</th>
-                                <th>描述</th>
-                                <th>到期</th>
-                                <th>创建</th>
+                                <th>@T("ApiResourceSecret.Type").Text</th>
+                                <th>@T("ApiResourceSecret.Value").Text</th>
+                                <th>@T("ApiResourceSecret.HashType").Text</th>
+                                <th>@T("ApiResourceSecret.Expiration").Text</th>
+                                <th>@T("ApiResourceSecret.Description").Text</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -92,7 +91,7 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">加密后的密钥值</h5>
+                                <h5 class="modal-title" id="exampleModalLabel"></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

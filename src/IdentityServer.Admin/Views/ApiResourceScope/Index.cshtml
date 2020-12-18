@@ -1,13 +1,17 @@
-﻿@using IdentityServer.Admin.Common
+﻿@using IdentityServer.Admin.Core.Constants
 @using IdentityServer.Admin.Core.Dtos.ApiResource
-@model ApiResourceScopeModel
+@using IdentityServer.Admin.Helpers
+@model IdentityServer.Admin.Models.ApiResource.ApiResourceScopeModel
 
 @{
-    ViewBag.Title = "Api 资源作用域";
+    ViewBag.Title = T("ApiResourceScope.PageTitle").Text;
     Layout = "_Layout";
-
     var pagedApiResourceScope = ViewBag.PagedApiResourceScope != null ? (PagedApiResourceScopeDto)ViewBag.PagedApiResourceScope : new PagedApiResourceScopeDto();
 
+    int currentPage = PagerHelper.GetCurrentPage(Context.Request.Query["page"]);
+    int totalPage = PagerHelper.GetTotalPages(pagedApiResourceScope.PageSize, pagedApiResourceScope.TotalCount);
+    int minPage = PagerHelper.GetMinPageToRender(PageConstant.MaxPages, totalPage, currentPage);
+    int maxPage = PagerHelper.GetMaxPageToRender(PageConstant.MaxPages, totalPage, currentPage);
 }
 
 <form asp-controller="ApiResourceScope" asp-action="Create" Method="post">
@@ -16,9 +20,9 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">Api 资源</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Edit" asp-route-id="@Model.ApiResourceId">@Model.ApiResourceName</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Api 资源作用域</li>
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Index">@T("ApiResource.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="ApiResource" asp-action="Edit" asp-route-id="@Model.ApiResourceId">@T("ApiResource.Edit").Text - @Model.ApiResourceName</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("ApiResourceScope.PageTitle").Text</li>
                 </ol>
             </nav>
         </div>
@@ -28,9 +32,8 @@
         </div>
 
         <div class="col-md-12">
-            <h3>Api 资源作用域</h3>
             <div class="card mt-3">
-                <h5 class="card-header">Api 资源作用域</h5>
+                <h5 class="card-header">@T("ApiResourceScope.PageTitle").Text</h5>
                 <div class="card-body">
                     @await Html.PartialAsync("_CreateOrUpdate", Model)
                     <!--Button-->
@@ -38,7 +41,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary">添加 Api 资源作用域</button>
+                            <button type="submit" class="btn btn-primary">@T("Common.Save").Text</button>
                         </div>
                     </div>
                 </div>
@@ -50,14 +53,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card mt-3">
-            <h5 class="card-header">Api 资源作用域</h5>
+            <h5 class="card-header">@T("ApiResourceScope.PageTitle").Text</h5>
             <div class="card-body">
 
                 <div class="row table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>名称</th>
+                                <th>@T("ApiResourceScope.Fields.Name").Text</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -76,7 +79,63 @@
 
                 <div class="row">
                     <div class="col-12">
-                        @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = pagedApiResourceScope.PageSize, TotalCount = pagedApiResourceScope.TotalCount })
+                        @if (currentPage <= maxPage)
+                        {
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="Index" asp-route-page="1" asp-route-apiResourceId="@Model.ApiResourceId" asp-route-search="@ViewBag.Search">
+                                            @T("Pager.First").Text
+                                        </a>
+                                    </li>
+
+                                    @if (PagerHelper.ShowLeftPagerButton(PageConstant.MaxPages, totalPage, currentPage))
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="@(minPage - 1)" asp-route-apiResourceId="@Model.ApiResourceId" asp-route-search="@ViewBag.Search">
+                                                ...
+                                            </a>
+                                        </li>
+                                    }
+
+                                    @for (int i = minPage; i <= maxPage; i++)
+                                    {
+                                        if (PagerHelper.IsActivePage(currentPage, i))
+                                        {
+                                            <li class="page-item active">
+                                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-apiResourceId="@Model.ApiResourceId" asp-route-search="@ViewBag.Search">
+                                                    @i
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-apiResourceId="@Model.ApiResourceId" asp-route-search="@ViewBag.Search">
+                                                    @i
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+
+                                    @if (PagerHelper.ShowRightPagerButton(PageConstant.MaxPages, totalPage, currentPage))
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="@(maxPage + 1)" asp-route-apiResourceId="@Model.ApiResourceId" asp-route-search="@ViewBag.Search">
+                                                ...
+                                            </a>
+                                        </li>
+                                    }
+
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="Index" asp-route-page="@totalPage" asp-route-apiResourceId="@Model.ApiResourceId" asp-route-search="@ViewBag.Search">
+                                            @T("Pager.Last").Text
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,95 +1,93 @@
 ﻿@using IdentityServer.Admin.Helpers
-@model ApiScopeModel
+@model IdentityServer.Admin.Models.ApiScope.ApiScopeModel
 
-<div class="card mt-3">
-    <h5 class="card-header">添加 Api 作用域</h5>
-    <div class="card-body">
-        <!--Input - text -->
-        <div class="form-group row">
-            <label asp-for="Name" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("名称", "API 的唯一名称。 此值用于自我认证，并将添加到传给受众的访问令牌 access_token 中"))
-            </label>
-            <div class="col-sm-9">
-                <input type="text" required class="form-control" asp-for="Name">
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+
+<div class="card-body">
+    <!--Input - text -->
+    <div class="form-group row">
+        <label asp-for="Name" class="col-sm-3 col-form-label">
+            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiScope.Fields.Name").Text, T("ApiScope.Fields.Name.Hint").Text))
+        </label>
+        <div class="col-sm-9">
+            <input type="text" required class="form-control" asp-for="Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
+    </div>
 
-        <!--Input - text -->
-        <div class="form-group row">
-            <label asp-for="DisplayName" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("显示名称", "该值可以用于例如 在同意屏幕上"))
-            </label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" asp-for="DisplayName">
-            </div>
+    <!--Input - text -->
+    <div class="form-group row">
+        <label asp-for="DisplayName" class="col-sm-3 col-form-label">
+            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiScope.Fields.DisplayName").Text, T("ApiScope.Fields.DisplayName.Hint").Text))
+        </label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" asp-for="DisplayName">
         </div>
+    </div>
 
-        <!--Input - text -->
-        <div class="form-group row">
-            <label asp-for="Description" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("描述", "该值可以用于例如 在同意屏幕上"))
-            </label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" asp-for="Description">
-            </div>
+    <!--Input - text -->
+    <div class="form-group row">
+        <label asp-for="Description" class="col-sm-3 col-form-label">
+            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiScope.Fields.Description").Text, T("ApiScope.Fields.Description.Hint").Text))
+        </label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" asp-for="Description">
         </div>
+    </div>
 
-        <!--Checkbox-->
-        <div class="form-group row">
-            <label asp-for="Required" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("必须", "指定用户是否可以在同意屏幕上取消选择作用域（如果同意屏幕要实现此类功能）。 默认为 false"))
-            </label>
-            <div class="col-sm-9">
-                <toggle-button>
-                    <input asp-for="Required" type="checkbox">
-                </toggle-button>
-            </div>
+    <!--Checkbox-->
+    <div class="form-group row">
+        <label asp-for="Required" class="col-sm-3 col-form-label">
+            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiScope.Fields.Required").Text, T("ApiScope.Fields.Required.Hint").Text))
+        </label>
+        <div class="col-sm-9">
+            <toggle-button>
+                <input asp-for="Required" type="checkbox">
+            </toggle-button>
         </div>
+    </div>
 
-        <!--Checkbox-->
-        <div class="form-group row">
-            <label asp-for="Emphasize" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("强调", "指定同意屏幕是否会强调此作用域（如果同意屏幕要实现此类功能）。 将此设置用于敏感或重要作用域。 默认为 false"))
-            </label>
-            <div class="col-sm-9">
-                <toggle-button>
-                    <input asp-for="Emphasize" type="checkbox">
-                </toggle-button>
-            </div>
+    <!--Checkbox-->
+    <div class="form-group row">
+        <label asp-for="Emphasize" class="col-sm-3 col-form-label">
+            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiScope.Fields.Emphasize").Text, T("ApiScope.Fields.Emphasize.Hint").Text))
+        </label>
+        <div class="col-sm-9">
+            <toggle-button>
+                <input asp-for="Emphasize" type="checkbox">
+            </toggle-button>
         </div>
+    </div>
 
-        <!--Select with tags-->
-        <div class="form-group row">
-            <label asp-for="UserClaimsItems" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("用户声明", "应包含在访问令牌中的关联用户声明类型的列表"))
-            </label>
-            <div class="col-sm-9">
-                <picker id="UserClaimsItems" multiple-select="true" min-search-text="2"
-                        selected-items="@Model.UserClaims.Select(x=>x.Type).ToList()"
-                        url="@Url.Action("SearchClaims","ClientClaim")?claim"
-                        search-input-placeholder="输入两个以上字符"
-                        selected-items-title="选中项"
-                        search-result-title="搜索结果（点击选择）"
-                        suggested-items-title="建议项"
-                        no-item-selected-title="没有选择项"
-                        show-all-items-title="更多"
-                        item-already-selected-title="已经被选中">
-                </picker>
-            </div>
+    <!--Select with tags-->
+    <div class="form-group row">
+        <label asp-for="UserClaimsItems" class="col-sm-3 col-form-label">
+            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiScope.Fields.UserClaims").Text, T("ApiScope.Fields.UserClaims.Hint").Text))
+        </label>
+        <div class="col-sm-9">
+            <picker id="UserClaimsItems" multiple-select="true" min-search-text="2"
+                    selected-items="@Model.UserClaims.Select(x=>x.Type).ToList()"
+                    url="@Url.Action("SearchClaims","ClientClaim")?claim"
+                    search-input-placeholder="@T("Common.PickerSearchItemPlaceholder").Text"
+                    selected-items-title="@T("Common.PickerSelectedItemsTitle").Text"
+                    search-result-title="@T("Common.PickerSearchResultTitle").Text"
+                    suggested-items-title="@T("Common.PickerSuggestedItemsTitle").Text"
+                    no-item-selected-title="@T("Common.PickerNoItemSelectedTitle").Text"
+                    show-all-items-title="@T("Common.PickerShowAllItemsTitle").Text"
+                    item-already-selected-title="@T("Common.PickerItemAlreadySelectedTitle").Text">
+            </picker>
         </div>
+    </div>
 
-        <!--Button-->
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">
-            </label>
-            <div class="col-sm-9">
-                <button type="submit" id="api-scope-save-button" class="btn btn-primary">保存 Api 作用域</button>
-                @if (Model.Id > 0)
-                {
-                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">删除 Api 作用域</a>
-                }
-            </div>
+    <!--Button-->
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label">
+        </label>
+        <div class="col-sm-9">
+            <button type="submit" id="api-scope-save-button" class="btn btn-primary">@T("Common.Save").Text</button>
+            @if (Model.Id > 0)
+            {
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">@T("Common.Delete").Text</a>
+            }
         </div>
     </div>
 </div>

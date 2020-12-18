@@ -19,6 +19,18 @@ namespace IdentityServer.Admin.Core.Data
         Task<T> GetAsync(int id, bool useTransaction = false, int? commandTimeout = null);
 
         /// <summary>
+        /// Returns a list of entities from table "Ts".
+        /// Id of T must be marked with [Key] attribute.
+        /// Entities created from interfaces are tracked/intercepted for changes and used by the Update() extension
+        /// for optimal performance.
+        /// </summary>
+        /// <typeparam name="T">Interface or type to create and populate</typeparam>
+        /// <param name="useTransaction">Use transaction or not</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout</param>
+        /// <returns>Entity of T</returns>
+        Task<IEnumerable<T>> GetAllAsync(bool useTransaction = false, int? commandTimeout = null);
+
+        /// <summary>
         /// Returns a single entity by a single id from table "Ts" asynchronously using Task. T must be of interface type.
         /// Id must be marked with [Key] attribute.
         /// Created entity is tracked/intercepted for changes and used by the Update() extension.

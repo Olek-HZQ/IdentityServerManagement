@@ -48,7 +48,7 @@
         @if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(name))
         {
             <!--Menu item -->
-            <a class="menu-item my-2 btn btn-outline-primary mr-md-3" href="@Configuration.IdentityAdminRedirectUri">后台管理</a>
+            <a class="menu-item my-2 btn btn-outline-primary mr-md-3" href="@Configuration.IdentityAdminRedirectUri">Admin Management</a>
 
             <!--Menu item -->
             @*<div class="menu-item my-2 my-md-0 mr-md-3 dropdown">
@@ -68,7 +68,7 @@
                     </div>
                 </div>*@
 
-            <a class="menu-item my-2 btn btn-outline-primary" asp-action="Logout" asp-controller="Account">注销</a>
+    <a class="menu-item my-2 btn btn-outline-primary" asp-action="Logout" asp-controller="Account">Logout</a>
         }
 
         <!--Menu button - show in < MD -->
@@ -97,30 +97,5 @@
         </environment>*@
 
     @await RenderSectionAsync("scripts", required: false)
-    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
-    <script>
-        // ReSharper disable once PossiblyUnassignedProperty
-        L2Dwidget.init({
-            "model": {
-                jsonPath: "https://unpkg.com/live2d-widget-model-tororo@1.0.5/assets/tororo.model.json",
-                "scale": 1
-            },
-            "display": {
-                "position": "left", // 看板娘的表现位置
-                //"width": 120,  // 小萝莉的宽度
-                // "height": 200, // 小萝莉的高度
-                "hOffset": 0,
-                "vOffset": -20
-            },
-            "mobile": {
-                "show": true,
-                "scale": 0.5
-            },
-            "react": {
-                "opacityDefault": 0.8,
-                "opacityOnHover": 0.2
-            }
-        });
-    </script>
 </body>
 </html>

@@ -8,10 +8,11 @@ using IdentityServer.Admin.Core.Entities.Clients;
 using IdentityServer.Admin.Core.Entities.Enums;
 using IdentityServer.Admin.Core.Extensions;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.Client;
 using IdentityServer.Admin.Services.ApiScope;
 using IdentityServer.Admin.Services.Client;
 using IdentityServer.Admin.Services.IdentityResource;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Controllers
 {
@@ -20,12 +21,15 @@ namespace IdentityServer.Admin.Controllers
         private readonly IClientService _clientService;
         private readonly IIdentityResourceService _identityResourceService;
         private readonly IApiScopeService _apiScopeService;
+        private readonly ILocalizationService _localizationService;
 
-        public ClientController(IClientService clientService, IIdentityResourceService identityResourceService, IApiScopeService apiScopeService)
+        public ClientController(IClientService clientService, IIdentityResourceService identityResourceService,
+            IApiScopeService apiScopeService, ILocalizationService localizationService)
         {
             _clientService = clientService;
             _identityResourceService = identityResourceService;
             _apiScopeService = apiScopeService;
+            _localizationService = localizationService;
         }
 
         #region Client
@@ -104,7 +108,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (clientId > 0)
             {
-                SuccessNotification($"客户端【{model.ClientName}】添加成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Clients.Added"));
 
                 return RedirectToAction(nameof(Edit), new { id = clientId });
             }
@@ -171,7 +175,7 @@ namespace IdentityServer.Admin.Controllers
             var updatedResult = await _clientService.UpdateClientAsync(client);
             if (updatedResult)
             {
-                SuccessNotification($"客户端【{model.ClientName}】编辑成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Clients.Updated"));
                 return RedirectToAction(nameof(Edit), new { id = client.Id });
             }
 
@@ -201,10 +205,11 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification($"客户端【{model.ClientName}】删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Clients.Deleted"));
+                return RedirectToAction(nameof(Index), new { model.Id });
             }
 
-            return RedirectToAction(nameof(Index), new { model.Id });
+            return View(model);
         }
 
         #endregion

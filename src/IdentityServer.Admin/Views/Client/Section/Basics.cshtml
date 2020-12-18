@@ -1,15 +1,15 @@
 ﻿@using IdentityServer.Admin.Helpers
-@model ClientModel
+@model IdentityServer.Admin.Models.Client.ClientModel
 <!--Hidden -->
 <input type="hidden" asp-for="Id" />
 
 <div class="card mt-3">
-    <h5 class="card-header">基本</h5>
+    <h5 class="card-header">@T("Clients.Basics").Text</h5>
     <div class="card-body">
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="Enabled" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("启用", "指定是否启用客户端。 默认为 true"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.Enabled").Text, T("Clients.Enabled.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -21,7 +21,7 @@
         <!--Input - text -->
         <div class="form-group row">
             <label asp-for="Description" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("描述", "客户端描述"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.Description").Text, ""))
             </label>
             <div class="col-sm-9">
                 <input type="text" class="form-control" asp-for="Description">
@@ -31,7 +31,7 @@
         <!--Select-->
         <div class="form-group row">
             <label asp-for="ProtocolType" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("协议类型", "默认为 OpenID Connect 协议"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ProtocolType").Text, ""))
             </label>
             <div class="col-sm-9">
                 @*<select asp-for="ProtocolType" asp-items="@(new SelectList(Model.ProtocolTypes,"Id","Text"))" class="form-control single-select"></select>*@
@@ -42,7 +42,7 @@
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="RequireClientSecret" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("需要客户端密钥", "指定此客户端是否需要密钥才能从令牌端点请求令牌（默认为 true）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.RequireClientSecret").Text, T("Clients.RequireClientSecret.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -54,7 +54,7 @@
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="RequirePkce" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("需要Pkce", "指定使用基于授权代码的授权类型的客户端是否必须发送校验密钥"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.RequirePkce").Text, T("Clients.RequirePkce.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -66,7 +66,7 @@
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="AllowPlainTextPkce" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("允许文本Pkce", "指定使用 PKCE 的客户端是否可以使用纯文本代码质询（不推荐 - 默认为 false）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AllowPlainTextPkce").Text, T("Clients.AllowPlainTextPkce.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -78,7 +78,7 @@
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="AllowOfflineAccess" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("允许离线访问", "指定此客户端是否可以请求刷新令牌（请求 offline_access 作用域）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AllowOfflineAccess").Text, T("Clients.AllowOfflineAccess.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -90,7 +90,7 @@
         <!--Checkbox-->
         <div class="form-group row">
             <label asp-for="AllowAccessTokensViaBrowser" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("允许通过浏览器访问令牌", "指定是否允许此客户端通过浏览器接收访问令牌 access_token。 这对于强化允许多种响应类型的流是有用的（例如，通过禁止应该使用代码身份令牌 id_token 的混合流客户端来添加令牌响应类型并因此将令牌泄漏到浏览器。）"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AllowAccessTokensViaBrowser").Text, T("Clients.AllowAccessTokensViaBrowser.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <toggle-button>
@@ -102,19 +102,19 @@
         <!--Select with tags-->
         <div class="form-group row">
             <label asp-for="AllowedScopesItems" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("允许的作用域", "默认情况下，客户端无权访问任何资源 - 通过添加相应的作用域名称来指定允许的资源"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AllowedScopes").Text, T("Clients.AllowedScopes.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <picker id="AllowedScopesItems" multiple-select="true" min-search-text="2"
                         url="@Url.Action("SearchScopes","Client")?scope"
                         selected-items="@Model.AllowedScopes.Select(x=>x.Scope).ToList()"
-                        search-input-placeholder="输入两个以上字符"
-                        selected-items-title="选中项"
-                        search-result-title="搜索结果（点击选择）"
-                        suggested-items-title="建议项"
-                        no-item-selected-title="没有选择项"
-                        show-all-items-title="更多"
-                        item-already-selected-title="已经被选中">
+                        search-input-placeholder="@T("Common.PickerSearchItemPlaceholder").Text"
+                        selected-items-title="@T("Common.PickerSelectedItemsTitle").Text"
+                        search-result-title="@T("Common.PickerSearchResultTitle").Text"
+                        suggested-items-title="@T("Common.PickerSuggestedItemsTitle").Text"
+                        no-item-selected-title="@T("Common.PickerNoItemSelectedTitle").Text"
+                        show-all-items-title="@T("Common.PickerShowAllItemsTitle").Text"
+                        item-already-selected-title="@T("Common.PickerItemAlreadySelectedTitle").Text">
                 </picker>
             </div>
         </div>
@@ -123,18 +123,18 @@
         <!--Select with tags-->
         <div class="form-group row">
             <label asp-for="RedirectUrisItems" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("重定向Uri", "指定允许的 URI 以返回令牌或授权码"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.RedirectUris").Text, T("Clients.RedirectUris.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <picker id="RedirectUrisItems" multiple-select="true" min-search-text="2"
                         selected-items="@Model.RedirectUris.Select(x=>x.RedirectUri).ToList()"
-                        search-input-placeholder="输入两个以上字符"
-                        selected-items-title="选中项"
-                        search-result-title="搜索结果（点击选择）"
-                        suggested-items-title="建议项"
-                        no-item-selected-title="没有选择项"
-                        show-all-items-title="更多"
-                        item-already-selected-title="已经被选中">
+                        search-input-placeholder="@T("Common.PickerSearchItemPlaceholder").Text"
+                        selected-items-title="@T("Common.PickerSelectedItemsTitle").Text"
+                        search-result-title="@T("Common.PickerSearchResultTitle").Text"
+                        suggested-items-title="@T("Common.PickerSuggestedItemsTitle").Text"
+                        no-item-selected-title="@T("Common.PickerNoItemSelectedTitle").Text"
+                        show-all-items-title="@T("Common.PickerShowAllItemsTitle").Text"
+                        item-already-selected-title="@T("Common.PickerItemAlreadySelectedTitle").Text">
                 </picker>
             </div>
         </div>
@@ -142,19 +142,19 @@
         <!--Select with tags-->
         <div class="form-group row">
             <label asp-for="AllowedGrantTypesItems" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("允许的授权类型", "指定允许客户端使用的授权类型。 使用 GrantTypes 类进行常见组合。 默认授权列表：隐式授权 - (implicit)，客户端凭证授权 - (client_credentials)，授权码授权 - (authorization_code)，混合授权 - (hybrid)，资源所有者密码凭证授权 - (password)"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.AllowedGrantTypes").Text, T("Clients.AllowedGrantTypes.Hint").Text))
             </label>
             <div class="col-sm-9">
                 <picker id="AllowedGrantTypesItems" multiple-select="true" min-search-text="2"
                         url="@Url.Action("SearchGrantTypes","Client")?grant"
                         selected-items="@Model.AllowedGrantTypes.Select(x=>x.GrantType).ToList()"
-                        search-input-placeholder="输入两个以上字符"
-                        selected-items-title="选中项"
-                        search-result-title="搜索结果（点击选择）"
-                        suggested-items-title="建议项"
-                        no-item-selected-title="没有选择项"
-                        show-all-items-title="更多"
-                        item-already-selected-title="已经被选中">
+                        search-input-placeholder="@T("Common.PickerSearchItemPlaceholder").Text"
+                        selected-items-title="@T("Common.PickerSelectedItemsTitle").Text"
+                        search-result-title="@T("Common.PickerSearchResultTitle").Text"
+                        suggested-items-title="@T("Common.PickerSuggestedItemsTitle").Text"
+                        no-item-selected-title="@T("Common.PickerNoItemSelectedTitle").Text"
+                        show-all-items-title="@T("Common.PickerShowAllItemsTitle").Text"
+                        item-already-selected-title="@T("Common.PickerItemAlreadySelectedTitle").Text">
                 </picker>
             </div>
         </div>
@@ -162,10 +162,10 @@
         <!--Button-->
         <div class="form-group row">
             <label asp-for="ClientSecrets" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("客户端密钥", "客户端密钥列表 - 访问令牌 access_token 端点的凭据。"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientSecrets").Text, T("Clients.ClientSecrets.Hint").Text))
             </label>
             <div class="col-sm-9">
-                <a asp-action="Index" asp-controller="ClientSecret" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary">管理客户端密钥</a>
+                <a asp-action="Index" asp-controller="ClientSecret" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary">@T("Clients.ClientSecrets").Text</a>
             </div>
         </div>
 
@@ -173,10 +173,10 @@
         <!--Button-->
         <div class="form-group row">
             <label asp-for="Properties" class="col-sm-3 col-form-label">
-                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("属性", "字典可根据需要保存任何自定义客户端特定值。"))
+                @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.Properties").Text, T("Clients.Properties.Hint").Text))
             </label>
             <div class="col-sm-9">
-                <a asp-action="Index" asp-controller="ClientProperty" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary">管理客户端属性</a>
+                <a asp-action="Index" asp-controller="ClientProperty" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary">@T("Clients.Properties").Text</a>
             </div>
         </div>
     </div>

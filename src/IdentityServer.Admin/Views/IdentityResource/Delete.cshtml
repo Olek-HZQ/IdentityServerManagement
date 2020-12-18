@@ -1,8 +1,8 @@
 ﻿@using IdentityServer.Admin.Helpers
-@model IdentityResourceModel
+@model IdentityServer.Admin.Models.IdentityResource.IdentityResourceModel
 
 @{
-    ViewBag.Title = "删除身份资源";
+    ViewBag.Title = T("IdentityResource.Delete").Text;
     Layout = "_Layout";
 }
 
@@ -12,26 +12,24 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-controller="IdentityResource" asp-action="Index">身份资源</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="IdentityResource" asp-action="Edit" asp-route-id="@Model.Id">@Model.Name</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">删除身份资源</li>
+                    <li class="breadcrumb-item"><a asp-controller="IdentityResource" asp-action="Index">@T("IdentityResource.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="IdentityResource" asp-action="Edit" asp-route-id="@Model.Id">@T("IdentityResource.Edit").Text - @Model.Name</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("IdentityResource.Delete").Text</li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-12">
-            <h3>删除身份资源</h3>
-
             <!--Hidden -->
             <input type="hidden" asp-for="Id" />
 
             <div class="card mt-3">
-                <h5 class="card-header">删除身份资源</h5>
+                <h5 class="card-header">@T("IdentityResource.Delete").Text</h5>
                 <div class="card-body">
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="Name" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("名称", "身份资源的唯一名称。 这是客户端将用于授权请求中的作用域参数的值"))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("IdentityResource.Fields.Name").Text,T("IdentityResource.Fields.Name.Hint").Text))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" disabled="disabled" asp-for="Name">
@@ -42,7 +40,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-danger">删除身份资源</button>
+                            <button type="submit" class="btn btn-danger">@T("Common.Delete").Text</button>
                         </div>
                     </div>
                 </div>

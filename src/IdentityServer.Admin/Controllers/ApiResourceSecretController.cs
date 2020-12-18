@@ -4,18 +4,21 @@ using IdentityServer.Admin.Core.Entities.ApiResource;
 using IdentityServer.Admin.Core.Entities.Enums;
 using IdentityServer.Admin.Core.Extensions;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.ApiResource;
 using IdentityServer.Admin.Services.ApiResource;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Controllers
 {
     public class ApiResourceSecretController : BaseController
     {
         private readonly IApiResourceSecretService _apiResourceSecretService;
+        private readonly ILocalizationService _localizationService;
 
-        public ApiResourceSecretController(IApiResourceSecretService apiResourceSecretService)
+        public ApiResourceSecretController(IApiResourceSecretService apiResourceSecretService, ILocalizationService localizationService)
         {
             _apiResourceSecretService = apiResourceSecretService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(int apiResourceId, int? page)
@@ -61,7 +64,7 @@ namespace IdentityServer.Admin.Controllers
 
             await _apiResourceSecretService.InsertApiResourceSecret(CommonMappers.Mapper.Map<ApiResourceSecret>(model));
 
-            SuccessNotification("Api 密钥添加成功", "成功");
+            SuccessNotification(await _localizationService.GetResourceAsync("ApiResourceSecret.Added"));
 
             return RedirectToAction(nameof(Index), new { apiResourceId = model.ApiResourceId });
         }
@@ -94,7 +97,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification("Api 密钥删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("ApiResourceSecret.Deleted"));
                 return RedirectToAction(nameof(Index), new { apiResourceId = model.ApiResourceId });
             }
 

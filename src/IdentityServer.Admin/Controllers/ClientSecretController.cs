@@ -4,18 +4,21 @@ using IdentityServer.Admin.Core.Entities.Clients;
 using IdentityServer.Admin.Core.Entities.Enums;
 using IdentityServer.Admin.Core.Extensions;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.Client;
 using IdentityServer.Admin.Services.Client;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Controllers
 {
     public class ClientSecretController : BaseController
     {
         private readonly IClientSecretService _clientSecretService;
+        private readonly ILocalizationService _localizationService;
 
-        public ClientSecretController(IClientSecretService clientSecretService)
+        public ClientSecretController(IClientSecretService clientSecretService,ILocalizationService localizationService)
         {
             _clientSecretService = clientSecretService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(int id, int? page)
@@ -62,7 +65,7 @@ namespace IdentityServer.Admin.Controllers
             HashClientSharedSecret(model);
 
             await _clientSecretService.InsertClientSecretAsync(ClientMappers.Mapper.Map<ClientSecret>(model));
-            SuccessNotification($"客户端 【{model.ClientName}】 密钥添加成功", "成功");
+            SuccessNotification(await _localizationService.GetResourceAsync("Clients.ClientSecret.Added"));
 
             return RedirectToAction(nameof(Index), new { Id = model.ClientId });
         }
@@ -92,7 +95,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification($"客户端 【{model.ClientName}】 密钥删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Clients.ClientSecret.Deleted"));
             }
 
             return RedirectToAction(nameof(Index), new { Id = model.ClientId });

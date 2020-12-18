@@ -107,7 +107,7 @@ namespace IdentityServer.AuthIdentity.Quickstart.Account
             {
                 // validate username/password against in-memory store
                 //if (_users.ValidateCredentials(model.Username, model.Password))
-                if (await _userService.ValidateCustomerAsync(model.Username,model.Password))
+                if (await _userService.ValidateUserAsync(model.Username,model.Password))
                 {
                     // var user = _users.FindByUsername(model.Username);
                     var user = await _userService.GetUserByNameAsync(model.Username);

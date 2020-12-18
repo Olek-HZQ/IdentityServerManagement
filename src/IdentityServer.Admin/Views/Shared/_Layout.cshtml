@@ -1,4 +1,6 @@
 ﻿@using System.Diagnostics
+@using IdentityServer.Admin.Services.Localization
+@inject ILocalizationService LocalizationService
 @{ var version = FileVersionInfo.GetVersionInfo(typeof(IdentityServer4.Hosting.IdentityServerMiddleware).Assembly.Location).ProductVersion.Split('+').First(); }
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +32,7 @@
 <body>
     <div class="menu d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
         <!--Site name -->
-        <h3 class="menu-logo my-0 mr-md-auto font-weight-normal"><a class="logo" asp-area="" asp-controller="Home" asp-action="Index">后台首页 IdentityServer4 (version @version)</a></h3>
+        <h3 class="menu-logo my-0 mr-md-auto font-weight-normal"><a class="logo" asp-area="" asp-controller="Home" asp-action="Index">@T("Admin.Menu.PageTitle", version).Text</a></h3>
 
         <!--Menu item -->
         <vc:identity-server-link></vc:identity-server-link>
@@ -38,30 +40,38 @@
         <!--Menu item -->
         <div class="menu-item my-2 my-md-0 mr-md-3 dropdown">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                客户端/资源
+                @T("Admin.TitleConfiguration").Text
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" asp-area="" asp-controller="Client" asp-action="Index">客户端</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Client" asp-action="Index">@T("Admin.Clients").Text</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" asp-area="" asp-controller="IdentityResource" asp-action="Index">身份资源</a>
-                <a class="dropdown-item" asp-area="" asp-controller="ApiResource" asp-action="Index">API资源</a>
-                <a class="dropdown-item" asp-area="" asp-controller="ApiScope" asp-action="Index">API作用域</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" asp-area="" asp-controller="PersistedGrant" asp-action="Index">持久授权</a>
+                <a class="dropdown-item" asp-area="" asp-controller="IdentityResource" asp-action="Index">@T("Admin.IdentityResource").Text</a>
+                <a class="dropdown-item" asp-area="" asp-controller="ApiResource" asp-action="Index">@T("Admin.ApiResource").Text</a>
+                <a class="dropdown-item" asp-area="" asp-controller="ApiScope" asp-action="Index">@T("Admin.ApiScope").Text</a>
+                @*<div class="dropdown-divider"></div>
+                <a class="dropdown-item" asp-area="" asp-controller="PersistedGrant" asp-action="Index">@T("Admin.PersistedGrants").Text</a>*@
             </div>
         </div>
 
         <!--Menu item -->
         <div class="menu-item my-2 my-md-0 mr-md-3 dropdown">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                用户/角色
+                @T("Admin.TitleUserManagement").Text
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index">用户</a>
-                <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">角色</a>
+                <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index">@T("Admin.Users").Text</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">@T("Admin.Roles").Text</a>
             </div>
         </div>
-
+        <!--Menu item -->
+        <div class="menu-item my-2 my-md-0 mr-md-3 dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                @T("Admin.TitleCommon").Text
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" asp-area="" asp-controller="Language" asp-action="Index">@T("Admin.TitleLanguages").Text</a>
+            </div>
+        </div>
         <!--Menu item -->
         @*<div class="menu-item my-2 my-md-0 mr-md-3 dropdown">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -76,12 +86,12 @@
         <!--Menu item -->
         @if (User.Identity.IsAuthenticated)
         {
-            <a class="menu-item my-2 btn btn-outline-primary" asp-action="Logout" asp-controller="Account">注销</a>
+            <a class="menu-item my-2 btn btn-outline-primary" asp-action="Logout" asp-controller="Account">@T("Admin.Logout").Text</a>
         }
 
         <!--Menu button - show in < MD -->
         <a class="my-2 btn btn-outline-primary menu-button" href="#">
-            <span class="oi oi-menu" title="menu" aria-hidden="true"></span> 菜单
+            <span class="oi oi-menu" title="menu" aria-hidden="true"></span> @T("Admin.Menu").Text
         </a>
     </div>
     <div class="container">
@@ -93,7 +103,7 @@
                     <small class="d-block mb-3 text-muted">© @DateTime.Now.Year - @await Html.PartialAsync("Common/ApplicationVersion")</small>
                 </div>
                 <div class="col-md-6 text-right">
-                    @*@await Html.PartialAsync("Common/SelectLanguage")*@
+                    @await Component.InvokeAsync("LanguageSelector")
                 </div>
             </div>
         </footer>
@@ -101,37 +111,14 @@
 
     <environment include="Development">
         <script src="~/dist/js/bundle.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/dist/js/bundle.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
 
     @await Html.PartialAsync("Common/Notification")
     @await RenderSectionAsync("scripts", required: false)
-    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
-    <script>
-        // ReSharper disable once PossiblyUnassignedProperty
-        L2Dwidget.init({
-            "model": {
-                jsonPath: "https://unpkg.com/live2d-widget-model-tororo@1.0.5/assets/tororo.model.json",
-                "scale": 1
-            },
-            "display": {
-                "position": "left", // 看板娘的表现位置
-                //"width": 120,  // 小萝莉的宽度
-                // "height": 200, // 小萝莉的高度
-                "hOffset": 0,
-                "vOffset": -20
-            },
-            "mobile": {
-                "show": true,
-                "scale": 0.5
-            },
-            "react": {
-                "opacityDefault": 0.8,
-                "opacityOnHover": 0.2
-            }
-        });
-    </script>
 </body>
 </html>

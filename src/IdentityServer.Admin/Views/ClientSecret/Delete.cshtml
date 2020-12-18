@@ -1,8 +1,8 @@
 ﻿@using IdentityServer.Admin.Helpers
-@model ClientSecretModel
+@model IdentityServer.Admin.Models.Client.ClientSecretModel
 
 @{
-    ViewBag.Title = "删除客户端密钥";
+    ViewBag.Title = T("Clients.ClientSecret.Delete").Text;
     Layout = "_Layout";
 }
 
@@ -12,16 +12,16 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">客户端</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Edit" asp-route-id="@Model.ClientId">@Model.ClientName</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index" asp-route-id="@Model.ClientId">客户端密钥</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">删除客户端密钥</li>
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">@T("Client.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Edit" asp-route-id="@Model.ClientId">@T("Clients.Edit").Text - @Model.ClientName</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="ClientSecret" asp-action="Index" asp-route-id="@Model.ClientId">@T("Clients.ClientSecret.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("Clients.ClientSecret.Delete").Text</li>
                 </ol>
             </nav>
         </div>
 
         <div class="col-md-12">
-            <h3>删除客户端密钥</h3>
+            <h3>@T("Clients.ClientSecret.Delete").Text</h3>
 
             <!--Hidden -->
             <input type="hidden" asp-for="Id" />
@@ -34,12 +34,12 @@
 
 
             <div class="card mt-3">
-                <h5 class="card-header">删除客户端密钥</h5>
+                <h5 class="card-header">@T("Clients.ClientSecret.Delete").Text</h5>
                 <div class="card-body">
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="Type" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("密钥类型", ""))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(@T("Clients.ClientSecret.Type").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" disabled="disabled" asp-for="Type">
@@ -49,7 +49,7 @@
                     <!--Input - text -->
                     <div class="form-group row">
                         <label asp-for="Value" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("密钥值", ""))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(@T("Clients.ClientSecret.Value").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" disabled="disabled" asp-for="Value">
@@ -61,7 +61,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-danger">删除客户端密钥</button>
+                            <button type="submit" class="btn btn-danger">@T("Common.Delete")</button>
                         </div>
                     </div>
                 </div>

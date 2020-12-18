@@ -1,0 +1,25 @@
+﻿@model IdentityServer.Admin.Models.Localization.LocaleStringResourceModel
+@using IdentityServer.Admin.Helpers
+
+@Html.HiddenFor(x => x.LanguageId)
+<!--Input - text -->
+<div class="form-group row">
+    <label asp-for="ResourceName" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Languages.Resources.Fields.Name").Text, T("Languages.Resources.Fields.Name.Hint").Text))
+    </label>
+    <div class="col-sm-9">
+        <input type="text" required class="form-control" asp-for="ResourceName">
+        <span asp-validation-for="ResourceName" class="text-danger"></span>
+    </div>
+</div>
+
+<!--Input - text -->
+<div class="form-group row">
+    <label asp-for="ResourceValue" class="col-sm-3 col-form-label">
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Languages.Resources.Fields.Value").Text, T("Languages.Resources.Fields.Value.Hint").Text))
+    </label>
+    <div class="col-sm-9">
+        <input type="text" required class="form-control" asp-for="ResourceValue">
+        <span asp-validation-for="ResourceValue" class="text-danger"></span>
+    </div>
+</div>
