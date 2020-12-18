@@ -37,6 +37,7 @@ namespace IdentityServer.Admin
 
             await host.InsertIdentitySeedData();
             await host.InsertIdentityServerSeedData();
+            await host.InstallationLanguageAndResource();
 
             host.Run();
         }

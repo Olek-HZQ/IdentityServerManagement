@@ -4,16 +4,19 @@ using IdentityServer.Admin.Core.Entities.Clients;
 using IdentityServer.Admin.Infrastructure.Mappers;
 using IdentityServer.Admin.Models.Client;
 using IdentityServer.Admin.Services.Client;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Controllers
 {
     public class ClientPropertyController : BaseController
     {
         private readonly IClientPropertyService _clientPropertyService;
+        private readonly ILocalizationService _localizationService;
 
-        public ClientPropertyController(IClientPropertyService clientPropertyService)
+        public ClientPropertyController(IClientPropertyService clientPropertyService,ILocalizationService localizationService)
         {
             _clientPropertyService = clientPropertyService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(int id, int? page)
@@ -38,7 +41,7 @@ namespace IdentityServer.Admin.Controllers
         public async Task<IActionResult> Create(ClientPropertyModel model)
         {
             await _clientPropertyService.InsertClientPropertyAsync(ClientMappers.Mapper.Map<ClientProperty>(model));
-            SuccessNotification("客户端属性添加成功", "成功");
+            SuccessNotification(await _localizationService.GetResourceAsync("Clients.ClientProperty.Added"));
 
             return RedirectToAction(nameof(Index), new { Id = model.ClientId });
         }
@@ -68,7 +71,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification("客户端属性删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Clients.ClientProperty.Deleted"));
 
                 return RedirectToAction(nameof(Index), new { Id = model.ClientId });
             }

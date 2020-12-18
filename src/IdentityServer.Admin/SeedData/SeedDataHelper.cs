@@ -1,20 +1,25 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.ApiResource;
 using IdentityServer.Admin.Core.Entities.ApiScope;
 using IdentityServer.Admin.Core.Entities.Clients;
 using IdentityServer.Admin.Core.Entities.IdentityResource;
+using IdentityServer.Admin.Core.Entities.Localization;
 using IdentityServer.Admin.Core.Entities.Users;
 using IdentityServer.Admin.Core.Extensions;
+using IdentityServer.Admin.Helpers;
 using IdentityServer.Admin.Services.ApiResource;
 using IdentityServer.Admin.Services.ApiScope;
 using IdentityServer.Admin.Services.Client;
 using IdentityServer.Admin.Services.IdentityResource;
+using IdentityServer.Admin.Services.Localization;
 using IdentityServer.Admin.Services.Role;
 using IdentityServer.Admin.Services.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace IdentityServer.Admin.SeedData
 {
@@ -31,7 +36,8 @@ namespace IdentityServer.Admin.SeedData
                     var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
                     var roleService = scope.ServiceProvider.GetRequiredService<IRoleService>();
 
-                    var identityDataConfiguration = scope.ServiceProvider.GetRequiredService<IdentityDataConfiguration>();
+                    var identityDataConfiguration =
+                        scope.ServiceProvider.GetRequiredService<IdentityDataConfiguration>();
 
                     // insert roles
                     var existsRoles = await roleService.GetAllRolesAsync();
@@ -67,7 +73,8 @@ namespace IdentityServer.Admin.SeedData
                             if (identityDataConfiguration.Roles.Any())
                             {
                                 var roleSystemNames = identityDataConfiguration.Roles.Select(x => x.SystemName);
-                                var insertedRoles = (await roleService.GetAllRolesAsync()).Where(x => roleSystemNames.Contains(x.SystemName)).ToList();
+                                var insertedRoles = (await roleService.GetAllRolesAsync())
+                                    .Where(x => roleSystemNames.Contains(x.SystemName)).ToList();
                                 if (insertedRoles.Any())
                                 {
                                     foreach (var role in insertedRoles)
@@ -118,7 +125,8 @@ namespace IdentityServer.Admin.SeedData
                     var clientService = scope.ServiceProvider.GetRequiredService<IClientService>();
                     var clientSecretService = scope.ServiceProvider.GetRequiredService<IClientSecretService>();
 
-                    var identityServerDataConfiguration = scope.ServiceProvider.GetRequiredService<IdentityServerDataConfiguration>();
+                    var identityServerDataConfiguration =
+                        scope.ServiceProvider.GetRequiredService<IdentityServerDataConfiguration>();
 
                     var existsClients = await clientService.IsExistsAnyClientAsync();
 
@@ -265,6 +273,48 @@ namespace IdentityServer.Admin.SeedData
                             }
                         }
                     }
+                }
+            }
+        }
+
+        public static async Task InstallationLanguageAndResource(this IWebHost host)
+        {
+            using (var serviceScope = host.Services.CreateScope())
+            {
+                var serviceProvider = serviceScope.ServiceProvider;
+
+                using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var languageService = scope.ServiceProvider.GetRequiredService<ILanguageService>();
+                    var localiztionService = scope.ServiceProvider.GetRequiredService<ILocalizationService>();
+                    var hostEnvironment = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
+
+                    var existsLanguage = (await languageService.GetAllLanguagesAsync(true)).FirstOrDefault(x => x.Name == "English");
+
+                    if (existsLanguage == null)
+                    {
+                        var language = new Language
+                        {
+                            Name = "English",
+                            LanguageCulture = "en-US",
+                            UniqueSeoCode = "en",
+                            DisplayOrder = 1,
+                            Published = true
+                        };
+                        var languageId = await languageService.InsertLanguageAsync(language);
+                        if (languageId > 0)
+                        {
+                            var resourcesFilePath = CommonHelper.MapPath(hostEnvironment, "~/App_Data/Localization/Installation/language-English.json");
+                            if (File.Exists(resourcesFilePath))
+                            {
+                                using (StreamReader reader = new StreamReader(resourcesFilePath))
+                                {
+                                    await localiztionService.SaveResourcesAsync(languageId, await reader.ReadToEndAsync());
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
         }

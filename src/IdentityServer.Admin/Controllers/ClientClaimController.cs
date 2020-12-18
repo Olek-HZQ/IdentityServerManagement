@@ -6,16 +6,19 @@ using IdentityServer.Admin.Core.Entities.Clients;
 using IdentityServer.Admin.Infrastructure.Mappers;
 using IdentityServer.Admin.Models.Client;
 using IdentityServer.Admin.Services.Client;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Controllers
 {
     public class ClientClaimController : BaseController
     {
         private readonly IClientClaimService _clientClaimService;
+        private readonly ILocalizationService _localizationService;
 
-        public ClientClaimController(IClientClaimService clientClaimService)
+        public ClientClaimController(IClientClaimService clientClaimService,ILocalizationService localizationService)
         {
             _clientClaimService = clientClaimService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(int id, int? page)
@@ -45,7 +48,7 @@ namespace IdentityServer.Admin.Controllers
             }
 
             await _clientClaimService.InsertClientClaim(ClientMappers.Mapper.Map<ClientClaim>(model));
-            SuccessNotification("客户端声明添加成功", "成功");
+            SuccessNotification(await _localizationService.GetResourceAsync("Clients.ClientClaims.Added"));
 
             return RedirectToAction(nameof(Index), new { Id = model.ClientId });
         }
@@ -73,7 +76,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification("客户端声明删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Clients.ClientClaims.Deleted"));
             }
 
             return RedirectToAction(nameof(Index), new { Id = model.ClientId });
