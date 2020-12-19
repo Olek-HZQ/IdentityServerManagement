@@ -8,7 +8,7 @@ namespace IdentityServer.Admin.Validators
     {
         public ClientSecretModelValidator(ILocalizationService localizationService)
         {
-            RuleFor(x => x.Value).NotEmpty().WithMessage(localizationService.GetResourceAsync("Clients.ClientSecret.ValureRequired").Result);
+            RuleFor(x => x.Value).NotEmpty().WithMessage(localizationService.GetResourceAsync("Clients.ClientSecret.Value.Required").Result);
         }
     }
 }
