@@ -1,6 +1,4 @@
-﻿@using IdentityServer.Admin.Core.Configuration
-@inject AdminConfiguration Configuration
-@{ Layout = null; }
+﻿@{ Layout = null; }
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,13 +24,13 @@
                 <div class="card-deck mb-3 mt-5 text-center">
                     <div class="card mb-2 box-shadow">
                         <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">拒绝访问！</h4>
+                            <h4 class="my-0 font-weight-normal">@T("AccessDenied.PageTitle").Text</h4>
                         </div>
                         <div class="card-body">
                             <h1 class="card-title">
                                 <span class="oi oi-circle-x" title="Warning" aria-hidden="true"></span>
                             </h1>
-                            <a href="@Configuration.IdentityServerBaseUrl" class="btn btn-lg btn-block btn-danger">转至 IdentityServer</a>
+                            <span>@T("AccessDenied.Description").Text</span>
                             <a asp-controller="Account" asp-action="Logout" class="btn btn-lg btn-block btn-danger">注销</a>
                         </div>
                     </div>

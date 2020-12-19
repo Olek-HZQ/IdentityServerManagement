@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.ApiResource;
 using IdentityServer.Admin.Core.Extensions;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.ApiResource;
 using IdentityServer.Admin.Services.ApiResource;
+using IdentityServer.Admin.Services.Localization;
 using Newtonsoft.Json;
 
 namespace IdentityServer.Admin.Controllers
@@ -14,10 +15,12 @@ namespace IdentityServer.Admin.Controllers
     public class ApiResourceController : BaseController
     {
         private readonly IApiResourceService _apiResourceService;
+        private readonly ILocalizationService _localizationService;
 
-        public ApiResourceController(IApiResourceService apiResourceService)
+        public ApiResourceController(IApiResourceService apiResourceService,ILocalizationService localizationService)
         {
             _apiResourceService = apiResourceService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(string search, int? page)
@@ -54,7 +57,7 @@ namespace IdentityServer.Admin.Controllers
                 : new List<ApiResourceClaimModel>();
 
             await _apiResourceService.InsertApiResourceAsync(CommonMappers.Mapper.Map<ApiResource>(model));
-            SuccessNotification($"Api 资源【{model.Name}】添加成功", "成功");
+            SuccessNotification(await _localizationService.GetResourceAsync("ApiResource.Added"));
 
             return RedirectToAction(nameof(Index));
         }
@@ -104,7 +107,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (updatedResult)
             {
-                SuccessNotification("Api 资源编辑成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("ApiResource.Updated"));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -139,7 +142,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification("Api 资源删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("ApiResource.Deleted"));
             }
 
             return RedirectToAction(nameof(Index));

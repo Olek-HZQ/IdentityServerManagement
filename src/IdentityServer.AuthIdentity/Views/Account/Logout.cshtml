@@ -1,13 +1,13 @@
 ﻿@model IdentityServer.AuthIdentity.Quickstart.Account.LogoutViewModel
 
 <div class="lead">
-    <h1>注销</h1>
-    <p>你想退出 IdentityServer 吗？</p>
+    <h1>Logout</h1>
+    <p>Would you like to logout of IdentityServer?</p>
 </div>
 
 <form asp-action="Logout">
     <input type="hidden" name="logoutId" value="@Model.LogoutId" />
     <div class="form-group">
-        <button class="btn btn-primary">是</button>
+        <button class="btn btn-primary">Yes</button>
     </div>
 </form>

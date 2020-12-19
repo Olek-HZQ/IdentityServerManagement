@@ -1,0 +1,59 @@
+﻿@model IdentityServer.Admin.Models.Localization.LanguageModel
+@{
+    ViewBag.Title = T("Languages.EditLanguageDetails").Text;
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Language" asp-action="Index">@T("Languages.PageList").Text</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("Languages.EditLanguageDetails") - @Model.Name</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<form asp-action="Edit" method="post" id="language-resource-form">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <!--Button-->
+    <div class="form-group row">
+        <div class="col-md-12 col-m-b-10  col-m-t-10">
+            <a asp-action="Resources" asp-route-languageId="@Model.Id" class="btn btn-outline-primary">@T("Languages.Resources").Text</a>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <h5 class="card-header">@T("Languages.EditLanguageDetails") - @Model.Name</h5>
+        <div class="card-body">
+
+            @Html.HiddenFor(x => x.Id)
+
+            @await Html.PartialAsync("_CreateOrUpdate", Model)
+        </div>
+
+        <!--Button-->
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">
+            </label>
+            <div class="col-sm-9">
+                <button type="submit" id="api-resource-save-button" class="btn btn-primary">@T("Common.Save").Text</button>
+                @if (Model.Id != 0)
+                {
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">@T("Common.Delete").Text</a>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            //Disable enter for this form
+            FormMvc.disableEnter($('#language-resource-form'));
+        });
+    </script>
+}

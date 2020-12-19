@@ -43,7 +43,7 @@ namespace IdentityServer.Admin.Services.User
             return await _repository.GetUserByNameAsync(name);
         }
 
-        public async Task<bool> ValidateCustomerAsync(string name, string password)
+        public async Task<bool> ValidateUserAsync(string name, string password)
         {
             var user = await GetUserByNameAsync(name);
             if (user == null)

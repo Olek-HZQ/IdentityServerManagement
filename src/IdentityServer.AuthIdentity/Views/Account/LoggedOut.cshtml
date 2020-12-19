@@ -7,15 +7,15 @@
 
 <div class="logged-out-page">
     <h1>
-        注销
-        <small>您现在已退出</small>
+        Logout
+        <small>You are now logged out</small>
     </h1>
 
     @if (Model.PostLogoutRedirectUri != null)
     {
         <div>
             @* ReSharper disable once UnknownCssClass *@
-            点击 <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">这里</a> 回到
+            Click <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a> to return to the
             <span>@Model.ClientName</span>
         </div>
     }

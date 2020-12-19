@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.Users;
 using IdentityServer.Admin.Helpers;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.User;
+using IdentityServer.Admin.Services.Localization;
 using IdentityServer.Admin.Services.Role;
 using IdentityServer.Admin.Services.User;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,11 +16,13 @@ namespace IdentityServer.Admin.Controllers
     {
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
+        private readonly ILocalizationService _localizationService;
 
-        public UserController(IUserService userService, IRoleService roleService)
+        public UserController(IUserService userService, IRoleService roleService,ILocalizationService localizationService)
         {
             _userService = userService;
             _roleService = roleService;
+            _localizationService = localizationService;
         }
 
         #region User
@@ -50,7 +53,7 @@ namespace IdentityServer.Admin.Controllers
 
             await _userService.InsertUserAsync(CommonMappers.Mapper.Map<User>(model));
 
-            SuccessNotification("用户添加成功", "成功");
+            SuccessNotification(await _localizationService.GetResourceAsync("Users.Added"));
 
             return RedirectToAction(nameof(Index));
         }
@@ -97,7 +100,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (updatedResult)
             {
-                SuccessNotification("用户编辑成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Users.Updated"));
 
                 return RedirectToAction(nameof(Index));
             }
@@ -133,7 +136,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification("用户删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Users.Deleted"));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -176,7 +179,7 @@ namespace IdentityServer.Admin.Controllers
             var isExistsUserRole = await _userService.IsUserRoleExistsAsync(model.UserId, model.RoleId);
             if (isExistsUserRole)
             {
-                CreateNotification(NotificationHelper.AlertType.Info, "该角色已经添加", "成功");
+                CreateNotification(NotificationHelper.AlertType.Info, await _localizationService.GetResourceAsync("UserRoles.Exists"));
                 return RedirectToAction(nameof(UserRole), new { id = model.UserId });
             }
 
@@ -184,7 +187,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (insertedResult > 0)
             {
-                SuccessNotification("用户角色添加成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("UserRoles.Added"));
                 return RedirectToAction(nameof(UserRole), new { id = model.UserId });
             }
 
@@ -218,7 +221,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (deletedResult)
             {
-                SuccessNotification("用户角色删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("UserRoles.Deleted"));
                 return RedirectToAction(nameof(UserRole), new { id = model.UserId });
             }
 
@@ -259,13 +262,13 @@ namespace IdentityServer.Admin.Controllers
             var isExistsUserClaim = await _userService.IsUserClaimExistsAsync(model.UserId, model.ClaimType, model.ClaimValue);
             if (isExistsUserClaim)
             {
-                CreateNotification(NotificationHelper.AlertType.Info, "该声明已经添加", "成功");
+                CreateNotification(NotificationHelper.AlertType.Info, await _localizationService.GetResourceAsync("UserClaims.Exists"));
                 return RedirectToAction(nameof(UserClaim), new { id = model.UserId });
             }
 
             await _userService.InsertUserClaimAsync(CommonMappers.Mapper.Map<UserClaim>(model));
 
-            SuccessNotification("用户声明添加成功", "成功");
+            SuccessNotification(await _localizationService.GetResourceAsync("UserClaims.Added"));
             return RedirectToAction(nameof(UserClaim), new { id = model.UserId });
         }
 
@@ -307,7 +310,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (deletedResult)
             {
-                SuccessNotification("用户声明删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("UserClaims.Deleted"));
                 return RedirectToAction(nameof(UserClaim), new { id = model.UserId });
             }
 
@@ -361,7 +364,7 @@ namespace IdentityServer.Admin.Controllers
                 var insertedResult = await _userService.InsertUserPasswordAsync(userPassword);
 
                 if (insertedResult > 0)
-                    SuccessNotification("用户密码修改成功", "成功");
+                    SuccessNotification(await _localizationService.GetResourceAsync("UserPassword.Added"));
 
                 return RedirectToAction(nameof(Index));
             }
@@ -374,7 +377,7 @@ namespace IdentityServer.Admin.Controllers
             var updatedResult = await _userService.UpdateUserPasswordAsync(userPassword);
             if (updatedResult > 0)
             {
-                SuccessNotification("用户密码修改成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("UserPassword.Updated"));
 
                 return RedirectToAction(nameof(Edit), new { id = model.UserId });
             }

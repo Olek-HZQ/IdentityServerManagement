@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using IdentityServer.Admin.Helpers;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.PersistedGrant;
 using IdentityServer.Admin.Services.PersistedGrant;
 
 namespace IdentityServer.Admin.Controllers

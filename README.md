@@ -24,7 +24,7 @@
 - 设置启动项目:
   - IdentityServer.Admin
   - IdentityServer.AuthIdentity
-  - 启动后自动配置默认Client（客户端），IdentityResource（身份资源），ApiResource（API 资源），ApiScope（API 作用域）及用户信息
+  - 启动后自动配置默认Client（客户端），IdentityResource（身份资源），ApiResource（API 资源），ApiScope（API 作用域），用户信息及都语言（默认English）
 
 ## 服务器部署相关
 
@@ -53,7 +53,6 @@
 
   - `RepositoryDataTypeBase<T>`: Repository抽象类，定义数据库类型，默认表名称及实现数据库连接
   - `RepositoryBase`: Repository基类，定义数据操作的基本增删改查
-  - `MssqlRepositoryBase`: 定义具体数据库类型的Repository类（这里以SqlServer）作为演示
   - `ClientRepository`: 具体业务Repository实现类
 
 ### 支持的数据库类型:
@@ -97,7 +96,8 @@
 
 ## 多语言
 
-- 后续支持...
+- English（当前默认，项目启动自动生成）
+- 更多后续添加
 
 ## 总览
 

@@ -1,7 +1,7 @@
 ﻿@using IdentityServer.Admin.Helpers
-@model DeleteUserRoleModel
+@model IdentityServer.Admin.Models.User.DeleteUserRoleModel
 @{
-    ViewBag.Title = "删除用户角色";
+    ViewBag.Title = T("Users.UserRolesDelete.PageTitle").Text;
     Layout = "_Layout";
 }
 
@@ -11,10 +11,10 @@
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-controller="User" asp-action="Index">用户</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="User" asp-action="Edit" asp-route-id="@Model.UserId">@Model.UserName</a></li>
-                    <li class="breadcrumb-item"><a asp-controller="User" asp-action="UserRole" asp-route-id="@Model.UserId">用户角色</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">删除用户角色</li>
+                    <li class="breadcrumb-item"><a asp-controller="User" asp-action="Index">@T("Users.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="User" asp-action="Edit" asp-route-id="@Model.UserId">@T("Users.Edit").Text - @Model.UserName</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="User" asp-action="UserRole" asp-route-id="@Model.UserId">@T("Users.UserRoles.PageTitle").Text</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@T("Users.UserRolesDelete.PageTitle").Text</li>
                 </ol>
             </nav>
         </div>
@@ -22,7 +22,7 @@
 
         <div class="col-md-12">
 
-            <h3>删除用户角色</h3>
+            <h3>@T("Users.UserRolesDelete.PageTitle").Text</h3>
 
             <!--Hidden -->
             <input type="hidden" asp-for="UserId" />
@@ -31,13 +31,13 @@
             <input type="hidden" asp-for="RoleId" />
 
             <div class="card mt-3">
-                <h5 class="card-header">删除用户角色</h5>
+                <h5 class="card-header">@T("Users.UserRolesDelete.PageTitle").Text</h5>
                 <div class="card-body">
 
                     <!--Select-->
                     <div class="form-group row">
                         <label asp-for="RoleId" class="col-sm-3 col-form-label">
-                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("用户角色", "用户角色"))
+                            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Users.UserRoles.UserRole").Text, ""))
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" disabled="disabled" asp-for="RoleName">
@@ -49,7 +49,7 @@
                         <label class="col-sm-3 col-form-label">
                         </label>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-danger">删除用户角色</button>
+                            <button type="submit" class="btn btn-danger">@T("Common.Delete")</button>
                         </div>
                     </div>
                 </div>

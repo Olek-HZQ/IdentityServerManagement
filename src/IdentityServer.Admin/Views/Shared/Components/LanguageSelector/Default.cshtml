@@ -1,0 +1,18 @@
+﻿@model IdentityServer.Admin.Models.Localization.LanguageSelectorModel
+
+@if (Model.AvailableLanguages.Count > 1)
+{
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
+
+    var languages = Model.AvailableLanguages.Select(lang => new SelectListItem
+    {
+        Text = lang.Name,
+        Value = Url.Action("ChangeLanguage", "Language", new { id = lang.Id, returnUrl }),
+        Selected = lang.Id.Equals(Model.CurrentLanguageId)
+    });
+
+    <div class="form-group form-inline justify-content-end">
+        <label class="mr-2">@T("Language").Text</label>
+        <select id="customerlanguage" name="customerlanguage" asp-items="@languages" class="form-control" onchange="setLocation(this.value);"></select>
+    </div>
+}

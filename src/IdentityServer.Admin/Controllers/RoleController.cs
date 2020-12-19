@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.Users;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.Role;
+using IdentityServer.Admin.Services.Localization;
 using IdentityServer.Admin.Services.Role;
 
 namespace IdentityServer.Admin.Controllers
@@ -10,10 +11,12 @@ namespace IdentityServer.Admin.Controllers
     public class RoleController : BaseController
     {
         private readonly IRoleService _roleService;
+        private readonly ILocalizationService _localizationService;
 
-        public RoleController(IRoleService roleService)
+        public RoleController(IRoleService roleService,ILocalizationService localizationService)
         {
             _roleService = roleService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(string search, int? page)
@@ -42,7 +45,7 @@ namespace IdentityServer.Admin.Controllers
 
             await _roleService.InsertRoleAsync(CommonMappers.Mapper.Map<Role>(model));
 
-            SuccessNotification("角色添加成功", "成功");
+            SuccessNotification(await _localizationService.GetResourceAsync("Roles.Added"));
 
             return RedirectToAction(nameof(Index));
         }
@@ -89,7 +92,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (updatedResult)
             {
-                SuccessNotification("角色编辑成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Roles.Updated"));
 
                 return RedirectToAction(nameof(Index));
             }
@@ -125,7 +128,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification("角色删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("Roles.Deleted"));
                 return RedirectToAction(nameof(Index));
             }
 

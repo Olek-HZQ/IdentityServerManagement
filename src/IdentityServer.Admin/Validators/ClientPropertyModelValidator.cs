@@ -1,14 +1,15 @@
 ﻿using FluentValidation;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.Client;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Validators
 {
     public class ClientPropertyModelValidator : BaseValidator<ClientPropertyModel>
     {
-        public ClientPropertyModelValidator()
+        public ClientPropertyModelValidator(ILocalizationService localizationService)
         {
-            RuleFor(x => x.ClientId).NotEmpty().WithMessage("键不能为空");
-            RuleFor(x => x.Value).NotEmpty().WithMessage("值不能为空");
+            RuleFor(x => x.ClientId).NotEmpty().WithMessage(localizationService.GetResourceAsync("Clients.ClientProperty.Key.Required").Result);
+            RuleFor(x => x.Value).NotEmpty().WithMessage(localizationService.GetResourceAsync("Clients.ClientProperty.Value.Required").Result);
         }
     }
 }

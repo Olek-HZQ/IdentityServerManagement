@@ -2,7 +2,7 @@
 @using IdentityServer.Admin.Core.Entities.Enums
 @using IdentityServer.Admin.Core.Extensions
 @using IdentityServer.Admin.Helpers
-@model ApiResourceSecretModel
+@model IdentityServer.Admin.Models.ApiResource.ApiResourceSecretModel
 @{
     var availableTypeList = ClientConstant.GetSecretTypes().Select(x => new SelectListItem
     {
@@ -28,7 +28,7 @@
 <!--Select-->
 <div class="form-group row">
     <label asp-for="Type" class="col-sm-3 col-form-label">
-        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("密钥类型", ""))
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiResourceSecret.Type").Text, ""))
     </label>
     <div class="col-sm-9">
         <select asp-for="Type" asp-items="@availableTypeList" class="form-control"></select>
@@ -38,7 +38,7 @@
 <!--Input - text -->
 <div class="form-group row">
     <label asp-for="Value" class="col-sm-3 col-form-label">
-        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("密钥值", ""))
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiResourceSecret.Value").Text, ""))
     </label>
     <div class="col-sm-9">
         <div class="input-group mb-3">
@@ -54,14 +54,14 @@
 <!--Select-->
 <div class="form-group row">
     <label asp-for="HashType" class="col-sm-3 col-form-label">
-        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("哈希类型", ""))
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiResourceSecret.HashType").Text, ""))
     </label>
     <div class="col-sm-9">
         <select asp-for="HashType" asp-items="@availableHashTypeList" class="form-control"></select>
 
         <div class="alert alert-warning" role="alert">
-            <span class="sr-only">Localizer["InfoTitle"]</span>
-            哈希类型仅适用于 SharedSecret 类型
+            <span class="sr-only">@T("ApiResourceSecret.InfoTitle").Text</span>
+            @T("ApiResourceSecret.InfoDescription").Text
         </div>
     </div>
 </div>
@@ -69,7 +69,7 @@
 <!--Date Picker-->
 <div class="form-group row">
     <label asp-for="Expiration" class="col-sm-3 col-form-label">
-        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("到期", ""))
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiResourceSecret.Expiration").Text, ""))
     </label>
     <div class="col-sm-9">
         <div class="datepicker input-group date">
@@ -84,7 +84,7 @@
 <!--Input - text -->
 <div class="form-group row">
     <label asp-for="Description" class="col-sm-3 col-form-label">
-        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("描述", ""))
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("ApiResourceSecret.Description").Text, ""))
     </label>
     <div class="col-sm-9">
         <input type="text" autocomplete="off" class="form-control" asp-for="Description">

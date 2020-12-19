@@ -5,18 +5,21 @@ using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.ApiScope;
 using IdentityServer.Admin.Core.Extensions;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.ApiScope;
 using IdentityServer.Admin.Services.ApiScope;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Controllers
 {
     public class ApiScopeController : BaseController
     {
         private readonly IApiScopeService _apiScopeService;
+        private readonly ILocalizationService _localizationService;
 
-        public ApiScopeController(IApiScopeService apiScopeService)
+        public ApiScopeController(IApiScopeService apiScopeService,ILocalizationService localizationService)
         {
             _apiScopeService = apiScopeService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(string search, int? page)
@@ -51,7 +54,7 @@ namespace IdentityServer.Admin.Controllers
 
             await _apiScopeService.InsertApiScopeAsync(CommonMappers.Mapper.Map<ApiScope>(model));
 
-            SuccessNotification("Api 作用域添加成功", "成功");
+            SuccessNotification(await _localizationService.GetResourceAsync(""));
 
             return RedirectToAction(nameof(Index));
         }
@@ -103,7 +106,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (updatedResult)
             {
-                SuccessNotification($"Api 作用域编辑成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("ApiResource.Updated"));
 
                 return RedirectToAction(nameof(Index));
             }
@@ -139,7 +142,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification($"Api 作用域删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("ApiResource.Updated"));
                 return RedirectToAction(nameof(Index));
             }
 

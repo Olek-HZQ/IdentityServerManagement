@@ -1,10 +1,10 @@
-﻿@model UserModel
+﻿@model IdentityServer.Admin.Models.User.UserModel
 @using IdentityServer.Admin.Helpers
 
 <!--Input - text -->
 <div class="form-group row">
     <label asp-for="Name" class="col-sm-3 col-form-label">
-        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("用户名", "用户名"))
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Users.Fields.Name").Text, ""))
     </label>
     <div class="col-sm-9">
         <input type="text" required class="form-control" asp-for="Name">
@@ -15,7 +15,7 @@
 <!--Input - text -->
 <div class="form-group row">
     <label asp-for="Email" class="col-sm-3 col-form-label">
-        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("Email", "Email"))
+        @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Users.Fields.Email").Text, ""))
     </label>
     <div class="col-sm-9">
         <input type="email" required class="form-control" asp-for="Email">
@@ -28,7 +28,7 @@
     <!--Checkbox-->
     <div class="form-group row">
         <label asp-for="Active" class="col-sm-3 col-form-label">
-            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("是否激活", "该用户是否激活"))
+            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Users.Fields.Active").Text, ""))
         </label>
         <div class="col-sm-9">
             <toggle-button>
@@ -40,7 +40,7 @@
     <!--Checkbox-->
     <div class="form-group row">
         <label asp-for="Deleted" class="col-sm-3 col-form-label">
-            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("是否删除", "该用户是否删除"))
+            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Users.Fields.Deleted").Text, ""))
         </label>
         <div class="col-sm-9">
             <toggle-button>
@@ -52,7 +52,7 @@
     <!--Input - text -->
     <div class="form-group row">
         <label asp-for="CreationTime" class="col-sm-3 col-form-label">
-            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("创建时间", ""))
+            @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Users.Fields.CreationTime").Text, ""))
         </label>
         <div class="col-sm-9">
             <input type="text" disabled="disabled" class="form-control" value="@Model.CreationTime.ToShortDateString()">

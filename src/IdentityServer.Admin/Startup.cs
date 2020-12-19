@@ -12,6 +12,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using HealthChecks.UI.Client;
+using IdentityServer.Admin.Core;
 using IdentityServer.Admin.Core.Configuration;
 using IdentityServer.Admin.Core.Constants;
 using IdentityServer.Admin.Core.Entities.Enums;
@@ -52,7 +53,14 @@ namespace IdentityServer.Admin
         /// <returns></returns>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var mvcBuilder = services.AddControllersWithViews();
+            services.AddMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+            });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            var mvcBuilder = services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             var dbConnectionConfig = Configuration.GetSection(nameof(DbConnectionConfiguration)).Get<DbConnectionConfiguration>();
             services.AddSingleton(dbConnectionConfig);
@@ -95,7 +103,7 @@ namespace IdentityServer.Admin
                 case DataProviderType.Oracle:
                     healthChecksBuilder.AddOracle(dbConnectionConfig.MasterSqlServerConnString);
                     break;
-                default:
+                default: // Ä¬ÈÏÎªSqlServer
                     healthChecksBuilder.AddSqlServer(dbConnectionConfig.MasterSqlServerConnString);
                     break;
             }
@@ -180,6 +188,7 @@ namespace IdentityServer.Admin
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<EncryptionService>().As<IEncryptionService>().InstancePerLifetimeScope();
+            builder.RegisterType<WebWorkContext>().As<IWorkContext>().InstancePerLifetimeScope();
 
             return new AutofacServiceProvider(builder.Build());
         }
@@ -207,6 +216,8 @@ namespace IdentityServer.Admin
             app.UseStaticFiles();
             app.UseHttpsRedirection();
 
+            // app.UseMiddleware<CultureMiddleware>();
+
             app.UseAuthentication();
 
             app.UseRouting();
@@ -219,6 +230,7 @@ namespace IdentityServer.Admin
                 {
                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
+
                 endpoint.MapDefaultControllerRoute();
             });
         }
@@ -237,7 +249,7 @@ namespace IdentityServer.Admin
         /// Using of Forwarded Headers and Referrer Policy
         /// </summary>
         /// <param name="app"></param>
-        private void UseSecurityHeaders(IApplicationBuilder app)
+        private static void UseSecurityHeaders(IApplicationBuilder app)
         {
             var forwardingOptions = new ForwardedHeadersOptions()
             {

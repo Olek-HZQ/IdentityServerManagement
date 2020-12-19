@@ -2,18 +2,21 @@
 using System.Threading.Tasks;
 using IdentityServer.Admin.Core.Entities.ApiResource;
 using IdentityServer.Admin.Infrastructure.Mappers;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.ApiResource;
 using IdentityServer.Admin.Services.ApiResource;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Controllers
 {
     public class ApiResourceScopeController : BaseController
     {
         private readonly IApiResourceScopeService _apiResourceScopeService;
+        private readonly ILocalizationService _localizationService;
 
-        public ApiResourceScopeController(IApiResourceScopeService apiResourceScopeService)
+        public ApiResourceScopeController(IApiResourceScopeService apiResourceScopeService,ILocalizationService localizationService)
         {
             _apiResourceScopeService = apiResourceScopeService;
+            _localizationService = localizationService;
         }
 
         public async Task<IActionResult> Index(int apiResourceId, int? page)
@@ -42,7 +45,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (insertedResult > 0)
             {
-                SuccessNotification("Api 资源作用域添加成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("ApiResourceScope.Added"));
             }
 
             return RedirectToAction(nameof(Index), new { apiResourceId = model.ApiResourceId });
@@ -76,7 +79,7 @@ namespace IdentityServer.Admin.Controllers
 
             if (result)
             {
-                SuccessNotification("Api 资源作用域删除成功", "成功");
+                SuccessNotification(await _localizationService.GetResourceAsync("ApiResourceScope.Deleted"));
                 return RedirectToAction(nameof(Index), new { apiResourceId = model.ApiResourceId });
             }
 

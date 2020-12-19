@@ -1,8 +1,8 @@
 ﻿@using IdentityServer.Admin.Helpers
-@model ClientModel
+@model IdentityServer.Admin.Models.Client.ClientModel
 
 @{
-    ViewBag.Title = "删除客户端";
+    ViewBag.Title = T("Clients.Delete").Text;
     Layout = "_Layout";
 }
 
@@ -11,9 +11,9 @@
     <div class="col-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">客户端</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Edit" asp-route-id="@Model.Id">@Model.ClientName</a></li>
-                <li class="breadcrumb-item active" aria-current="page">删除客户端</li>
+                <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Index">@T("Client.PageTitle").Text</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Client" asp-action="Edit" asp-route-id="@Model.Id">@T("Clients.Edit").Text - @Model.ClientName</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("Clients.Delete").Text</li>
             </ol>
         </nav>
     </div>
@@ -27,15 +27,15 @@
     <!--Hidden -->
     <input type="hidden" asp-for="ClientName" />
 
-    <h2>Common</h2>
+    <h2>@T("Clients.Delete").Text</h2>
 
     <div class="card mt-3">
-        <h5 class="card-header">删除客户端</h5>
+        <h5 class="card-header">@T("Clients.Delete").Text</h5>
         <div class="card-body">
             <!--Input - text -->
             <div class="form-group row">
                 <label asp-for="ClientId" class="col-sm-3 col-form-label">
-                    @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("客户端标识", "客户端的唯一标识"))
+                    @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientId").Text, T("Clients.ClientId.Hint").Text))
                 </label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" asp-for="ClientId" disabled="disabled" />
@@ -45,7 +45,7 @@
             <!--Input - text -->
             <div class="form-group row">
                 <label asp-for="ClientName" class="col-sm-3 col-form-label">
-                    @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel("客户端名称", "客户端显示名称（用于记录和同意屏幕）"))
+                    @await Html.PartialAsync("Common/Label", HtmlFormatHelper.FormatLabel(T("Clients.ClientName").Text, T("Clients.ClientName.Hint").Text))
                 </label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" disabled="disabled" asp-for="ClientName" />
@@ -57,7 +57,7 @@
                 <label class="col-sm-3 col-form-label">
                 </label>
                 <div class="col-sm-9">
-                    <button type="submit" class="btn btn-danger">删除客户端</button>
+                    <button type="submit" class="btn btn-danger">@T("Common.Delete")</button>
                 </div>
             </div>
         </div>

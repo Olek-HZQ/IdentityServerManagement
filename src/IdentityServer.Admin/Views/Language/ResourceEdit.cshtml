@@ -1,0 +1,55 @@
+﻿@model IdentityServer.Admin.Models.Localization.LocaleStringResourceModel
+@{
+    ViewBag.Title = T("Languages.Resources.Edit").Text;
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Language" asp-action="Index">@T("Languages.PageList").Text</a></li>
+                @* <li class="breadcrumb-item"><a asp-action="Edit" asp-controller="Language" asp-route-id="@Model.LanguageId">@Model.LanguageName</a></li> *@
+                <li class="breadcrumb-item"><a asp-controller="Language" asp-action="Resources" asp-route-languageId="@Model.LanguageId">@T("Languages.Resources").Text</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("Languages.Resources.Edit").Text</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<form asp-action="ResourceEdit" method="post" id="language-resource-form">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="card mt-3">
+        <h5 class="card-header">@T("Languages.Resources.Edit").Text</h5>
+        <div class="card-body">
+
+            @Html.HiddenFor(x => x.Id)
+
+            @await Html.PartialAsync("_ResourceCreateOrUpdate", Model)
+        </div>
+
+        <!--Button-->
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">
+            </label>
+            <div class="col-sm-9">
+                <button type="submit" id="api-resource-save-button" class="btn btn-primary">@T("Common.Save").Text</button>
+                @if (Model.Id != 0)
+                {
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">@T("Common.Delete").Text</a>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            //Disable enter for this form
+            FormMvc.disableEnter($('#language-resource-form'));
+        });
+    </script>
+}

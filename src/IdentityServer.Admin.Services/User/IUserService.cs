@@ -16,7 +16,7 @@ namespace IdentityServer.Admin.Services.User
 
         Task<Core.Entities.Users.User> GetUserByNameAsync(string name);
 
-        Task<bool> ValidateCustomerAsync(string name, string password);
+        Task<bool> ValidateUserAsync(string name, string password);
 
         Task<int> InsertUserAsync(Core.Entities.Users.User user);
 

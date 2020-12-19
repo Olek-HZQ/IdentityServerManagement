@@ -1,13 +1,14 @@
 ﻿using FluentValidation;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.ApiResource;
+using IdentityServer.Admin.Services.Localization;
 
 namespace IdentityServer.Admin.Validators
 {
-    public class ApiResourceModelValidator:BaseValidator<ApiResourceModel>
+    public class ApiResourceModelValidator : BaseValidator<ApiResourceModel>
     {
-        public ApiResourceModelValidator()
+        public ApiResourceModelValidator(ILocalizationService localizationService)
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("名称不能为空");
+            RuleFor(x => x.Name).NotEmpty().WithMessage(localizationService.GetResourceAsync("ApiResources.Fields.Name.Required").Result);
         }
     }
 }

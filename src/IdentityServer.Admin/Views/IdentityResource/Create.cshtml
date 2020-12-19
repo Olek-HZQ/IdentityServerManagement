@@ -1,7 +1,7 @@
-﻿@model IdentityResourceModel
+﻿@model IdentityServer.Admin.Models.IdentityResource.IdentityResourceModel
 
 @{
-    ViewBag.Title = "添加身份资源";
+    ViewBag.Title = T("IdentityResource.Add").Text;
     Layout = "_Layout";
 }
 
@@ -9,21 +9,20 @@
     <div class="col-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="IdentityResource" asp-action="Index">身份资源</a></li>
-                @*<li class="breadcrumb-item active" aria-current="page">@Model.Name</li>*@
+                <li class="breadcrumb-item"><a asp-controller="IdentityResource" asp-action="Index">@T("IdentityResource.PageTitle").Text</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@T("IdentityResource.Add").Text</li>
             </ol>
         </nav>
-    </div>
-
-    <div class="col-12">
-        <h2>添加身份资源</h2>
     </div>
 </div>
 
 <form asp-action="Create" method="post" id="identity-resource-form">
-
-    @await Html.PartialAsync("_CreateOrUpdate", Model)
-
+    <div class="card mt-3">
+        <h5 class="card-header">@T("IdentityResource.Add").Text</h5>
+        <div class="card-body">
+            @await Html.PartialAsync("_CreateOrUpdate", Model)
+        </div>
+    </div>
 </form>
 
 @section scripts

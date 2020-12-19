@@ -5,7 +5,12 @@ using IdentityServer.Admin.Core.Entities.ApiResource;
 using IdentityServer.Admin.Core.Entities.ApiScope;
 using IdentityServer.Admin.Core.Entities.IdentityResource;
 using IdentityServer.Admin.Core.Entities.Users;
-using IdentityServer.Admin.Models;
+using IdentityServer.Admin.Models.ApiResource;
+using IdentityServer.Admin.Models.ApiScope;
+using IdentityServer.Admin.Models.IdentityResource;
+using IdentityServer.Admin.Models.PersistedGrant;
+using IdentityServer.Admin.Models.Role;
+using IdentityServer.Admin.Models.User;
 
 namespace IdentityServer.Admin.Infrastructure.Mappers
 {
