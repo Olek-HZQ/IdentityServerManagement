@@ -6,10 +6,11 @@
 
 using System;
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 namespace IdentityServer.Admin.Core.Entities
 {
-    [Table("PersistedGrants")]
+    [Table(TableNameConstant.PersistedGrant)]
     public class PersistedGrant
     {
         [ExplicitKey]

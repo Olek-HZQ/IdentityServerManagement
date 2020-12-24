@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.AuthIdentity
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5BA5256E-B40C-49DB-850F-C6555CCC8B3F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbMigrations", "DbMigrations", "{128EAB61-5C0F-49A7-9574-634DBF9EBF17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbMigration", "DbMigrations\SqlServerDbMigration\DbMigration.csproj", "{EFDD0EEF-7696-472A-AC85-CF1BE2B6D883}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{F3A3B6AF-88F4-4F76-8FA1-E95D6DCFC9AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3A3B6AF-88F4-4F76-8FA1-E95D6DCFC9AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3A3B6AF-88F4-4F76-8FA1-E95D6DCFC9AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFDD0EEF-7696-472A-AC85-CF1BE2B6D883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFDD0EEF-7696-472A-AC85-CF1BE2B6D883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFDD0EEF-7696-472A-AC85-CF1BE2B6D883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFDD0EEF-7696-472A-AC85-CF1BE2B6D883}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +59,7 @@ Global
 		{7BB8106D-EB46-43F4-A9CE-1414BAF2033A} = {5BA5256E-B40C-49DB-850F-C6555CCC8B3F}
 		{592DAC51-DDC2-4383-B8D5-720FB465149A} = {5BA5256E-B40C-49DB-850F-C6555CCC8B3F}
 		{F3A3B6AF-88F4-4F76-8FA1-E95D6DCFC9AD} = {5BA5256E-B40C-49DB-850F-C6555CCC8B3F}
+		{EFDD0EEF-7696-472A-AC85-CF1BE2B6D883} = {128EAB61-5C0F-49A7-9574-634DBF9EBF17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1CC4E2C2-489F-45BC-AF05-A664A6B9C8AB}

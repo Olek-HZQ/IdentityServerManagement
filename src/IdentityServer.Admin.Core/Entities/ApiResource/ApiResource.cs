@@ -6,10 +6,11 @@
 using System;
 using System.Collections.Generic;
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 namespace IdentityServer.Admin.Core.Entities.ApiResource
 {
-    [Table("ApiResources")]
+    [Table(TableNameConstant.ApiResource)]
     public class ApiResource
     {
         public ApiResource()

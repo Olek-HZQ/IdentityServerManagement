@@ -7,9 +7,11 @@
 using System;
 using System.Collections.Generic;
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 namespace IdentityServer.Admin.Core.Entities.IdentityResource
 {
+    [Table(TableNameConstant.IdentityResource)]
     public class IdentityResource
     {
         public IdentityResource()

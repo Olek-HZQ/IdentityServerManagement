@@ -3,17 +3,21 @@
 
 
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 #pragma warning disable 1591
 
 namespace IdentityServer.Admin.Core.Entities.Users
 {
-    [Table("UserClaims")]
+    [Table(TableNameConstant.UserClaim)]
     public class UserClaim
     {
         public int Id { get; set; }
         public int UserId { get; set; }
         public string ClaimType { get; set; }
         public string ClaimValue { get; set; }
+
+        [Computed]
+        public virtual User User { get; set; }
     }
 }

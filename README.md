@@ -15,9 +15,25 @@
 
 - [安装](https://www.microsoft.com/net/download/windows#/current) 最新的.NET Core 3.x SDK（使用旧版本在IIS上托管时可能会导致502.5错误，或者在自托管时启动后立即退出应用程序）
 
-## 项目配置
+## 项目数据库配置
 
-- 当前默认使用数据库为SqlServer，所以先添加数据库命名```IdentityServer4.Admin```，然后执行脚本```CreateTable.sql```生成相关数据表
+- 设置`DbMigration`为启动项目
+- 配置文件夹`Factories`里面需要使用的数据库类型的连接字符串，如：
+```
+public class SqlServerDbContextFactory : IDesignTimeDbContextFactory<SqlServerDbContext>
+    {
+        public SqlServerDbContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<SqlServerDbContext>();
+
+            // 自己修改数据库连接串
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=IdentityServer4.Admin;Integrated Security=True;");
+
+            return new SqlServerDbContext(optionsBuilder.Options);
+        }
+    }
+```
+- 然后使用相关迁移命令生成数据库，详情查看`迁移命令.txt`文件
 
 ### 在Visual Studio（2019）中运行运行以下项目（不分顺序）
 

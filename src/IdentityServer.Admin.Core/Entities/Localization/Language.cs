@@ -1,8 +1,9 @@
 ﻿using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 namespace IdentityServer.Admin.Core.Entities.Localization
 {
-    [Table(nameof(Language))]
+    [Table(TableNameConstant.Language)]
     public class Language
     {
         public int Id { get; set; }
