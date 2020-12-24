@@ -3,17 +3,21 @@
 
 
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 #pragma warning disable 1591
 
 namespace IdentityServer.Admin.Core.Entities.Clients
 {
-    [Table("ClientRedirectUris")]
+    [Table(TableNameConstant.ClientRedirectUri)]
     public class ClientRedirectUri
     {
         public int Id { get; set; }
         public string RedirectUri { get; set; }
 
         public int ClientId { get; set; }
+
+        [Computed]
+        public virtual Client Client { get; set; }
     }
 }

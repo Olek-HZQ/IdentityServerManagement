@@ -3,17 +3,21 @@
 
 
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 #pragma warning disable 1591
 
 namespace IdentityServer.Admin.Core.Entities.ApiResource
 {
-    [Table("ApiResourceProperties")]
+    [Table(TableNameConstant.ApiResourceProperty)]
     public class ApiResourceProperty : Property
     {
         public int ApiResourceId { get; set; }
 
         [Computed]
         public string ApiResourceName { get; set; }
+        
+        [Computed]
+        public ApiResource ApiResource { get; set; }
     }
 }

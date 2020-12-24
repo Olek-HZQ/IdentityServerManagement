@@ -1,7 +1,10 @@
 ﻿using System;
+using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 namespace IdentityServer.Admin.Core.Entities.Users
 {
+    [Table(TableNameConstant.UserPassword)]
     public class UserPassword
     {
         public int Id { get; set; }
@@ -13,5 +16,8 @@ namespace IdentityServer.Admin.Core.Entities.Users
         public string PasswordSalt { get; set; }
 
         public DateTime CreationTime { get; set; }
+
+        [Computed]
+        public virtual User User { get; set; }
     }
 }

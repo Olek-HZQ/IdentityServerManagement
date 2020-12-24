@@ -1,9 +1,10 @@
 ﻿using System;
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 namespace IdentityServer.Admin.Core.Entities.Common
 {
-    [Table(nameof(GenericAttribute))]
+    [Table(TableNameConstant.GenericAttribute)]
     public class GenericAttribute
     {
         public int Id { get; set; }

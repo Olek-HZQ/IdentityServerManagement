@@ -133,11 +133,11 @@ namespace IdentityServer.Admin.Dapper.Repositories.User
                     result.UserName = user.Name;
 
                     var totalCountQuery = new Query($"{TableName} as u")
-                        .Join($"{AttributeExtension.GetTableAttributeName<UserRoleMap>()} as urm", "u.Id", "urm.UserId")
+                        .Join($"{AttributeExtension.GetTableAttributeName<UserRoleMapping>()} as urm", "u.Id", "urm.UserId")
                         .Join($"{AttributeExtension.GetTableAttributeName<Core.Entities.Users.Role>()} as r", "urm.RoleId", "r.Id")
                         .Where("u.Id", "=", userId).AsCount();
                     var resultQuery = new Query($"{TableName} as u")
-                        .Join($"{AttributeExtension.GetTableAttributeName<UserRoleMap>()} as urm", "u.Id", "urm.UserId")
+                        .Join($"{AttributeExtension.GetTableAttributeName<UserRoleMapping>()} as urm", "u.Id", "urm.UserId")
                         .Join($"{AttributeExtension.GetTableAttributeName<Core.Entities.Users.Role>()} as r", "urm.RoleId", "r.Id")
                         .Select("u.Id as UserId", "u.Name as UserName", "r.Id as RoleId", "r.Name as RoleName").Where("u.Id", "=", userId);
 
@@ -165,10 +165,10 @@ namespace IdentityServer.Admin.Dapper.Repositories.User
         {
             IDbSession session = DbSession;
 
-            var query = new Query(AttributeExtension.GetTableAttributeName<UserRoleMap>()).Select("*").Where("UserId", "=", userId).Where("RoleId", "=", roleId);
+            var query = new Query(AttributeExtension.GetTableAttributeName<UserRoleMapping>()).Select("*").Where("UserId", "=", userId).Where("RoleId", "=", roleId);
             var sqlResult = GetSqlResult(query);
 
-            var result = (await session.Connection.QueryFirstOrDefaultAsync<UserRoleMap>(sqlResult.Sql, sqlResult.NamedBindings)) != null;
+            var result = (await session.Connection.QueryFirstOrDefaultAsync<UserRoleMapping>(sqlResult.Sql, sqlResult.NamedBindings)) != null;
 
             session.Dispose();
 
@@ -177,7 +177,7 @@ namespace IdentityServer.Admin.Dapper.Repositories.User
 
         public async Task<int> InsertUserRoleAsync(int userId, int roleId)
         {
-            var query = new Query(AttributeExtension.GetTableAttributeName<UserRoleMap>()).AsInsert(new
+            var query = new Query(AttributeExtension.GetTableAttributeName<UserRoleMapping>()).AsInsert(new
             {
                 UserId = userId,
                 RoleId = roleId
@@ -203,7 +203,7 @@ namespace IdentityServer.Admin.Dapper.Repositories.User
             IDbSession session = DbSession;
 
             var query = new Query($"{TableName} as u")
-                .Join($"{AttributeExtension.GetTableAttributeName<UserRoleMap>()} as urm", "u.Id", "urm.UserId")
+                .Join($"{AttributeExtension.GetTableAttributeName<UserRoleMapping>()} as urm", "u.Id", "urm.UserId")
                 .Join($"{AttributeExtension.GetTableAttributeName<Core.Entities.Users.Role>()} as r", "urm.RoleId", "r.Id")
                 .Select("u.Id as UserId", "u.Name as UserName", "r.Id as RoleId", "r.Name as RoleName")
                 .Where("u.Id", "=", userId).Where("r.Id", "=", roleId);
@@ -219,7 +219,7 @@ namespace IdentityServer.Admin.Dapper.Repositories.User
 
         public async Task<bool> DeleteUserRoleByAsync(int userId, int roleId)
         {
-            var query = new Query(AttributeExtension.GetTableAttributeName<UserRoleMap>()).Where("UserId", "=", userId).Where("RoleId", "=", roleId).AsDelete();
+            var query = new Query(AttributeExtension.GetTableAttributeName<UserRoleMapping>()).Where("UserId", "=", userId).Where("RoleId", "=", roleId).AsDelete();
             var sqlResult = GetSqlResult(query);
 
             var result = await ExecuteAsync(sqlResult.Sql, sqlResult.NamedBindings);

@@ -3,14 +3,18 @@
 
 
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 #pragma warning disable 1591
 
 namespace IdentityServer.Admin.Core.Entities.IdentityResource
 {
-    [Table("IdentityResourceProperties")]
+    [Table(TableNameConstant.IdentityResourceProperty)]
     public class IdentityResourceProperty : Property
     {
         public int IdentityResourceId { get; set; }
+
+        [Computed]
+        public virtual IdentityResource IdentityResource { get; set; }
     }
 }

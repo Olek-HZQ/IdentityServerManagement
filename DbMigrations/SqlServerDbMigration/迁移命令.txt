@@ -1,0 +1,20 @@
+﻿SqlServer
+1. 生成迁移文件
+add-migration InitTableForSqlServer -Context SqlServerDbContext -o MigrationsSqlServer
+
+2. 生成数据库
+update-database -Context SqlServerDbContext
+
+MySql
+1. 生成迁移文件
+add-migration InitTableForMysql -Context MySqlDbContext -o MigrationsMySql
+
+2. 生成数据库
+update-database -Context MySqlDbContext
+
+其它类似...，也可以自己删除迁移文件重新配置迁移
+
+
+备注：
+-Context SqlServerDbContext 指定的迁移的DbContext
+-o MigrationsSqlServer 生成迁移文件目录

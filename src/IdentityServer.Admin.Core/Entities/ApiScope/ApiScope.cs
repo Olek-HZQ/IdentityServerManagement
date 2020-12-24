@@ -5,9 +5,11 @@
 
 using System.Collections.Generic;
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 namespace IdentityServer.Admin.Core.Entities.ApiScope
 {
+    [Table(TableNameConstant.ApiScope)]
     public class ApiScope
     {
         public ApiScope()

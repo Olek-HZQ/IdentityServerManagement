@@ -3,14 +3,18 @@
 
 
 using Dapper.Contrib.Extensions;
+using IdentityServer.Admin.Core.Constants;
 
 #pragma warning disable 1591
 
 namespace IdentityServer.Admin.Core.Entities.Clients
 {
-    [Table("ClientProperties")]
+    [Table(TableNameConstant.ClientProperty)]
     public class ClientProperty : Property
     {
         public int ClientId { get; set; }
+
+        [Computed]
+        public virtual Client Client { get; set; }
     }
 }
