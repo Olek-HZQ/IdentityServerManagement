@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5BA5256E-B40
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbMigrations", "DbMigrations", "{128EAB61-5C0F-49A7-9574-634DBF9EBF17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbMigration", "DbMigrations\SqlServerDbMigration\DbMigration.csproj", "{EFDD0EEF-7696-472A-AC85-CF1BE2B6D883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbMigration", "DbMigrations\DbMigration\DbMigration.csproj", "{EFDD0EEF-7696-472A-AC85-CF1BE2B6D883}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
