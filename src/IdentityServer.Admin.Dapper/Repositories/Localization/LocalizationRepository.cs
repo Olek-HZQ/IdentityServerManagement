@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using Dapper.Contrib.Extensions;
 using IdentityServer.Admin.Core.Configuration;
 using IdentityServer.Admin.Core.Data;
 using IdentityServer.Admin.Core.Dtos.Localization;
@@ -134,15 +135,7 @@ namespace IdentityServer.Admin.Dapper.Repositories.Localization
 
                 if (updateList.Any())
                 {
-                    updateList.ForEach(x =>
-                    {
-                        var updateQuery = new Query(TableName).Where("Id", "=", x.Id).AsUpdate(new
-                        {
-                            x.ResourceValue
-                        });
-                        var updateSqlResult = GetSqlResult(updateQuery);
-                        session.Connection.Execute(updateSqlResult.Sql, updateSqlResult.NamedBindings, transaction);
-                    });
+                    await session.Connection.UpdateAsync(updateList);
                 }
 
                 transaction.Commit();
