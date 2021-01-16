@@ -10,7 +10,7 @@ namespace DbMigration.Factories
             var optionsBuilder = new DbContextOptionsBuilder<MySqlDbContext>();
 
             // 自己修改数据库连接串
-            optionsBuilder.UseMySql("server=127.0.0.1;database=IdentityServer4.Admin.Demo;uid=root;password=123456;Allow User Variables=True;");
+            optionsBuilder.UseMySql("server=127.0.0.1;database=IdentityServer4.Admin;uid=root;password=123456;Allow User Variables=True;");
 
             return new MySqlDbContext(optionsBuilder.Options);
         }

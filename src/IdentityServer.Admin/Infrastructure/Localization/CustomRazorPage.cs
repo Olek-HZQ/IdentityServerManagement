@@ -15,21 +15,18 @@ namespace IdentityServer.Admin.Infrastructure.Localization
             get
             {
                 var localizationService = (LocalizationService)Context.RequestServices.GetRequiredService(typeof(ILocalizationService));
-                if (_localizer == null)
+                return _localizer ??= (format, args) =>
                 {
-                    _localizer = (format, args) =>
+                    var resFormat = localizationService.GetResourceAsync(format).Result;
+                    if (string.IsNullOrEmpty(resFormat))
                     {
-                        var resFormat = localizationService.GetResourceAsync(format).Result;
-                        if (string.IsNullOrEmpty(resFormat))
-                        {
-                            return new LocalizedString(format);
-                        }
-                        return new LocalizedString(args == null || args.Length == 0
-                            ? resFormat
-                            : string.Format(resFormat, args));
-                    };
-                }
-                return _localizer;
+                        return new LocalizedString(format);
+                    }
+
+                    return new LocalizedString(args == null || args.Length == 0
+                        ? resFormat
+                        : string.Format(resFormat, args));
+                };
             }
         }
     }
